@@ -8,6 +8,7 @@ as
             name = @name
         where @nif = dbo.CLIENT.nif
     end
+go
 create function dbo.UpdateMarket(@code int, @description varchar(300), @name varchar(50))
 returns table
 with schemabinding
@@ -15,23 +16,30 @@ as
     begin
         update dbo.MARKET
         set description = @description,
-            name = @name
+			name = @name
         where @code = dbo.MARKET.code
     end
+go
 
 create procedure p_actualizaValorDiario
-    @id char(12)
+   @id char(12)
 as
     begin
         update dbo.DAILYREG
         set minval = (select top 1 value from dbo.EXTTRIPLE order by value),
             maxval = (select top 1 value from dbo.EXTTRIPLE order by value desc),
-            openingval = (select top 1 value from dbo.EXTTRIPLE order by date),
-            closingval = (select top 1 value from dbo.EXTTRIPLE order by date desc)
-        where exists(select isin from dbo.DAILYREG join dbo.EXTTRIPLE on isin = id where isin = @id)
+            openingval = (select top 1 value from dbo.EXTTRIPLE order by datetime),
+            closingval = (select top 1 value from dbo.EXTTRIPLE order by datetime desc)
+        where isin = @id and dailydate = (CONVERT(date, dbo.EXTTRIPLE.datetime))
     end
 
+go
 
+exec p_actualizaValorDiario @id = 112233445566
+
+drop procedure p_actualizaValorDiario
+delete DAILYREG
+select * from DAILYREG
 
 create function dbo.Average(@days int,@isin char(12))
 returns money

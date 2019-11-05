@@ -75,7 +75,7 @@ create table DAILYREG(
 	openingval			money,
 	maxval				money,
 	closingval			money,
-	date				date,
+	dailydate			date,
 	--constraint pkdailyreg primary key(isin),
 	constraint fkinstrument_reg foreign key(isin) references INSTRUMENT(isin)
 	);
