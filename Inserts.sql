@@ -31,16 +31,17 @@ insert into PHONE values (1,'Nuno phone', '+351', 961222333);
 insert into PHONE values (2,'Carol phone', '+351', 911222333);
 insert into PHONE values (3,'Juju phone', '+351', 921222333);
 
-insert into EXTTRIPLE values (234, '2019-11-4 08:43:12', 112233445566);
-insert into EXTTRIPLE values (234, '2019-11-3 12:54:13', 112233445567);
-insert into EXTTRIPLE values (234, '2019-11-2 12:55:08', 112233445568);
+insert into EXTTRIPLE values (140, '2019-11-4 08:43:12', 112233445566);
+insert into EXTTRIPLE values (123, '2019-11-4 12:54:13', 112233445566);
+insert into EXTTRIPLE values (135, '2019-11-4 12:55:08', 112233445566);
 
-insert into DAILYREG values (112233445566, 100, 120, 500, 300, '2019-08-03');
 insert into DAILYREG values (112233445566, 100, 120, 500, 300, '2019-11-04');
+insert into DAILYREG values (112233445566, 100, 120, 500, 300, '2019-08-03');
 insert into DAILYREG values (112233445566, 100, 120, 500, 300, '2019-11-05');
 insert into DAILYREG values (112233445566, 100, 120, 500, 300, '2019-02-02');
 
-delete from EXTTRIPLE where value = 234
 
+delete from EXTTRIPLE
+delete from DAILYREG
 select * from Sys.dm_tran_database_transactions
 
