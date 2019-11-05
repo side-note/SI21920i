@@ -25,23 +25,38 @@ create procedure p_actualizaValorDiario
    @id char(12)
 as
     begin
+		declare @minval money, @maxval money, @openingval money, @closingval money
+		set @minval = (select top 1 value from dbo.EXTTRIPLE where @id = id order by value)
+        set @maxval = (select top 1 value from dbo.EXTTRIPLE where @id = id order by value desc)
+        set @openingval = (select top 1 value from dbo.EXTTRIPLE where @id = id order by datetime)
+        set @closingval = (select top 1 value from dbo.EXTTRIPLE where @id = id order by datetime desc)
         update dbo.DAILYREG
-        set minval = (select top 1 value from dbo.EXTTRIPLE order by value),
-            maxval = (select top 1 value from dbo.EXTTRIPLE order by value desc),
-            openingval = (select top 1 value from dbo.EXTTRIPLE order by datetime),
-            closingval = (select top 1 value from dbo.EXTTRIPLE order by datetime desc)
+        set minval = @minval,
+            maxval = @maxval,
+            openingval = @openingval,
+            closingval = @closingval
         where exists(select isin from dbo.EXTTRIPLE where CONVERT(date, dbo.EXTTRIPLE.datetime) =dailydate and isin=@id);
               --exist(isin = @id and dailydate = (CONVERT(date, dbo.EXTTRIPLE.datetime)))
+		if not exists(select dbo.INSTRUMENT.isin from dbo.INSTRUMENT join dbo.DAILYREG on dbo.INSTRUMENT.isin = dbo.DAILYREG.isin and dbo.INSTRUMENT.isin = @id)
+			begin
+				insert into dbo.DAILYREG values
+				(@id,
+				@minval,
+				@openingval,
+				@maxval,
+				@closingval,
+				CONVERT(date,(select top 1 datetime from dbo.EXTTRIPLE where dbo.EXTTRIPLE.id = @id order by datetime desc)))
+			end	
     end
 
 go
 
-exec p_actualizaValorDiario @id = 112233445566
+exec p_actualizaValorDiario @id = 111222333888
+
+select * from dbo.DAILYREG
+delete from DAILYREG
 
 drop procedure p_actualizaValorDiario
-select * from dbo.DAILYREG where exist(isin =112233445566 and dailydate = CONVERT(date, dbo.EXTTRIPLE.datetime))
-delete DAILYREG
-select * from DAILYREG
 
 create function dbo.Average(@days int,@isin char(12))
 returns money

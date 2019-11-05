@@ -34,6 +34,12 @@ insert into PHONE values (3,'Juju phone', '+351', 921222333);
 insert into EXTTRIPLE values (140, '2019-11-4 08:43:12', 112233445566);
 insert into EXTTRIPLE values (123, '2019-11-4 12:54:13', 112233445566);
 insert into EXTTRIPLE values (135, '2019-11-4 12:55:08', 112233445566);
+insert into EXTTRIPLE values (178, '2018-12-14 12:55:08', 111222333444);
+insert into EXTTRIPLE values (155, '2018-12-14 07:50:08', 111222333444);
+insert into EXTTRIPLE values (165, '2018-12-14 22:10:08', 111222333444);
+insert into EXTTRIPLE values (199, '2018-12-14 12:55:08', 111222333888);
+
+
 
 insert into DAILYREG values (112233445566, 100, 120, 500, 300, '2019-11-04');
 insert into DAILYREG values (112233445566, 100, 120, 500, 300, '2019-08-03');
