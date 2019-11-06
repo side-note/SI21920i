@@ -9,6 +9,7 @@ insert into	DAILYMARKET values (300, 200, 300);
 insert into CLIENT values (247664294, 1482405, 'Nuno Cardeal');
 insert into CLIENT values (111222333, 1234567, 'Carolina Couto');
 insert into CLIENT values (333222111, 7654321, 'Joana Campos');
+insert into CLIENT values (123456789, 1230456, 'Some One')
 
 
 insert into PORTFOLIO values ('Nuno Cardeal', 50, 247664294);
