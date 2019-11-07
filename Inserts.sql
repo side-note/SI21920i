@@ -9,21 +9,24 @@ insert into	DAILYMARKET values (300, 200, 300);
 insert into CLIENT values (247664294, 1482405, 'Nuno Cardeal');
 insert into CLIENT values (111222333, 1234567, 'Carolina Couto');
 insert into CLIENT values (333222111, 7654321, 'Joana Campos');
-insert into CLIENT values (123456789, 1230456, 'Some One')
+insert into CLIENT values (123456789, 1230456, 'Some One');
 
+insert into PORTFOLIO values ('Nuno Cardeal', 50);
+insert into PORTFOLIO values ('Carolina Couto', 20000);
+insert into PORTFOLIO values ('Joana Campos', 2000000);
 
-insert into PORTFOLIO values ('Nuno Cardeal', 50, 247664294);
-insert into PORTFOLIO values ('Carolina Couto', 20000, 111222333);
-insert into PORTFOLIO values ('Joana Campos', 2000000, 333222111);
+insert into CLIENT_PORTFOLIO values('Nuno Cardeal', 247664294);
+insert into CLIENT_PORTFOLIO values('Carolina Couto', 111222333);
+insert into CLIENT_PORTFOLIO values('Joana Campos', 333222111);
 
 insert into INSTRUMENT values (112233445566, 'ALGO');
 insert into INSTRUMENT values (111222333444, 'ALGO2');
 insert into INSTRUMENT values (111122223333, 'ALGO3');
 
-insert into POSITION values (1, 'Nuno Cardeal', 112233445566, 247664294);
-insert into POSITION values (1, 'Carolina Couto', 111222333444, 111222333);
-insert into POSITION values (1, 'Joana Campos', 111122223333, 333222111);
-insert into POSITION values (2, 'Carolina Couto', 111122223333, 111222333);
+insert into POSITION values (1, 'Nuno Cardeal', 112233445566);
+insert into POSITION values (1, 'Carolina Couto', 111222333444);
+insert into POSITION values (1, 'Joana Campos', 111122223333);
+insert into POSITION values (2, 'Carolina Couto', 111122223333);
 
 insert into EMAIL values (1,'Nuno mail','ncardeal@pilim.com');
 insert into EMAIL values (2,'Carol mail','carolct@pilim.com');
@@ -40,8 +43,6 @@ insert into EXTTRIPLE values (178, '2018-12-14 12:55:08', 111222333444);
 insert into EXTTRIPLE values (155, '2018-12-14 07:50:08', 111222333444);
 insert into EXTTRIPLE values (165, '2018-12-14 22:10:08', 111222333444);
 insert into EXTTRIPLE values (199, '2018-12-14 12:55:08', 111222333888);
-
-
 
 insert into DAILYREG values (112233445566, 100, 120, 500, 300, '2019-11-04');
 insert into DAILYREG values (112233445566, 100, 120, 500, 300, '2019-08-03');
