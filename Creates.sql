@@ -43,8 +43,7 @@ create table POSITION(
 	quantity		int,
 	name			varchar(50),
 	isin			char(12),
-	nif				decimal(9),
-	constraint pkpositions primary key(isin, nif),
+	constraint pkpositions primary key(isin, name),
 	constraint fkportfolio_pos foreign key(name) references PORTFOLIO(name),
 	constraint fkinstrument_pos foreign key(isin) references INSTRUMENT(isin)
 );

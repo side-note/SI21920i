@@ -26,7 +26,6 @@ insert into INSTRUMENT values (111122223333, 'ALGO3');
 insert into POSITION values (1, 'Nuno Cardeal', 112233445566);
 insert into POSITION values (1, 'Carolina Couto', 111222333444);
 insert into POSITION values (1, 'Joana Campos', 111122223333);
-insert into POSITION values (2, 'Carolina Couto', 111122223333);
 
 insert into EMAIL values (1,'Nuno mail','ncardeal@pilim.com');
 insert into EMAIL values (2,'Carol mail','carolct@pilim.com');
@@ -54,6 +53,9 @@ insert into DAILYREG values (111222333444, 100, 120, 500, 275, '2019-02-01');
 insert into DAILYREG values (111122223333, 100, 120, 500, 400, '2019-05-01');
 insert into DAILYREG values (111122223333, 100, 120, 500, 700, '2019-05-03');
 insert into DAILYREG values (111122223333, 100, 120, 500, 100, '2019-05-09');
+
+select * from phone
+delete from DAILYREG
 
 delete from EXTTRIPLE
 delete from DAILYREG

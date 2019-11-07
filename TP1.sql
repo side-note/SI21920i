@@ -68,6 +68,7 @@ return @average
 end
 Go
 
+
 create function dbo.FundamentalDataTable(@isin char(12), @date date)
 returns @ret table (dailyvar money, currval money, avg6m money, var6m money, dailyvarperc decimal(5,2), var6mperc decimal(5,2))
 as
@@ -79,7 +80,7 @@ begin
 	insert into @ret
 	values(
 		@dailyvar,
-        (select top 1 closingval from dbo.DAILYREG where isin = @isin order by dailydate desc),
+        dbo.get_Currval(@isin),
         dbo.Average(180, @isin),
 		@var6m,
 		@dailyvar / (select minval from dbo.DAILYREG where isin = @isin and dailydate = @date),
@@ -99,13 +100,10 @@ as
 begin
 	declare @name varchar(50)
 	set @name = concat(@nif, '_portfolio')
-	if not exists(select nif from dbo.PORTFOLIO where nif = @nif) and exists(select nif from dbo.CLIENT where nif = @nif)
+	if not exists(select nif from dbo.CLIENT_PORTFOLIO where nif = @nif) and exists(select nif from dbo.CLIENT where nif = @nif)
 	begin
-		insert into dbo.PORTFOLIO(nif, dbo.PORTFOLIO.name) 
-		values(
-			@nif, 
-			@name
-		)
+		insert into dbo.PORTFOLIO(name) 
+		values(@name)
 	end
 end
 GO
@@ -116,8 +114,7 @@ drop procedure dbo.createPortfolio
 delete from PORTFOLIO where nif = 123456789
 go
 
-create procedure dbo.UpdateTotalVal 
-	@nif decimal(9),
+create procedure dbo.UpdateTotalVal
 	@name varchar(50),
 	@quantity int,
 	@isin char(12)
@@ -126,26 +123,44 @@ begin
 	insert into dbo.POSITION values(
 		@quantity,
 		@name,
-		@isin,
-		@nif
+		@isin
 	)
 	update dbo.PORTFOLIO
 		set totalval = (select sum(quantity * closingval)
 		from dbo.POSITION join dbo.DAILYREG on POSITION.isin = dbo.DAILYREG.isin
-		where dbo.POSITION.nif = @nif and closingval = (select top 1 closingval from dbo.DAILYREG where (select nif from dbo.Portfolio) = @nif order by dailydate desc))
-	where nif = @nif and name = @name	
+		where name = @name and dailydate = (select top 1 dailydate from dbo.DAILYREG where isin = dbo.POSITION.isin order by dailydate desc))
+	where name = @name	
 end
 go
-select * from POSITION
-select * from PORTFOLIO
 
-select * from dbo.POSITION join dbo.DAILYREG on POSITION.isin = dbo.DAILYREG.isin where dbo.POSITION.nif = 111222333 and closingval = (select top 1 closingval from dbo.DAILYREG where isin = (select isin from dbo.POSITION where nif = 111222333)order by dailydate desc)
-
-select sum(quantity) from dbo.POSITION
-
-exec dbo.UpdateTotalVal @nif = 111222333, @name = 'Carolina Couto', @quantity = 2, @isin = 111122223333
+exec dbo.UpdateTotalVal @name = 'Carolina Couto', @quantity = 2, @isin = 111122223333
 select * from dbo.PORTFOLIO
 drop procedure dbo.UpdateTotalVal
-delete from PORTFOLIO where nif = 123456789
 
-select * from DAILYREG
+go
+create function dbo.get_Currval(@isin char(12))
+returns money
+as
+begin
+return (select top 1 closingval from dbo.DAILYREG where isin = @isin order by dailydate desc)
+end
+go
+create function Portfolio_List(@name varchar(50))
+returns table
+as
+return (select isin, quantity, (select dbo.get_Currval(isin)) as CurrVal,(select dbo.get_dailypercvar(isin)) as Dailyvarperc from POSITION where name=@name)
+
+go
+create function dbo.get_dailypercvar(@isin char(12))
+returns decimal(5,2)
+as 
+begin
+declare @current_closingval money
+set @current_closingval=dbo.get_Currval(@isin)
+declare @last_closingval money
+set @last_closingval = (select closingval from (select top 2 closingval, ROW_NUMBER() over (order by dailydate desc) as rn from DAILYREG where isin=@isin) as cte where rn = 2)
+return  @current_closingval/@last_closingval*100
+end
+go
+select * from dbo.Portfolio_List('Carolina Couto')
+drop function Portfolio_List
