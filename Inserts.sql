@@ -23,6 +23,7 @@ insert into INSTRUMENT values (111122223333, 'ALGO3');
 insert into POSITION values (1, 'Nuno Cardeal', 112233445566, 247664294);
 insert into POSITION values (1, 'Carolina Couto', 111222333444, 111222333);
 insert into POSITION values (1, 'Joana Campos', 111122223333, 333222111);
+insert into POSITION values (2, 'Carolina Couto', 111122223333, 111222333);
 
 insert into EMAIL values (1,'Nuno mail','ncardeal@pilim.com');
 insert into EMAIL values (2,'Carol mail','carolct@pilim.com');
@@ -46,9 +47,15 @@ insert into DAILYREG values (112233445566, 100, 120, 500, 300, '2019-11-04');
 insert into DAILYREG values (112233445566, 100, 120, 500, 300, '2019-08-03');
 insert into DAILYREG values (112233445566, 100, 120, 500, 300, '2019-11-05');
 insert into DAILYREG values (112233445566, 100, 120, 500, 300, '2019-02-02');
-
+insert into DAILYREG values (111222333444, 100, 120, 500, 234, '2019-02-03');
+insert into DAILYREG values (111222333444, 100, 120, 500, 345, '2019-02-07');
+insert into DAILYREG values (111222333444, 100, 120, 500, 275, '2019-02-01');
+insert into DAILYREG values (111122223333, 100, 120, 500, 400, '2019-05-01');
+insert into DAILYREG values (111122223333, 100, 120, 500, 700, '2019-05-03');
+insert into DAILYREG values (111122223333, 100, 120, 500, 100, '2019-05-09');
 
 delete from EXTTRIPLE
 delete from DAILYREG
 select * from Sys.dm_tran_database_transactions
+select * from DAILYREG
 

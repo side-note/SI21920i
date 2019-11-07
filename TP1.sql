@@ -79,7 +79,7 @@ begin
 	insert into @ret
 	values(
 		@dailyvar,
-        (select top 1 closingval from dbo.DAILYREG order by dailydate desc),
+        (select top 1 closingval from dbo.DAILYREG where isin = @isin order by dailydate desc),
         dbo.Average(180, @isin),
 		@var6m,
 		@dailyvar / (select minval from dbo.DAILYREG where isin = @isin and dailydate = @date),
@@ -118,17 +118,34 @@ go
 
 create procedure dbo.UpdateTotalVal 
 	@nif decimal(9),
-	@name varchar(50)
+	@name varchar(50),
+	@quantity int,
+	@isin char(12)
 as
 begin
+	insert into dbo.POSITION values(
+		@quantity,
+		@name,
+		@isin,
+		@nif
+	)
 	update dbo.PORTFOLIO
-	set totalval = sum((select quantity from dbo.POSITION) * (select top 1 closingval from dbo.DAILYREG where (select nif from dbo.Portfolio) = @nif order by dailydate desc))
+		set totalval = (select sum(quantity * closingval)
+		from dbo.POSITION join dbo.DAILYREG on POSITION.isin = dbo.DAILYREG.isin
+		where dbo.POSITION.nif = @nif and closingval = (select top 1 closingval from dbo.DAILYREG where (select nif from dbo.Portfolio) = @nif order by dailydate desc))
 	where nif = @nif and name = @name	
 end
 go
+select * from POSITION
+select * from PORTFOLIO
 
+select * from dbo.POSITION join dbo.DAILYREG on POSITION.isin = dbo.DAILYREG.isin where dbo.POSITION.nif = 111222333 and closingval = (select top 1 closingval from dbo.DAILYREG where isin = (select isin from dbo.POSITION where nif = 111222333)order by dailydate desc)
 
-exec dbo.UpdateTotalVal @nif = 123456789, @name = '123456789_portfolio'
+select sum(quantity) from dbo.POSITION
+
+exec dbo.UpdateTotalVal @nif = 111222333, @name = 'Carolina Couto', @quantity = 2, @isin = 111122223333
 select * from dbo.PORTFOLIO
 drop procedure dbo.UpdateTotalVal
 delete from PORTFOLIO where nif = 123456789
+
+select * from DAILYREG
