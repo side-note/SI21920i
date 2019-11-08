@@ -9,7 +9,10 @@ create table DAILYMARKET(
 	idxmrkt			money,
 	dailyvar		money,
 	idxopeningval	money,
-	constraint pkdailymrkt primary key(idxmrkt, dailyvar)
+	code            int,
+	date            date,
+	constraint fkdailymrkt foreign key (code) references MARKET(code),
+	constraint pkdailymrkt primary key(date, code)
 );
 
 create table CLIENT(
@@ -36,7 +39,9 @@ create table CLIENT_PORTFOLIO(
 create table INSTRUMENT(
 	isin			char(12),
 	description		varchar(300),
-	constraint pkinstrument primary key(isin)	
+	mrktcode        int,
+	constraint pkinstrument primary key(isin),
+	constraint fkinstrument foreign key (mrktcode) references MARKET(code)
 );
 
 create table POSITION(

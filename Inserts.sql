@@ -1,10 +1,11 @@
+begin tran
 insert into MARKET values (012, 'Descrição', 'Café Cardeal');
 insert into MARKET values (123, 'Restauração', 'Restaurante do Chico Manel');
 insert into MARKET values (234, 'Acessórios', 'Guida Colorida');
 
-insert into	DAILYMARKET values (300, 400, 300);
-insert into	DAILYMARKET values (500, 400, 500);
-insert into	DAILYMARKET values (300, 200, 300);
+insert into	DAILYMARKET values (300, 400, 300,012,'2019-11-04');
+insert into	DAILYMARKET values (500, 400, 500,123,'2019-11-03');
+insert into	DAILYMARKET values (300, 200, 300,234,'2019-11-02');
 
 insert into CLIENT values (247664294, 1482405, 'Nuno Cardeal');
 insert into CLIENT values (111222333, 1234567, 'Carolina Couto');
@@ -19,9 +20,9 @@ insert into CLIENT_PORTFOLIO values('Nuno Cardeal', 247664294);
 insert into CLIENT_PORTFOLIO values('Carolina Couto', 111222333);
 insert into CLIENT_PORTFOLIO values('Joana Campos', 333222111);
 
-insert into INSTRUMENT values (112233445566, 'ALGO');
-insert into INSTRUMENT values (111222333444, 'ALGO2');
-insert into INSTRUMENT values (111122223333, 'ALGO3');
+insert into INSTRUMENT values (112233445566, 'ALGO',012);
+insert into INSTRUMENT values (111222333444, 'ALGO2',123);
+insert into INSTRUMENT values (111122223333, 'ALGO3',234);
 
 insert into POSITION values (1, 'Nuno Cardeal', 112233445566);
 insert into POSITION values (1, 'Carolina Couto', 111222333444);

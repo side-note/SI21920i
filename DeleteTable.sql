@@ -1,3 +1,4 @@
+begin tran
 delete from PHONE
 delete from EMAIL
 delete from POSITION
