@@ -25,10 +25,6 @@ begin transaction
         end
 commit
 
-EXEC update_client @ncc = 2345678,@nif = 333222111, @name = 'JoanaBanana'
-
-select * from CLIENT
-drop procedure update_client
 create procedure remove_client
     @nif decimal(9)
 as
@@ -38,13 +34,4 @@ begin tran
             delete from CLIENT where nif = @nif
             delete from CLIENT_PORTFOLIO where nif = @nif
         end
-commit
-exec remove_client @nif = 333222111
-drop procedure remove_client
-
-begin tran @update_Market
-    update dbo.MARKET
-    set description = @description,
-        name        = @name
-    where @code = dbo.MARKET.code
 commit

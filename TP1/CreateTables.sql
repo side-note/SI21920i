@@ -81,4 +81,5 @@ create table DAILYREG(
 	closingval			money,
 	dailydate			date,
 	constraint fkinstrument_reg foreign key(isin) references INSTRUMENT(isin)
-	);
+
+);

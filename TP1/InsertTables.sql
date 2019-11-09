@@ -1,7 +1,6 @@
-begin tran
-insert into MARKET values (012, 'Descrição', 'Café Cardeal');
-insert into MARKET values (123, 'Restauração', 'Restaurante do Chico Manel');
-insert into MARKET values (234, 'Acessórios', 'Guida Colorida');
+insert into MARKET values (012, 'Descriï¿½ï¿½o', 'Cafï¿½ Cardeal');
+insert into MARKET values (123, 'Restauraï¿½ï¿½o', 'Restaurante do Chico Manel');
+insert into MARKET values (234, 'Acessï¿½rios', 'Guida Colorida');
 
 insert into	DAILYMARKET values (300, 400, 300,012,'2019-11-04');
 insert into	DAILYMARKET values (500, 400, 500,123,'2019-11-03');

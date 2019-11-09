@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/Average.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/CurrentValue.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/DailyVarPerc.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/DropTables.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/FundamentalData.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/InsertTables.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/PORTFOLIO_SUMMARY_VIEW.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/PortfolioList.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/TripleTrigger.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/UpdateClient.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/UpdateDailyMarket.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/UpdateDailyValue.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/UpdateMarket.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/UpdateTotalValue.sql" dialect="GenericSQL" />
+  </component>
+</project>

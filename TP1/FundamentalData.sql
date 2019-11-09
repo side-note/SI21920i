@@ -1,12 +1,12 @@
 create function dbo.FundamentalDataTable(@isin char(12), @date date)
     returns @ret table
                  (
-                     dailyvar     money,
-                     currval      money,
-                     avg6m        money,
-                     var6m        money,
-                     dailyvarperc decimal(5, 2),
-                     var6mperc    decimal(5, 2)
+                 dailyvar     money,
+                 currval      money,
+                 avg6m        money,
+                 var6m        money,
+                 dailyvarperc decimal(5, 2),
+                 var6mperc    decimal(5, 2)
                  )
 as
 begin
