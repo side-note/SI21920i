@@ -4,5 +4,3 @@ JOIN
 PORTFOLIO
 on T1.name = PORTFOLIO.name
 go
-select * from PORTFOLIO_SUMMARY
-drop view PORTFOLIO_SUMMARY
