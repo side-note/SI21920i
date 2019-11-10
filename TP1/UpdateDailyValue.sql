@@ -15,8 +15,8 @@ begin
                 closingval = @closingval
             where isin = @id and dailydate = CONVERT(date,@date)
         end;
-    declare @isin char(12)
-    set @isin = (select INSTRUMENT.isin from dbo.INSTRUMENT join dbo.DAILYREG on dbo.INSTRUMENT.isin = dbo.DAILYREG.isin and dbo.INSTRUMENT.isin = @id)
+    if exists(select isin from INSTRUMENT where isin = @id)
+        begin
     if not exists((select isin from DAILYREG where dailydate = CONVERT(date, @date)))
         begin
             insert into dbo.DAILYREG
@@ -27,8 +27,8 @@ begin
                     @closingval,
                     CONVERT(date, @date))
         end
+    end
 end
 
 go
-
 

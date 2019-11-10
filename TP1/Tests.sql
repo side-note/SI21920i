@@ -9,10 +9,9 @@ exec update_market @description = 'Description3', @name = 'Market3', @code = '33
 exec remove_market @code = 222
 
 --f)
-exec p_actualizaValorDiario @id = 111111111111
-exec p_actualizaValorDiario @id = 222222222222
-exec p_actualizaValorDiario @id = 444444444444
-
+exec p_actualizaValorDiario @id = 111111111111, @date ='2019-11-01 13:13:13'
+exec p_actualizaValorDiario @id = 222222222222, @date = '2019-10-02 13:13:13'
+exec p_actualizaValorDiario @id = 444444444444, @date= '2019-12-14 12:55:08'
 --g)
 select dbo.Average(180, 111111111111)
 
