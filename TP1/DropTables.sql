@@ -9,3 +9,5 @@ drop table if exists PORTFOLIO;
 drop table if exists CLIENT;
 drop table if exists DAILYMARKET;
 drop table if exists MARKET;
+
+

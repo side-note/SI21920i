@@ -1,21 +1,23 @@
-create procedure dbo.p_actualizaValorDiario @id char(12)
+create procedure dbo.p_actualizaValorDiario @id char(12), @date datetime
 as
 begin
     declare @minval money, @maxval money, @openingval money, @closingval money
-    set @minval = (select top 1 value from dbo.EXTTRIPLE where @id = id order by value)
-    set @maxval = (select top 1 value from dbo.EXTTRIPLE where @id = id order by value desc)
-    set @openingval = (select top 1 value from dbo.EXTTRIPLE where @id = id order by datetime)
-    set @closingval = (select top 1 value from dbo.EXTTRIPLE where @id = id order by datetime desc)
-    update dbo.DAILYREG
-    set minval     = @minval,
-        maxval     = @maxval,
-        openingval = @openingval,
-        closingval = @closingval
-    where exists(select isin from dbo.DAILYREG join dbo.EXTTRIPLE on id=isin where CONVERT(date, dbo.EXTTRIPLE.datetime) = dailydate and isin = @id);
-
-    if not exists(select dbo.INSTRUMENT.isin
-                  from dbo.INSTRUMENT
-                           join dbo.DAILYREG on dbo.INSTRUMENT.isin = dbo.DAILYREG.isin and dbo.INSTRUMENT.isin = @id)
+    set @minval = (select top 1 value from dbo.EXTTRIPLE where @id= id and convert(date, datetime) = convert(date, @date) order by value)
+    set @maxval = (select top 1 value from dbo.EXTTRIPLE where @id = id and convert(date, datetime) = convert(date, @date) order by value desc)
+    set @openingval = (select top 1 value from dbo.EXTTRIPLE where @id = id and convert(date, datetime) = convert(date, @date) order by datetime)
+    set @closingval = (select top 1 value from dbo.EXTTRIPLE where @id = id and convert(date, datetime) = convert(date, @date) order by datetime desc)
+    if exists(select distinct isin, dailydate from dbo.DAILYREG join dbo.EXTTRIPLE on isin = id where convert(date,@date) = dailydate and isin = @id)
+        begin
+            update dbo.DAILYREG
+            set minval     = @minval,
+                maxval     = @maxval,
+                openingval = @openingval,
+                closingval = @closingval
+            where isin = @id and dailydate = CONVERT(date,@date)
+        end;
+    declare @isin char(12)
+    set @isin = (select INSTRUMENT.isin from dbo.INSTRUMENT join dbo.DAILYREG on dbo.INSTRUMENT.isin = dbo.DAILYREG.isin and dbo.INSTRUMENT.isin = @id)
+    if not exists((select isin from DAILYREG where dailydate = CONVERT(date, @date)))
         begin
             insert into dbo.DAILYREG
             values (@id,
@@ -23,13 +25,10 @@ begin
                     @openingval,
                     @maxval,
                     @closingval,
-                    CONVERT(date, (select
-                                   top 1
-                                   datetime
-                                   from dbo.EXTTRIPLE
-                                   where dbo.EXTTRIPLE.id = @id
-                                   order by datetime desc)))
+                    CONVERT(date, @date))
         end
 end
 
 go
+
+
