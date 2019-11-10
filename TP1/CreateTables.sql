@@ -70,7 +70,9 @@ create table PHONE(
 create table EXTTRIPLE(
 	value		money not null,
 	datetime	datetime not null,
-	id			char(12) not null
+	id			char(12) not null,
+    constraint pkexttriple primary key(id, datetime)
+
 );
 
 create table DAILYREG(
@@ -80,6 +82,7 @@ create table DAILYREG(
 	maxval				money,
 	closingval			money,
 	dailydate			date,
-	constraint fkinstrument_reg foreign key(isin) references INSTRUMENT(isin)
+	constraint fkinstrument_reg foreign key(isin) references INSTRUMENT(isin),
+    constraint pkdailyreg primary key(isin, dailydate)
 
 );

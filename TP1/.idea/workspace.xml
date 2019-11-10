@@ -58,13 +58,6 @@
         <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="MARKET: table" type="63ab2ba1:MsImplModel$Table" />
       </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="@10.62.73.95" type="feb32156:DbDataSourceImpl" />
-        <item name="TL52D_14: database" type="ccb7ac2a:MsImplModel$Database" />
-        <item name="dbo: schema" type="2865ee2e:MsImplModel$Schema" />
-        <item name="routines" type="d4e8921:DatabaseStructure$FamilyGroup" />
-      </path>
     </expand>
     <select />
   </component>
