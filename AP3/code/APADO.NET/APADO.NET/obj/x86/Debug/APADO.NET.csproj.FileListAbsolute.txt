@@ -1,0 +1,10 @@
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\AP3\code\APADO.NET\APADO.NET\obj\x86\Debug\APADO.NET.csprojAssemblyReference.cache
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\AP3\code\APADO.NET\APADO.NET\obj\x86\Debug\APADO.NET.csproj.CoreCompileInputs.cache
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\AP3\code\APADO.NET\APADO.NET\bin\Debug\APADO.NET.exe.config
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\AP3\code\APADO.NET\APADO.NET\bin\Debug\APADO.NET.exe
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\AP3\code\APADO.NET\APADO.NET\bin\Debug\APADO.NET.pdb
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\AP3\code\APADO.NET\APADO.NET\bin\Debug\System.Data.SqlClient.dll
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\AP3\code\APADO.NET\APADO.NET\bin\Debug\System.Data.SqlClient.xml
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\AP3\code\APADO.NET\APADO.NET\obj\x86\Debug\APADO.NET.csproj.CopyComplete
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\AP3\code\APADO.NET\APADO.NET\obj\x86\Debug\APADO.NET.exe
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\AP3\code\APADO.NET\APADO.NET\obj\x86\Debug\APADO.NET.pdb
