@@ -1,0 +1,6 @@
+C:\Users\ASUS\Documents\GitHub\SI21920i\TP2\Pilim\App\bin\Debug\App.exe.config
+C:\Users\ASUS\Documents\GitHub\SI21920i\TP2\Pilim\App\bin\Debug\App.exe
+C:\Users\ASUS\Documents\GitHub\SI21920i\TP2\Pilim\App\bin\Debug\App.pdb
+C:\Users\ASUS\Documents\GitHub\SI21920i\TP2\Pilim\App\obj\Debug\App.csprojAssemblyReference.cache
+C:\Users\ASUS\Documents\GitHub\SI21920i\TP2\Pilim\App\obj\Debug\App.exe
+C:\Users\ASUS\Documents\GitHub\SI21920i\TP2\Pilim\App\obj\Debug\App.pdb

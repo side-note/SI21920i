@@ -41,11 +41,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="mapper\AbstractClass.cs" />
+    <Compile Include="mapper\IClient.cs" />
+    <Compile Include="mapper\IContext.cs" />
+    <Compile Include="mapper\IDailyreg.cs" />
+    <Compile Include="mapper\IEmail.cs" />
+    <Compile Include="mapper\IExttriple.cs" />
+    <Compile Include="mapper\IInstrument.cs" />
     <Compile Include="mapper\IMapper.cs" />
     <Compile Include="mapper\IMarket.cs" />
     <Compile Include="mapper\IDailyMarket.cs" />
+    <Compile Include="mapper\IPhone.cs" />
+    <Compile Include="mapper\IPortfolio.cs" />
+    <Compile Include="model\Client.cs" />
     <Compile Include="model\DailyMarket.cs" />
+    <Compile Include="model\Dailyreg.cs" />
+    <Compile Include="model\Email.cs" />
+    <Compile Include="model\Exttriple.cs" />
+    <Compile Include="model\Instrument.cs" />
     <Compile Include="model\Market.cs" />
+    <Compile Include="model\Phone.cs" />
+    <Compile Include="model\Portfolio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
