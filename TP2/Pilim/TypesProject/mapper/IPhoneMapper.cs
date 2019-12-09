@@ -7,7 +7,7 @@ using TypesProject.model;
 
 namespace TypesProject.mapper
 {
-    interface IExttriple: IMapper<Exttriple,KeyValuePair<int,double>,List<Exttriple>>
+    interface IPhoneMapper : IMapper<Phone,int, List<Phone>>
     {
     }
 }

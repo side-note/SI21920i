@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2E1EEA0D-73B5-491C-92E9-41CD8C07348C}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TypesProject</RootNamespace>
-    <AssemblyName>TypesProject</AssemblyName>
+    <ProjectGuid>{B527A55D-C776-4554-A7AA-B3BF5671768C}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>EF_TP2_52D_14_1920i</RootNamespace>
+    <AssemblyName>EF_TP2_52D_14_1920i</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,35 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="concrete\ClientMapper.cs" />
-    <Compile Include="concrete\DailyMarketMapper.cs" />
-    <Compile Include="concrete\DailyRegMapper.cs" />
-    <Compile Include="concrete\EMailMapper.cs" />
-    <Compile Include="concrete\ExttripleMapper.cs" />
-    <Compile Include="mapper\AbstractClass.cs" />
-    <Compile Include="mapper\ClientProxy.cs" />
-    <Compile Include="mapper\IClientMapper.cs" />
-    <Compile Include="mapper\IContext.cs" />
-    <Compile Include="mapper\IDailyRegMapper.cs" />
-    <Compile Include="mapper\IEmailMapper.cs" />
-    <Compile Include="mapper\IExttripleMapper.cs" />
-    <Compile Include="mapper\IInstrumentMapper.cs" />
-    <Compile Include="mapper\IMapper.cs" />
-    <Compile Include="mapper\IMarketMapper.cs" />
-    <Compile Include="mapper\IDailyMarketMapper.cs" />
-    <Compile Include="mapper\IPhoneMapper.cs" />
-    <Compile Include="mapper\IPortfolioMapper.cs" />
-    <Compile Include="model\Client.cs" />
-    <Compile Include="model\DailyMarket.cs" />
-    <Compile Include="model\Dailyreg.cs" />
-    <Compile Include="model\Email.cs" />
-    <Compile Include="model\Exttriple.cs" />
-    <Compile Include="model\Instrument.cs" />
-    <Compile Include="model\Market.cs" />
-    <Compile Include="model\Phone.cs" />
-    <Compile Include="model\Portfolio.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

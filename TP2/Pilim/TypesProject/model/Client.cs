@@ -16,6 +16,6 @@ namespace TypesProject.model
 
         public String name { get; set; }
 
-        ICollection<Portfolio> portfolios { get; set; }
+         public virtual ICollection<Portfolio> portfolios { get; set; }
     }
 }

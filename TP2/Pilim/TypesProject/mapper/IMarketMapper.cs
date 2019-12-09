@@ -7,8 +7,7 @@ using TypesProject.model;
 
 namespace TypesProject.mapper
 {
-    interface IClient : IMapper<Client,int?,List<Client>>
+    interface IMarketMapper : IMapper<Market, int?, List<Market>>
     {
-
     }
 }
