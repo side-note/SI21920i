@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TypesProject.model;
 
 namespace TypesProject.mapper
 {
-    interface IDailyRegMapper: IMapper<Dailyreg,KeyValuePair<Instrument,DateTime>,List<Dailyreg> >
+    interface IRepository<T>
     {
+        IEnumerable<T> FindAll();
+        IEnumerable<T> Find(Func<T, bool> criteria);
     }
 }

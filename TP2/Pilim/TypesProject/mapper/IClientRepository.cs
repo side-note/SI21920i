@@ -7,7 +7,7 @@ using TypesProject.model;
 
 namespace TypesProject.mapper
 {
-    interface IDailyRegMapper: IMapper<Dailyreg,KeyValuePair<Instrument,DateTime>,List<Dailyreg> >
+    interface IClientRepository: IRepository<Client>
     {
     }
 }
