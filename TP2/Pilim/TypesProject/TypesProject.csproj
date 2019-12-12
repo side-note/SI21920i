@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,14 +43,38 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="concrete\ClientMapper.cs" />
+    <Compile Include="concrete\ClientRepository.cs" />
+    <Compile Include="concrete\Context.cs" />
     <Compile Include="concrete\DailyMarketMapper.cs" />
+    <Compile Include="concrete\DailyMarketRepository.cs" />
     <Compile Include="concrete\DailyRegMapper.cs" />
-    <Compile Include="concrete\EMailMapper.cs" />
+    <Compile Include="concrete\DailyRegRepository.cs" />
+    <Compile Include="concrete\EmailMapper.cs" />
+    <Compile Include="concrete\EmailRepository.cs" />
     <Compile Include="concrete\ExttripleMapper.cs" />
-    <Compile Include="mapper\AbstractClass.cs" />
+    <Compile Include="concrete\ExttripleRepository.cs" />
+    <Compile Include="concrete\InstrumentMapper.cs" />
+    <Compile Include="concrete\InstrumentRepository.cs" />
+    <Compile Include="concrete\MarketMapper.cs" />
+    <Compile Include="concrete\MarketRepository.cs" />
+    <Compile Include="concrete\PhoneMapper.cs" />
+    <Compile Include="concrete\PhoneRepository.cs" />
+    <Compile Include="concrete\PortfolioMapper.cs" />
+    <Compile Include="concrete\PortfolioRepository.cs" />
+    <Compile Include="dal\IClientRepository.cs" />
+    <Compile Include="dal\IDailyMarketRepository.cs" />
+    <Compile Include="dal\IDailyRegRepository.cs" />
+    <Compile Include="dal\IEmailRepository.cs" />
+    <Compile Include="dal\IExttripleRepository.cs" />
+    <Compile Include="dal\IInstrumentRepository.cs" />
+    <Compile Include="dal\IMarketRepository.cs" />
+    <Compile Include="dal\IPhoneRepository.cs" />
+    <Compile Include="dal\IPortfolioRepository.cs" />
+    <Compile Include="dal\IRepository.cs" />
+    <Compile Include="mapper\AbstractMapper.cs" />
     <Compile Include="mapper\ClientProxy.cs" />
     <Compile Include="mapper\IClientMapper.cs" />
-    <Compile Include="mapper\IContext.cs" />
+    <Compile Include="dal\IContext.cs" />
     <Compile Include="mapper\IDailyRegMapper.cs" />
     <Compile Include="mapper\IEmailMapper.cs" />
     <Compile Include="mapper\IExttripleMapper.cs" />
@@ -59,9 +84,11 @@
     <Compile Include="mapper\IDailyMarketMapper.cs" />
     <Compile Include="mapper\IPhoneMapper.cs" />
     <Compile Include="mapper\IPortfolioMapper.cs" />
+    <Compile Include="mapper\PortfolioProxy.cs" />
+    <Compile Include="mapper\PositionProxy.cs" />
     <Compile Include="model\Client.cs" />
     <Compile Include="model\DailyMarket.cs" />
-    <Compile Include="model\Dailyreg.cs" />
+    <Compile Include="model\DailyReg.cs" />
     <Compile Include="model\Email.cs" />
     <Compile Include="model\Exttriple.cs" />
     <Compile Include="model\Instrument.cs" />

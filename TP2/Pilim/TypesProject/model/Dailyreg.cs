@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TypesProject.model
 {
-    class Dailyreg
+    class DailyReg
     {
-        public Dailyreg() { }
+        public DailyReg() { }
 
         public Instrument isin { get; set; }
 

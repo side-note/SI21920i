@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using TypesProject.model;
 
-namespace TypesProject.mapper
+namespace TypesProject.dal
 {
-    interface IDailyRegMapper: IMapper<DailyReg,KeyValuePair<Instrument,DateTime>,List<DailyReg> >
+    interface IClientRepository : IRepository<Client>
     {
     }
 }

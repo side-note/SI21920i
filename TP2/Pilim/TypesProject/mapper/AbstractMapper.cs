@@ -21,7 +21,7 @@ namespace TypesProject.mapper
         }
     }
 
-    abstract class AbstracMapper<T, Tid, TCol> : IMapper<T, Tid, TCol> where T : class, new() where TCol : IList<T>, IEnumerable<T>, new()
+    abstract class AbstractMapper<T, Tid, TCol> : IMapper<T, Tid, TCol> where T : class, new() where TCol : IList<T>, IEnumerable<T>, new()
     {
         protected IContext context;
         #region Abstract Methods
@@ -99,7 +99,7 @@ namespace TypesProject.mapper
         }
 
 
-        public AbstracMapper(IContext ctx)
+        public AbstractMapper(IContext ctx)
         {
             context = ctx;
         }
