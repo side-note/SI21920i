@@ -17,5 +17,8 @@ namespace TypesProject.model
         public String name { get; set; }
 
          public virtual ICollection<Portfolio> portfolios { get; set; }
+        // N tenho a certeza, Client has contact 1 para n
+        public virtual ICollection<Email> email { get; set; }
+        public virtual ICollection<Phone> phone { get; set; }
     }
 }

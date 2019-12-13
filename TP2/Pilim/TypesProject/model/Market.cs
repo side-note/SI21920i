@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TypesProject.model
 {
-    public class Market
+    class Market
     {
         public Market()
         {
@@ -14,6 +14,7 @@ namespace TypesProject.model
         public int? Code { get; set; }
         public string Description { get; set; }
         public string Name { get; set; }
-
+        public virtual ICollection<DailyMarket> dailyMarkets { get; set; }
+        public virtual ICollection<Instrument> marketInstruments { get; set; }
     }
 }

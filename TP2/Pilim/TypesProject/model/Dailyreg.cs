@@ -10,7 +10,7 @@ namespace TypesProject.model
     {
         public DailyReg() { }
 
-        public Instrument isin { get; set; }
+        public Instrument? isin { get; set; }
 
         public double minval { get; set; }
 
@@ -20,6 +20,10 @@ namespace TypesProject.model
 
         public double closingval { get; set; }
 
-        public DateTime dailydate { get; set; }
+        public DateTime? dailydate { get; set; }
+
+        //relação instrument com dailyreg
+
+        public virtual ICollection<Instrument> instruments { get; set; }
     }
 }

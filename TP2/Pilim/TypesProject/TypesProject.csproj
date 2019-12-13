@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -85,7 +87,6 @@
     <Compile Include="mapper\IPhoneMapper.cs" />
     <Compile Include="mapper\IPortfolioMapper.cs" />
     <Compile Include="mapper\PortfolioProxy.cs" />
-    <Compile Include="mapper\PositionProxy.cs" />
     <Compile Include="model\Client.cs" />
     <Compile Include="model\DailyMarket.cs" />
     <Compile Include="model\DailyReg.cs" />

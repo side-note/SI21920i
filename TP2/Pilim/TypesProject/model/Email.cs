@@ -14,6 +14,8 @@ namespace TypesProject.model
 
         public string description { get; set; }
 
-        public int code { get; set; }
+        public int? code { get; set; }
+
+        public virtual ICollection<Client> emailClients { get; set; }
     }
 }

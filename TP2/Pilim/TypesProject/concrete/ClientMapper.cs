@@ -101,7 +101,8 @@ namespace TypesProject.concrete
         {
             Client c = new Client();
             c.nif = record.GetInt32(0);
-            c.name = record.GetString(1);
+            c.ncc = record.GetInt32(1);
+            c.name = record.GetString(2);
             return c;
         }
     }

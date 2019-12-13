@@ -10,12 +10,14 @@ namespace TypesProject.model
     {
         public Phone() { }
 
-        public int code { get; set; }
+        public int? code { get; set; }
 
         public int number { get; set; }
 
         public string description { get; set; }
 
         public string areacode { get; set; }
+
+        public virtual ICollection<Client> clientsPhones { get; set; }
     }
 }

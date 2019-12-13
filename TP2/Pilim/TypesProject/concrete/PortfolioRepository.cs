@@ -17,7 +17,7 @@ namespace TypesProject.concrete
             context = ctx;
         }
 
-        public IEnumerable<Portfolio> Find(System.Func<Portfolio, bool> criteria)
+        public IEnumerable<Portfolio> Find(Func<Portfolio, bool> criteria)
         {
             //Implementação muito pouco eficiente.  
             return FindAll().Where(criteria);

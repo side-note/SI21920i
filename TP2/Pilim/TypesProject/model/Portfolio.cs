@@ -9,12 +9,12 @@ namespace TypesProject.model
     class Portfolio
     {
         public Portfolio() { }
-        public String name { get; set; }
+        public String? name { get; set; }
 
         public double totalval { get; set; }
 
         ICollection<Client> clients { get; set; }
 
-        ICollection<Instrument> instruments { get; set; }
+        ICollection<Instrument> portfolioInstruments { get; set; }
     }
 }

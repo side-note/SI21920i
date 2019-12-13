@@ -8,11 +8,15 @@ namespace TypesProject.model
 {
     public class DailyMarket
     {
-        public double? IdxMrkt { get; set; }
-        public double? DailyVar  { get; set; }
-        public double? IdxOpeningVal { get; set; }
-        public Market Code { get; set; }
-        public DateTime Date { get; set; }
+        public double IdxMrkt { get; set; }
+        public double DailyVar  { get; set; }
+        public double IdxOpeningVal { get; set; }
+        public Market? Code { get; set; }
+        public DateTime? Date { get; set; }
+
+        //relação daily market com market
+
+        public virtual ICollection<Market> markets { get; set; }
 
     }
 }
