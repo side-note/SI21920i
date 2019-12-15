@@ -15,7 +15,7 @@ namespace TypesProject.concrete
         public MarketMapper(IContext ctx) : base(ctx)
         {
         }
-        internal ICollection<DailyMarket> LoadDailyRegs(Market m)
+        internal ICollection<DailyMarket> LoadDailyMarkets(Market m)
         {
             List<DailyMarket> lst = new List<DailyMarket>();
 
@@ -32,7 +32,7 @@ namespace TypesProject.concrete
             }
             return lst;
         }
-        internal ICollection<Instrument> LoadPortfolios(Market m)
+        internal ICollection<Instrument> LoadInstruments(Market m)
         {
             List<Instrument> lst = new List<Instrument>();
 

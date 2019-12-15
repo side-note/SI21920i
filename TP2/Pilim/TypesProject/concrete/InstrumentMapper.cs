@@ -43,7 +43,7 @@ namespace TypesProject.concrete
             {
                 while (rd.Read())
                 {
-                    int key = rd.GetInt32(0);
+                    String key = rd.GetString(0);
                     lst.Add(pm.Read(key));
                 }
             }

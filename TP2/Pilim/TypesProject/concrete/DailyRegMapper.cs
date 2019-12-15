@@ -15,7 +15,7 @@ namespace TypesProject.concrete
         public DailyRegMapper(IContext ctx) : base(ctx)
         {
         }
-        internal Instrument LoadMarket(DailyReg dr)
+        internal Instrument LoadInstrument(DailyReg dr)
         {
             InstrumentMapper im = new InstrumentMapper(context);
             List<IDataParameter> parameters = new List<IDataParameter>();

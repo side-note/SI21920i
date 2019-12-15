@@ -76,6 +76,8 @@
     <Compile Include="mapper\AbstractMapper.cs" />
     <Compile Include="mapper\ClientProxy.cs" />
     <Compile Include="mapper\DailyMarketProxy.cs" />
+    <Compile Include="mapper\DailyRegProxy.cs" />
+    <Compile Include="mapper\EmailProxy.cs" />
     <Compile Include="mapper\IClientMapper.cs" />
     <Compile Include="dal\IContext.cs" />
     <Compile Include="mapper\IDailyRegMapper.cs" />
@@ -85,8 +87,11 @@
     <Compile Include="mapper\IMapper.cs" />
     <Compile Include="mapper\IMarketMapper.cs" />
     <Compile Include="mapper\IDailyMarketMapper.cs" />
+    <Compile Include="mapper\InstrumentProxy.cs" />
     <Compile Include="mapper\IPhoneMapper.cs" />
     <Compile Include="mapper\IPortfolioMapper.cs" />
+    <Compile Include="mapper\MarketProxy.cs" />
+    <Compile Include="mapper\PhoneProxy.cs" />
     <Compile Include="mapper\PortfolioProxy.cs" />
     <Compile Include="model\Client.cs" />
     <Compile Include="model\DailyMarket.cs" />

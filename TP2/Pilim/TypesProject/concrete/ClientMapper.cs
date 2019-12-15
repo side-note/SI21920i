@@ -60,7 +60,7 @@ namespace TypesProject.concrete
             {
                 if (rd.Read())
                 {
-                    int key = rd.GetInt32(0);
+                    String key = rd.GetString(0);
                     return pm.Read(key);
                 }
             }
