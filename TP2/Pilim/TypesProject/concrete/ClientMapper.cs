@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using TypesProject.mapper;
 using TypesProject.model;
 
@@ -16,6 +17,69 @@ namespace TypesProject.concrete
         {
         }
 
+        internal ICollection<Email> LoadEmails(Client c)
+        {
+            List<Email> lst = new List<Email>();
+
+            EmailMapper em = new EmailMapper(context);
+            List<IDataParameter> parameters = new List<IDataParameter>();
+            parameters.Add(new SqlParameter("@id", c.nif));
+            using (IDataReader rd = ExecuteReader("select emailid from clientemail where clientId=@id", parameters))
+            {
+                while (rd.Read())
+                {
+                    int key = rd.GetInt32(0);
+                    lst.Add(em.Read(key));
+                }
+            }
+            return lst;
+        }
+        internal ICollection<Phone> LoadPhones(Client c)
+        {
+            List<Phone> lst = new List<Phone>();
+
+            PhoneMapper pm = new PhoneMapper(context);
+            List<IDataParameter> parameters = new List<IDataParameter>();
+            parameters.Add(new SqlParameter("@id", c.nif));
+            using (IDataReader rd = ExecuteReader("select phoneid from phoneclient where clientId=@id", parameters))
+            {
+                while (rd.Read())
+                {
+                    int key = rd.GetInt32(0);
+                    lst.Add(pm.Read(key));
+                }
+            }
+            return lst;
+        }
+        internal Portfolio LoadPortfolio(Client c)
+        {
+            PortfolioMapper pm = new PortfolioMapper(context);
+            List<IDataParameter> parameters = new List<IDataParameter>();
+            parameters.Add(new SqlParameter("@id", c.nif));
+            using (IDataReader rd = ExecuteReader("select portfolio from client where clientId=@id", parameters))
+            {
+                if (rd.Read())
+                {
+                    int key = rd.GetInt32(0);
+                    return pm.Read(key);
+                }
+            }
+            return null;
+
+        }
+
+        public override Client Create(Client client)
+        {
+           
+                return new ClientProxy(client,context) ;
+
+        }
+
+
+        public override Client Update(Client client)
+        {
+            return new ClientProxy(base.Update(client), context);
+        }
         protected override string DeleteCommandText
         {
             get
@@ -28,7 +92,7 @@ namespace TypesProject.concrete
         {
             get
             {
-                return "INSERT INTO Client (Name) VALUES(@Name); select @id=scope_identity()";
+                return "INSERT INTO Client (Name, ncc, nif) VALUES(@Name, @ncc, @id); select @id=   nif";
             }
         }
 
@@ -36,7 +100,7 @@ namespace TypesProject.concrete
         {
             get
             {
-                return "select clientId,name from Client";
+                return "select clientId, name, ncc from Client";
             }
         }
 
@@ -52,37 +116,35 @@ namespace TypesProject.concrete
         {
             get
             {
-                return "update Client set name=@name where clientId=@id";
+                return "update Client set name=@name, ncc = @ncc where clientId=@id";
             }
         }
 
         protected override void DeleteParameters(IDbCommand cmd, Client c)
         {
 
-            SqlParameter p1 = new SqlParameter("@id", c.nif);
-            cmd.Parameters.Add(p1);
+            SqlParameter id = new SqlParameter("@id", c.nif);
+            cmd.Parameters.Add(id);
         }
 
         protected override void InsertParameters(IDbCommand cmd, Client c)
         {
-            SqlParameter p = new SqlParameter("@Name", c.name);
-            SqlParameter p1 = new SqlParameter("@id", SqlDbType.Int);
-            p1.Direction = ParameterDirection.InputOutput;
+            SqlParameter name = new SqlParameter("@Name", c.name);
+            SqlParameter id = new SqlParameter("@id", c.nif);
+            SqlParameter ncc = new SqlParameter("@ncc", c.ncc);
+            id.Direction = ParameterDirection.InputOutput;
 
-            if (c.nif != null)
-                p1.Value = c.nif;
-            else
-                p1.Value = DBNull.Value;
+            cmd.Parameters.Add(id);
+            cmd.Parameters.Add(name);
+            cmd.Parameters.Add(ncc);
 
-            cmd.Parameters.Add(p);
-            cmd.Parameters.Add(p1);
         }
 
 
         protected override void SelectParameters(IDbCommand cmd, int? k)
         {
-            SqlParameter p1 = new SqlParameter("@id", k);
-            cmd.Parameters.Add(p1);
+            SqlParameter id = new SqlParameter("@id", k);
+            cmd.Parameters.Add(id);
         }
 
         protected override Client UpdateEntityID(IDbCommand cmd, Client c)
@@ -103,7 +165,7 @@ namespace TypesProject.concrete
             c.nif = record.GetInt32(0);
             c.ncc = record.GetInt32(1);
             c.name = record.GetString(2);
-            return c;
+            return new ClientProxy(c,context);
         }
     }
 }

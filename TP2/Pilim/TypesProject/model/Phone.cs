@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TypesProject.model
 {
-    class Phone
+    public class Phone
     {
         public Phone() { }
 
@@ -18,6 +18,6 @@ namespace TypesProject.model
 
         public string areacode { get; set; }
 
-        public virtual ICollection<Client> clientsPhones { get; set; }
+        public virtual Client clientPhone { get; set; }
     }
 }

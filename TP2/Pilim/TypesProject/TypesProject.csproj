@@ -75,6 +75,7 @@
     <Compile Include="dal\IRepository.cs" />
     <Compile Include="mapper\AbstractMapper.cs" />
     <Compile Include="mapper\ClientProxy.cs" />
+    <Compile Include="mapper\DailyMarketProxy.cs" />
     <Compile Include="mapper\IClientMapper.cs" />
     <Compile Include="dal\IContext.cs" />
     <Compile Include="mapper\IDailyRegMapper.cs" />

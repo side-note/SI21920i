@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace TypesProject.model
 {
-    class Portfolio
+    public class Portfolio
     {
         public Portfolio() { }
         public String? name { get; set; }
 
         public double totalval { get; set; }
 
-        ICollection<Client> clients { get; set; }
+        public virtual Client client { get; set; }
 
-        ICollection<Instrument> portfolioInstruments { get; set; }
+        public virtual ICollection<Instrument> portfolioInstruments { get; set; }
     }
 }

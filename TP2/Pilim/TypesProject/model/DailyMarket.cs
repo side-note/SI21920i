@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace TypesProject.model
 {
-    public class DailyMarket
-    {
+     public class DailyMarket
+       {
         public double IdxMrkt { get; set; }
         public double DailyVar  { get; set; }
         public double IdxOpeningVal { get; set; }
@@ -16,7 +16,7 @@ namespace TypesProject.model
 
         //relação daily market com market
 
-        public virtual ICollection<Market> markets { get; set; }
+        public virtual Market market { get; set; }
 
     }
 }

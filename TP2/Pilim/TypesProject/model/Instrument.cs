@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TypesProject.model
 {
-    class Instrument
+    public class Instrument
     {
         public Instrument() { }
 
@@ -18,5 +18,6 @@ namespace TypesProject.model
 
         public virtual ICollection<Portfolio> instrumentPortfolios { get; set; }
         public virtual ICollection <DailyReg> dailyRegs { get; set; }
+        public virtual Market instrumentMarket { get; set; }
     }
 }

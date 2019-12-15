@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TypesProject.model
 {
-    class Exttriple
+    public class Exttriple
     {
         public Exttriple() { }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TypesProject.model
 {
-    class Market
+    public class Market
     {
         public Market()
         {

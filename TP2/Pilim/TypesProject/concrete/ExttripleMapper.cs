@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,9 +10,9 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class ExttripleMapper
+    class ExttripleMapper: AbstractMapper<Exttriple, KeyValuePair<int?, DateTime?>, List<Exttriple>>, IExttripleMapper
     {
-        public ClientMapper(IContext ctx) : base(ctx)
+        public ExttripleMapper(IContext ctx) : base(ctx)
         {
         }
 
@@ -18,7 +20,7 @@ namespace TypesProject.concrete
         {
             get
             {
-                return "delete from Client where clientId=@id";
+                return "delete from Exttriple where exttripleId=@id and exttripleDatetime = @datetime";
             }
         }
 
@@ -26,7 +28,7 @@ namespace TypesProject.concrete
         {
             get
             {
-                return "INSERT INTO Client (Name) VALUES(@Name); select @id=scope_identity()";
+                return "INSERT INTO EXttriple(exttripleId, exttripleDatetime, exttripleValue) values(@id, @datetime, @value); select @id=exttripleId, @datetime= exttripleDatetime from Exttriple;";
             }
         }
 
@@ -34,7 +36,7 @@ namespace TypesProject.concrete
         {
             get
             {
-                return "select clientId,name from Client";
+                return "select exttripleId, exttripleDatetime, exttripleValue from Exttriple";
             }
         }
 
@@ -42,7 +44,7 @@ namespace TypesProject.concrete
         {
             get
             {
-                return String.Format("{0} where clientId=@id", SelectAllCommandText); ;
+                return String.Format("{0} where exttripleId=@id and exttripleDatetime = @datetime", SelectAllCommandText); ;
             }
         }
 
@@ -50,58 +52,62 @@ namespace TypesProject.concrete
         {
             get
             {
-                return "update Client set name=@name where clientId=@id";
+                return "update Exttriple set exttripleValue=@value where exttripleId=@id and exttripleDatetime = @datetime";
             }
         }
 
-        protected override void DeleteParameters(IDbCommand cmd, Client c)
+        protected override void DeleteParameters(IDbCommand cmd, Exttriple e)
         {
 
-            SqlParameter p1 = new SqlParameter("@id", c.nif);
-            cmd.Parameters.Add(p1);
+            SqlParameter id = new SqlParameter("@id", e.id);
+            SqlParameter datetime = new SqlParameter("@datetime", e.datetime);
+            cmd.Parameters.Add(id);
+            cmd.Parameters.Add(datetime);
         }
 
-        protected override void InsertParameters(IDbCommand cmd, Client c)
+        protected override void InsertParameters(IDbCommand cmd, Exttriple e)
         {
-            SqlParameter p = new SqlParameter("@Name", c.name);
-            SqlParameter p1 = new SqlParameter("@id", SqlDbType.Int);
-            p1.Direction = ParameterDirection.InputOutput;
-
-            if (c.nif != null)
-                p1.Value = c.nif;
-            else
-                p1.Value = DBNull.Value;
-
-            cmd.Parameters.Add(p);
-            cmd.Parameters.Add(p1);
+            SqlParameter id = new SqlParameter("@id", e.id);
+            SqlParameter datetime = new SqlParameter("@datetime", e.datetime);
+            SqlParameter value = new SqlParameter("value",e.value);
+            id.Direction = ParameterDirection.InputOutput;
+            datetime.Direction = ParameterDirection.InputOutput;
+            cmd.Parameters.Add(id);
+            cmd.Parameters.Add(datetime);
+            cmd.Parameters.Add(value);
         }
 
 
-        protected override void SelectParameters(IDbCommand cmd, int? k)
+        protected override void SelectParameters(IDbCommand cmd, KeyValuePair< int?, DateTime?> p)
         {
-            SqlParameter p1 = new SqlParameter("@id", k);
-            cmd.Parameters.Add(p1);
+            SqlParameter id = new SqlParameter("@id",p.Key);
+            SqlParameter datetime = new SqlParameter("@datetime",p.Value);
+            cmd.Parameters.Add(id);
+            cmd.Parameters.Add(datetime);
         }
 
-        protected override Client UpdateEntityID(IDbCommand cmd, Client c)
+        protected override Exttriple UpdateEntityID(IDbCommand cmd, Exttriple e)
         {
-            var param = cmd.Parameters["@id"] as SqlParameter;
-            c.nif = int.Parse(param.Value.ToString());
-            return c;
+            var paramid = cmd.Parameters["@id"] as SqlParameter;
+            var paramdt = cmd.Parameters["@datetime"] as SqlParameter;
+            e.id = int.Parse(paramid.Value.ToString());
+            e.datetime = DateTime.Parse(paramdt.Value.ToString());
+            return e;
         }
 
-        protected override void UpdateParameters(IDbCommand cmd, Client c)
+        protected override void UpdateParameters(IDbCommand cmd, Exttriple e)
         {
-            InsertParameters(cmd, c);
+            InsertParameters(cmd, e);
         }
 
-        protected override Client Map(IDataRecord record)
+        protected override Exttriple Map(IDataRecord record)
         {
-            Client c = new Client();
-            c.nif = record.GetInt32(0);
-            c.name = record.GetString(1);
-            return c;
+            Exttriple e= new Exttriple();
+            e.id = record.GetInt32(0);
+            e.datetime = record.GetDateTime(1);
+            e.value = record.GetDouble(2);
+            return e;
         }
     }
 }
-}
+

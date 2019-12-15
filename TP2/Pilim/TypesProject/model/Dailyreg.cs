@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TypesProject.model
 {
-    class DailyReg
+    public class DailyReg
     {
         public DailyReg() { }
 
@@ -24,6 +24,6 @@ namespace TypesProject.model
 
         //relação instrument com dailyreg
 
-        public virtual ICollection<Instrument> instruments { get; set; }
+        public virtual Instrument instrument{ get; set; }
     }
 }

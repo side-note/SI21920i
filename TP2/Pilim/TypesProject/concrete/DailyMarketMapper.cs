@@ -10,17 +10,36 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class DailyMarketMapper: AbstractMapper<DailyMarket, Market, List<DailyMarket>>, IDailyMarketMapper
+    class DailyMarketMapper: AbstractMapper<DailyMarket,KeyValuePair< Market, DateTime>, List<DailyMarket>>, IDailyMarketMapper
     {
         public DailyMarketMapper(IContext ctx) : base(ctx)
         {
+        }
+
+        internal Market LoadMarket(DailyMarket dm)
+        {
+           MarketMapper mm = new MarketMapper(context);
+            List<IDataParameter> parameters = new List<IDataParameter>();
+            parameters.Add(new SqlParameter("@id", dm.Code));
+            parameters.Add(new SqlParameter("@datetime", dm.Date));
+
+            using (IDataReader rd = ExecuteReader("select market from dailymarket where dailymarketId=@id and dailymarketdt=@datetime ", parameters))
+            {
+                if (rd.Read())
+                {
+                    int key = rd.GetInt32(0);
+                    return mm.Read(key);
+                }
+            }
+            return null;
+
         }
 
         protected override string DeleteCommandText
         {
             get
             {
-                return "delete from DailyMarket where dailyMarketId=@id";
+                return "delete from DailyMarket where dailyMarketId=@id and dailymarketdt = @datetime";
             }
         }
 
@@ -28,7 +47,7 @@ namespace TypesProject.concrete
         {
             get
             {
-                return "INSERT INTO DailyMarket (Name) VALUES(@Name); select @id=scope_identity()";
+                return "INSERT INTO DailyMarket (idxMrkt,dailyvar,idxopeningval, code, date) VALUES(@idxmrkt, @dailyvar, @idxopv, @id, @datetime); select @id=code, @datetime=date";
             }
         }
 
@@ -36,7 +55,7 @@ namespace TypesProject.concrete
         {
             get
             {
-                return "select clientId,name from DailyMarket";
+                return "select idxMrkt,dailyvar,idxopeningval, code, date from DailyMarket";
             }
         }
 
@@ -44,7 +63,7 @@ namespace TypesProject.concrete
         {
             get
             {
-                return String.Format("{0} where dailyMarketId=@id", SelectAllCommandText); ;
+                return String.Format("{0} where dailyMarketId=@id and dailymarketdt=@datetime", SelectAllCommandText); ;
             }
         }
 
@@ -52,47 +71,53 @@ namespace TypesProject.concrete
         {
             get
             {
-                return "update DailyMarket set name=@name where clientId=@id";
+                return "update DailyMarket set idxMrkt=@idxmrkt, dailyvar=@dailyvar, idxopeningval=@idxopv where dailyMarketId=@id and dailymarketdt=@datetime";
             }
         }
 
         protected override void DeleteParameters(IDbCommand cmd, DailyMarket dm)
         {
 
-            SqlParameter p1 = new SqlParameter("@id", dm.Code);
-            cmd.Parameters.Add(p1);
+            SqlParameter id = new SqlParameter("@id", dm.Code);
+            SqlParameter datetime = new SqlParameter("@datetime", dm.Date);
+
+            cmd.Parameters.Add(id);
+            cmd.Parameters.Add(datetime);
         }
 
         protected override void InsertParameters(IDbCommand cmd, DailyMarket dm)
         {
-            SqlParameter p = new SqlParameter("@IdxMrkt", SqlDbType.Money);
-            SqlParameter p1 = new SqlParameter("@id", dm.Code);
-            SqlParameter p2 = new SqlParameter("@date", SqlDbType.DateTime);
-            SqlParameter p3 = new SqlParameter("@dailyVar", SqlDbType.Money);
-            SqlParameter p4 = new SqlParameter("@IdxOpeningVal", SqlDbType.Money);
-            p1.Direction = ParameterDirection.InputOutput;
+            SqlParameter idm = new SqlParameter("@IdxMrkt", dm.IdxMrkt);
+            SqlParameter id = new SqlParameter("@id", dm.Code);
+            SqlParameter dt = new SqlParameter("@datetime", dm.Date);
+            SqlParameter dv = new SqlParameter("@dailyVar", dm.DailyVar);
+            SqlParameter iov = new SqlParameter("@IdxOpeningVal", dm.IdxOpeningVal);
+            id.Direction = ParameterDirection.InputOutput;
+            dt.Direction = ParameterDirection.InputOutput;
 
-            if (c.nif != null)
-                p1.Value = c.nif;
-            else
-                p1.Value = DBNull.Value;
-
-            cmd.Parameters.Add(p);
-            cmd.Parameters.Add(p1);
+            cmd.Parameters.Add(idm);
+            cmd.Parameters.Add(id);
+            cmd.Parameters.Add(dt);
+            cmd.Parameters.Add(dv);
+            cmd.Parameters.Add(iov);
         }
 
 
-        protected override void SelectParameters(IDbCommand cmd, Market k)
+        protected override void SelectParameters(IDbCommand cmd, KeyValuePair<Market, DateTime> p )
         {
-            SqlParameter p1 = new SqlParameter("@id", k);
-            cmd.Parameters.Add(p1);
+            SqlParameter id = new SqlParameter("@id", p.Key);
+            SqlParameter dt = new SqlParameter("@datetime", p.Value);
+            cmd.Parameters.Add(id);
+            cmd.Parameters.Add(dt);
         }
 
         protected override DailyMarket UpdateEntityID(IDbCommand cmd, DailyMarket dm)
         {
-            var param = cmd.Parameters["@id"] as SqlParameter;
-            c.nif = int.Parse(param.Value.ToString());
-            return c;
+            var paramid = cmd.Parameters["@id"] as SqlParameter;
+            var paramdatetime = cmd.Parameters["@datetime"] as SqlParameter;
+          // dm.Code =.Parse(paramid.Value.ToString());
+           dm.Date = DateTime.Parse(paramdatetime.Value.ToString());
+            return dm;
         }
 
         protected override void UpdateParameters(IDbCommand cmd, DailyMarket dm)
@@ -103,10 +128,14 @@ namespace TypesProject.concrete
         protected override DailyMarket Map(IDataRecord record)
         {
             DailyMarket dm = new DailyMarket();
-            c.nif = record.GetInt32(0);
-            c.name = record.GetString(1);
-            return dm;
+            dm.DailyVar = record.GetDouble(0);
+            dm.IdxMrkt = record.GetDouble(1);
+            dm.IdxOpeningVal = record.GetDouble(2);
+            dm.Date = record.GetDateTime(3);
+            return new DailyMarketProxy(dm,context, record.GetInt32(4));
         }
-    }
+      
+
 }
 }
+

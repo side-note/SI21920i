@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,17 +10,36 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class DailyRegMapper
+    class DailyRegMapper : AbstractMapper<DailyReg, KeyValuePair<Instrument?, DateTime?>, List<DailyReg>>, IDailyRegMapper
     {
-        public ClientMapper(IContext ctx) : base(ctx)
+        public DailyRegMapper(IContext ctx) : base(ctx)
         {
         }
+        internal Instrument LoadMarket(DailyReg dr)
+        {
+            InstrumentMapper im = new InstrumentMapper(context);
+            List<IDataParameter> parameters = new List<IDataParameter>();
+            parameters.Add(new SqlParameter("@id",dr.isin));
+            parameters.Add(new SqlParameter("@datetime", dr.dailydate));
+
+            using (IDataReader rd = ExecuteReader("select instrument from dailyreg where dailyregId=@id and dailyregdt=@datetime ", parameters))
+            {
+                if (rd.Read())
+                {
+                    int key = rd.GetInt32(0);
+                    return im.Read(key);
+                }
+            }
+            return null;
+
+        }
+
 
         protected override string DeleteCommandText
         {
             get
             {
-                return "delete from Client where clientId=@id";
+                return "delete from DailyReg where dailyregId=@id and dailyregdt=@datetime";
             }
         }
 
@@ -26,7 +47,7 @@ namespace TypesProject.concrete
         {
             get
             {
-                return "INSERT INTO Client (Name) VALUES(@Name); select @id=scope_identity()";
+                return "INSERT INTO DailyReg (isin, minval, openingval,  maxval, closingval, dailydate) VALUES(@id, @minval, @openingval, @maxval, @closingval, @datetime); select @id=isin, @datetime=dailydate";
             }
         }
 
@@ -34,7 +55,7 @@ namespace TypesProject.concrete
         {
             get
             {
-                return "select clientId,name from Client";
+                return "select isin, minval, openingval,  maxval, closingval, dailydate from DailyReg";
             }
         }
 
@@ -42,7 +63,7 @@ namespace TypesProject.concrete
         {
             get
             {
-                return String.Format("{0} where clientId=@id", SelectAllCommandText); ;
+                return String.Format("{0} where dailyregId=@id and dailyregdt=@datetime", SelectAllCommandText); ;
             }
         }
 
@@ -50,58 +71,75 @@ namespace TypesProject.concrete
         {
             get
             {
-                return "update Client set name=@name where clientId=@id";
+                return "update DailyReg set minval=@minval, openingval=@openingval, maxval=@maxval, closingval=@closingval where dailyregId=@id and dailyregdt0@datetime";
             }
         }
 
-        protected override void DeleteParameters(IDbCommand cmd, Client c)
+        protected override void DeleteParameters(IDbCommand cmd, DailyReg dr)
         {
 
-            SqlParameter p1 = new SqlParameter("@id", c.nif);
-            cmd.Parameters.Add(p1);
+            SqlParameter id = new SqlParameter("@id",dr.isin);
+            SqlParameter dt = new SqlParameter("@datetime",dr.dailydate);
+            cmd.Parameters.Add(id);
+            cmd.Parameters.Add(dt);
         }
 
-        protected override void InsertParameters(IDbCommand cmd, Client c)
+        protected override void InsertParameters(IDbCommand cmd, DailyReg dr)
         {
-            SqlParameter p = new SqlParameter("@Name", c.name);
-            SqlParameter p1 = new SqlParameter("@id", SqlDbType.Int);
-            p1.Direction = ParameterDirection.InputOutput;
+            SqlParameter dt = new SqlParameter("@datetime", dr.dailydate);
+            SqlParameter id = new SqlParameter("@id", dr.isin);
+            SqlParameter miv = new SqlParameter("@minval", dr.minval);
+            SqlParameter mav = new SqlParameter("@maxval", dr.maxval);
+            SqlParameter ov = new SqlParameter("@openingval", dr.openingval);
+            SqlParameter cv = new SqlParameter("@closingval", dr.closingval);
 
-            if (c.nif != null)
-                p1.Value = c.nif;
-            else
-                p1.Value = DBNull.Value;
+            dt.Direction = ParameterDirection.InputOutput;
+            id.Direction = ParameterDirection.InputOutput;
 
-            cmd.Parameters.Add(p);
-            cmd.Parameters.Add(p1);
+
+         
+            cmd.Parameters.Add(dt);
+            cmd.Parameters.Add(id);
+            cmd.Parameters.Add(miv);
+            cmd.Parameters.Add(mav);
+            cmd.Parameters.Add(ov);
+            cmd.Parameters.Add(cv);
+        }
+        protected override void SelectParameters(IDbCommand command, KeyValuePair<Instrument, DateTime?> k)
+        {
+            SqlParameter id = new SqlParameter("@id", k.Key);
+            SqlParameter dt = new SqlParameter("@datetime", k.Value);
+            command.Parameters.Add(id);
+            command.Parameters.Add(dt);
         }
 
+        
 
-        protected override void SelectParameters(IDbCommand cmd, int? k)
+        protected override DailyReg UpdateEntityID(IDbCommand cmd, DailyReg dr)
         {
-            SqlParameter p1 = new SqlParameter("@id", k);
-            cmd.Parameters.Add(p1);
+            var paramid = cmd.Parameters["@id"] as SqlParameter;
+            var paramdt = cmd.Parameters["@datetime"] as SqlParameter;
+          // dr.isin = int.Parse(paramid.Value.ToString());
+            dr.dailydate= DateTime.Parse(paramdt.Value.ToString());
+            return dr;
         }
 
-        protected override Client UpdateEntityID(IDbCommand cmd, Client c)
+        protected override void UpdateParameters(IDbCommand cmd, DailyReg dr)
         {
-            var param = cmd.Parameters["@id"] as SqlParameter;
-            c.nif = int.Parse(param.Value.ToString());
-            return c;
+            InsertParameters(cmd, dr);
         }
 
-        protected override void UpdateParameters(IDbCommand cmd, Client c)
+        protected override DailyReg Map(IDataRecord record)
         {
-            InsertParameters(cmd, c);
-        }
+            DailyReg dr = new DailyReg();
+            dr.maxval = record.GetDouble(0);
+            dr.minval = record.GetDouble(1);
+            dr.openingval = record.GetDouble(2);
+            dr.closingval = record.GetDouble(3);
+            dr.dailydate = record.GetDateTime(4);
 
-        protected override Client Map(IDataRecord record)
-        {
-            Client c = new Client();
-            c.nif = record.GetInt32(0);
-            c.name = record.GetString(1);
-            return c;
+            return new DailyRegProxy(dr, context,record.GetInt32(5));
         }
     }
 }
-}
+

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TypesProject.model
 {
-    class Email
+    public class Email
     {
         public Email(){}
 
@@ -16,6 +16,6 @@ namespace TypesProject.model
 
         public int? code { get; set; }
 
-        public virtual ICollection<Client> emailClients { get; set; }
+        public virtual Client ClientEmail { get; set; }
     }
 }

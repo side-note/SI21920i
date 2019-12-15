@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,17 +10,33 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class PhoneMapper
+    class PhoneMapper : AbstractMapper<Phone, int?, List<Phone>>,IPhoneMapper
     {
-        public ClientMapper(IContext ctx) : base(ctx)
+        public PhoneMapper(IContext ctx) : base(ctx)
         {
         }
+        internal Client LoadClient(Phone p)
+        {
+            ClientMapper cm = new ClientMapper(context);
+            List<IDataParameter> parameters = new List<IDataParameter>();
+            parameters.Add(new SqlParameter("@id", p.code));
 
+            using (IDataReader rd = ExecuteReader("select client from phone where phoneId=@id", parameters))
+            {
+                if (rd.Read())
+                {
+                    int key = rd.GetInt32(0);
+                    return cm.Read(key);
+                }
+            }
+            return null;
+
+        }
         protected override string DeleteCommandText
         {
             get
             {
-                return "delete from Client where clientId=@id";
+                return "delete from Phone where phoneId=@id";
             }
         }
 
@@ -26,7 +44,7 @@ namespace TypesProject.concrete
         {
             get
             {
-                return "INSERT INTO Client (Name) VALUES(@Name); select @id=scope_identity()";
+                return "INSERT INTO Phone (code, areacode, number, description) VALUES(@id, @area, @numb, @desc); select @id=code";
             }
         }
 
@@ -34,7 +52,7 @@ namespace TypesProject.concrete
         {
             get
             {
-                return "select clientId,name from Client";
+                return "select code, areacode, number, description from Phone";
             }
         }
 
@@ -42,7 +60,7 @@ namespace TypesProject.concrete
         {
             get
             {
-                return String.Format("{0} where clientId=@id", SelectAllCommandText); ;
+                return String.Format("{0} where phoneId=@id", SelectAllCommandText); ;
             }
         }
 
@@ -50,58 +68,73 @@ namespace TypesProject.concrete
         {
             get
             {
-                return "update Client set name=@name where clientId=@id";
+                return "update Phone set number=@numb, areacode=@area, description=@desc where phoneId=@id";
             }
         }
 
-        protected override void DeleteParameters(IDbCommand cmd, Client c)
+        protected override void DeleteParameters(IDbCommand cmd, Phone p)
         {
 
-            SqlParameter p1 = new SqlParameter("@id", c.nif);
-            cmd.Parameters.Add(p1);
+            SqlParameter id= new SqlParameter("@id", p.code);
+            cmd.Parameters.Add(id);
         }
 
-        protected override void InsertParameters(IDbCommand cmd, Client c)
+        protected override void InsertParameters(IDbCommand cmd, Phone p)
         {
-            SqlParameter p = new SqlParameter("@Name", c.name);
-            SqlParameter p1 = new SqlParameter("@id", SqlDbType.Int);
-            p1.Direction = ParameterDirection.InputOutput;
+            SqlParameter ac = new SqlParameter("@area", p.areacode);
+            SqlParameter id = new SqlParameter("@id", p.code);
+            SqlParameter d = new SqlParameter("@desc", p.description);
+            SqlParameter nb = new SqlParameter("@numb", p.number);
 
-            if (c.nif != null)
-                p1.Value = c.nif;
-            else
-                p1.Value = DBNull.Value;
+            id.Direction = ParameterDirection.InputOutput;
 
-            cmd.Parameters.Add(p);
-            cmd.Parameters.Add(p1);
+            cmd.Parameters.Add(ac);
+            cmd.Parameters.Add(id);
+            cmd.Parameters.Add(d);
+            cmd.Parameters.Add(nb);
+
         }
 
 
         protected override void SelectParameters(IDbCommand cmd, int? k)
         {
-            SqlParameter p1 = new SqlParameter("@id", k);
-            cmd.Parameters.Add(p1);
+            SqlParameter id = new SqlParameter("@id", k);
+            cmd.Parameters.Add(id);
         }
 
-        protected override Client UpdateEntityID(IDbCommand cmd, Client c)
+        protected override Phone UpdateEntityID(IDbCommand cmd, Phone p)
         {
             var param = cmd.Parameters["@id"] as SqlParameter;
-            c.nif = int.Parse(param.Value.ToString());
-            return c;
+            p.code = int.Parse(param.Value.ToString());
+            return p;
         }
 
-        protected override void UpdateParameters(IDbCommand cmd, Client c)
+        protected override void UpdateParameters(IDbCommand cmd, Phone p)
         {
-            InsertParameters(cmd, c);
+            InsertParameters(cmd, p);
         }
 
-        protected override Client Map(IDataRecord record)
+        protected override Phone Map(IDataRecord record)
         {
-            Client c = new Client();
-            c.nif = record.GetInt32(0);
-            c.name = record.GetString(1);
-            return c;
+            Phone p = new Phone();
+            p.code = record.GetInt32(0);
+            p.description = record.GetString(1);
+            p.areacode = record.GetString(2);
+            p.number = record.GetInt32(3);
+            return new PhoneProxy(p, context);
+        }
+        public override Phone Create(Phone phone)
+        {
+
+            return new PhoneProxy(phone, context);
+
+        }
+
+
+        public override Phone Update(Phone phone)
+        {
+            return new PhoneProxy(base.Update(phone), context);
         }
     }
 }
-}
+

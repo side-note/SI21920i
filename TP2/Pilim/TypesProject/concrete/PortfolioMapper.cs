@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,17 +10,53 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class PortfolioMapper
+    class PortfolioMapper: AbstractMapper<Portfolio, String?, List<Portfolio>>, IPortfolioMapper
     {
-        public ClientMapper(IContext ctx) : base(ctx)
+        public PortfolioMapper(IContext ctx) : base(ctx)
         {
+        }
+
+        internal Client LoadClient(Portfolio p)
+        {
+            ClientMapper cm = new ClientMapper(context);
+            List<IDataParameter> parameters = new List<IDataParameter>();
+            parameters.Add(new SqlParameter("@id", p.name));
+
+            using (IDataReader rd = ExecuteReader("select client from email where emailId=@id", parameters))
+            {
+                if (rd.Read())
+                {
+                    int key = rd.GetInt32(0);
+                    return cm.Read(key);
+                }
+            }
+            return null;
+
+        }
+
+        internal ICollection<Instrument> LoadPortfolios(Portfolio p)
+        {
+            List<Instrument> lst = new List<Instrument>();
+
+            InstrumentMapper im = new InstrumentMapper(context);
+            List<IDataParameter> parameters = new List<IDataParameter>();
+            parameters.Add(new SqlParameter("@id", p.name));
+            using (IDataReader rd = ExecuteReader("select instrumentid from marketinstrument where marketId=@id", parameters))
+            {
+                while (rd.Read())
+                {
+                    int key = rd.GetInt32(0);
+                    lst.Add(im.Read(key));
+                }
+            }
+            return lst;
         }
 
         protected override string DeleteCommandText
         {
             get
             {
-                return "delete from Client where clientId=@id";
+                return "delete from Portfolio where potfolioId=@id";
             }
         }
 
@@ -26,7 +64,7 @@ namespace TypesProject.concrete
         {
             get
             {
-                return "INSERT INTO Client (Name) VALUES(@Name); select @id=scope_identity()";
+                return "INSERT INTO portfolio (name, totalval) VALUES(@id, @total); select @id=name";
             }
         }
 
@@ -34,7 +72,7 @@ namespace TypesProject.concrete
         {
             get
             {
-                return "select clientId,name from Client";
+                return "select name,totalval from Portfolio";
             }
         }
 
@@ -42,7 +80,7 @@ namespace TypesProject.concrete
         {
             get
             {
-                return String.Format("{0} where clientId=@id", SelectAllCommandText); ;
+                return String.Format("{0} where portfolioId=@id", SelectAllCommandText); ;
             }
         }
 
@@ -50,58 +88,67 @@ namespace TypesProject.concrete
         {
             get
             {
-                return "update Client set name=@name where clientId=@id";
+                return "update Portfolio set totalval=@total where portfolioId=@id";
             }
         }
 
-        protected override void DeleteParameters(IDbCommand cmd, Client c)
+        protected override void DeleteParameters(IDbCommand cmd, Portfolio p)
         {
 
-            SqlParameter p1 = new SqlParameter("@id", c.nif);
-            cmd.Parameters.Add(p1);
+            SqlParameter id = new SqlParameter("@id",p.name);
+            cmd.Parameters.Add(id);
         }
 
-        protected override void InsertParameters(IDbCommand cmd, Client c)
+        protected override void InsertParameters(IDbCommand cmd, Portfolio p)
         {
-            SqlParameter p = new SqlParameter("@Name", c.name);
-            SqlParameter p1 = new SqlParameter("@id", SqlDbType.Int);
-            p1.Direction = ParameterDirection.InputOutput;
+            SqlParameter id = new SqlParameter("@id", p.name);
+            SqlParameter tv = new SqlParameter("@total", p.totalval);
+            id.Direction = ParameterDirection.InputOutput;
 
-            if (c.nif != null)
-                p1.Value = c.nif;
-            else
-                p1.Value = DBNull.Value;
-
-            cmd.Parameters.Add(p);
-            cmd.Parameters.Add(p1);
+            cmd.Parameters.Add(id);
+            cmd.Parameters.Add(tv);
         }
 
 
-        protected override void SelectParameters(IDbCommand cmd, int? k)
+        protected override void SelectParameters(IDbCommand cmd, String? k)
         {
-            SqlParameter p1 = new SqlParameter("@id", k);
-            cmd.Parameters.Add(p1);
+            SqlParameter id = new SqlParameter("@id", k);
+            cmd.Parameters.Add(id);
         }
 
-        protected override Client UpdateEntityID(IDbCommand cmd, Client c)
+        protected override Portfolio UpdateEntityID(IDbCommand cmd,Portfolio p)
         {
             var param = cmd.Parameters["@id"] as SqlParameter;
-            c.nif = int.Parse(param.Value.ToString());
-            return c;
+         //   p.name= string.Parse(param.Value.ToString());
+            return p;
         }
 
-        protected override void UpdateParameters(IDbCommand cmd, Client c)
+        protected override void UpdateParameters(IDbCommand cmd, Portfolio p)
         {
-            InsertParameters(cmd, c);
+            InsertParameters(cmd, p);
         }
 
-        protected override Client Map(IDataRecord record)
+        protected override Portfolio Map(IDataRecord record)
         {
-            Client c = new Client();
-            c.nif = record.GetInt32(0);
-            c.name = record.GetString(1);
-            return c;
+            Portfolio p = new Portfolio();
+            p.totalval = record.GetDouble(0);
+            p.name = record.GetString(1);
+            return new PortfolioProxy( p, context);
+
+        }
+
+        public override Portfolio Create(Portfolio portfolio)
+        {
+
+            return new PortfolioProxy(portfolio, context);
+
+        }
+
+
+        public override Portfolio Update(Portfolio portfolio)
+        {
+            return new PortfolioProxy(base.Update(portfolio), context);
         }
     }
 }
-}
+

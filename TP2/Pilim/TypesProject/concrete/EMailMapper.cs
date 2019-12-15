@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,17 +10,34 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class EmailMapper
+    class EmailMapper :AbstractMapper<Email, int?, List<Email>>, IEmailMapper
     {
-        public ClientMapper(IContext ctx) : base(ctx)
+        public EmailMapper(IContext ctx) : base(ctx)
         {
+        }
+        internal Client LoadClient(Email e)
+        {
+           ClientMapper cm = new ClientMapper(context);
+            List<IDataParameter> parameters = new List<IDataParameter>();
+            parameters.Add(new SqlParameter("@id", e.code));
+
+            using (IDataReader rd = ExecuteReader("select client from email where emailId=@id", parameters))
+            {
+                if (rd.Read())
+                {
+                    int key = rd.GetInt32(0);
+                    return cm.Read(key);
+                }
+            }
+            return null;
+
         }
 
         protected override string DeleteCommandText
         {
             get
             {
-                return "delete from Client where clientId=@id";
+                return "delete from Email where emailId=@id";
             }
         }
 
@@ -26,7 +45,7 @@ namespace TypesProject.concrete
         {
             get
             {
-                return "INSERT INTO Client (Name) VALUES(@Name); select @id=scope_identity()";
+                return "INSERT INTO Email (code, addr, description) VALUES(@id, @addr, @desc); select @id=code";
             }
         }
 
@@ -34,7 +53,7 @@ namespace TypesProject.concrete
         {
             get
             {
-                return "select clientId,name from Client";
+                return "select code, addr, description from Email";
             }
         }
 
@@ -42,7 +61,7 @@ namespace TypesProject.concrete
         {
             get
             {
-                return String.Format("{0} where clientId=@id", SelectAllCommandText); ;
+                return String.Format("{0} where emailId=@id", SelectAllCommandText); ;
             }
         }
 
@@ -50,58 +69,68 @@ namespace TypesProject.concrete
         {
             get
             {
-                return "update Client set name=@name where clientId=@id";
+                return "update Email set addr=@addr, description=@desc where emailId=@id";
             }
         }
 
-        protected override void DeleteParameters(IDbCommand cmd, Client c)
+        protected override void DeleteParameters(IDbCommand cmd, Email e)
         {
 
-            SqlParameter p1 = new SqlParameter("@id", c.nif);
-            cmd.Parameters.Add(p1);
+            SqlParameter id = new SqlParameter("@id", e.code);
+            cmd.Parameters.Add(id);
         }
 
-        protected override void InsertParameters(IDbCommand cmd, Client c)
+        protected override void InsertParameters(IDbCommand cmd, Email e)
         {
-            SqlParameter p = new SqlParameter("@Name", c.name);
-            SqlParameter p1 = new SqlParameter("@id", SqlDbType.Int);
-            p1.Direction = ParameterDirection.InputOutput;
+            SqlParameter addr = new SqlParameter("@addr", e.addr);
+            SqlParameter id = new SqlParameter("@id", e.code);
+            SqlParameter desc = new SqlParameter("@desc", e.description);
+            id.Direction = ParameterDirection.InputOutput;
 
-            if (c.nif != null)
-                p1.Value = c.nif;
-            else
-                p1.Value = DBNull.Value;
-
-            cmd.Parameters.Add(p);
-            cmd.Parameters.Add(p1);
+            cmd.Parameters.Add(id);
+            cmd.Parameters.Add(addr);
+            cmd.Parameters.Add(desc);
         }
 
 
         protected override void SelectParameters(IDbCommand cmd, int? k)
         {
-            SqlParameter p1 = new SqlParameter("@id", k);
-            cmd.Parameters.Add(p1);
+            SqlParameter id = new SqlParameter("@id", k);
+            cmd.Parameters.Add(id);
         }
 
-        protected override Client UpdateEntityID(IDbCommand cmd, Client c)
+        protected override Email UpdateEntityID(IDbCommand cmd, Email e)
         {
             var param = cmd.Parameters["@id"] as SqlParameter;
-            c.nif = int.Parse(param.Value.ToString());
-            return c;
+            e.code = int.Parse(param.Value.ToString());
+            return e;
         }
 
-        protected override void UpdateParameters(IDbCommand cmd, Client c)
+        protected override void UpdateParameters(IDbCommand cmd, Email e)
         {
-            InsertParameters(cmd, c);
+            InsertParameters(cmd, e);
         }
 
-        protected override Client Map(IDataRecord record)
+        protected override Email Map(IDataRecord record)
         {
-            Client c = new Client();
-            c.nif = record.GetInt32(0);
-            c.name = record.GetString(1);
-            return c;
+            Email e = new Email();
+            e.code = record.GetInt32(0);
+            e.addr = record.GetString(1);
+            e.description = record.GetString(2);
+            return new EmailProxy(e,context);
+        }
+        public override Email Create(Email email)
+        {
+
+            return new EmailProxy(email, context);
+
+        }
+
+
+        public override Email Update(Email email)
+        {
+            return new EmailProxy(base.Update(email), context);
         }
     }
 }
-}
+
