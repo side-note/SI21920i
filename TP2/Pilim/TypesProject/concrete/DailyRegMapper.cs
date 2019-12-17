@@ -5,77 +5,38 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using TypesProject.mapper;
 using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class DailyRegMapper : AbstractMapper<DailyReg, KeyValuePair<string, DateTime?>, List<DailyReg>>, IDailyRegMapper
+    class DailyRegMapper : IDailyRegMapper
     {
-        public DailyRegMapper(IContext ctx) : base(ctx)
+        MapperHelper<IDailyReg, KeyValuePair<string, DateTime>, List<IDailyReg>> mapperHelper;
+        public DailyRegMapper(IContext ctx)
         {
+            mapperHelper = new MapperHelper<IDailyReg, KeyValuePair<string, DateTime>, List<IDailyReg>>(ctx, this);
         }
         internal Instrument LoadInstrument(DailyReg dr)
         {
-            InstrumentMapper im = new InstrumentMapper(context);
+            InstrumentMapper im = new InstrumentMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
             parameters.Add(new SqlParameter("@id",dr.isin));
             parameters.Add(new SqlParameter("@datetime", dr.dailydate));
 
-            using (IDataReader rd = ExecuteReader("select instrument from dailyreg where dailyregId=@id and dailyregdt=@datetime ", parameters))
+            using (IDataReader rd = mapperHelper.ExecuteReader("select instrument from dailyreg where dailyregId=@id and dailyregdt=@datetime ", parameters))
             {
                 if (rd.Read())
                 {
-                    int key = rd.GetInt32(0);
+                    string key = rd.GetString(0);
                     return im.Read(key);
                 }
             }
             return null;
-
         }
 
-
-        protected override string DeleteCommandText
-        {
-            get
-            {
-                return "delete from DailyReg where dailyregId=@id and dailyregdt=@datetime";
-            }
-        }
-
-        protected override string InsertCommandText
-        {
-            get
-            {
-                return "INSERT INTO DailyReg (isin, minval, openingval,  maxval, closingval, dailydate) VALUES(@id, @minval, @openingval, @maxval, @closingval, @datetime); select @id=isin, @datetime=dailydate";
-            }
-        }
-
-        protected override string SelectAllCommandText
-        {
-            get
-            {
-                return "select isin, minval, openingval,  maxval, closingval, dailydate from DailyReg";
-            }
-        }
-
-        protected override string SelectCommandText
-        {
-            get
-            {
-                return String.Format("{0} where dailyregId=@id and dailyregdt=@datetime", SelectAllCommandText); ;
-            }
-        }
-
-        protected override string UpdateCommandText
-        {
-            get
-            {
-                return "update DailyReg set minval=@minval, openingval=@openingval, maxval=@maxval, closingval=@closingval where dailyregId=@id and dailyregdt0@datetime";
-            }
-        }
-
-        protected override void DeleteParameters(IDbCommand cmd, DailyReg dr)
+        protected void DeleteParameters(IDbCommand cmd, IDailyReg dr)
         {
 
             SqlParameter id = new SqlParameter("@id",dr.isin);
@@ -84,7 +45,7 @@ namespace TypesProject.concrete
             cmd.Parameters.Add(dt);
         }
 
-        protected override void InsertParameters(IDbCommand cmd, DailyReg dr)
+        protected void InsertParameters(IDbCommand cmd, IDailyReg dr)
         {
             SqlParameter dt = new SqlParameter("@datetime", dr.dailydate);
             SqlParameter id = new SqlParameter("@id", dr.isin);
@@ -105,7 +66,7 @@ namespace TypesProject.concrete
             cmd.Parameters.Add(ov);
             cmd.Parameters.Add(cv);
         }
-        protected override void SelectParameters(IDbCommand command, KeyValuePair<string, DateTime?> k)
+        protected void SelectParameters(IDbCommand command, KeyValuePair<string, DateTime> k)
         {
             SqlParameter id = new SqlParameter("@id", k.Key);
             SqlParameter dt = new SqlParameter("@datetime", k.Value);
@@ -115,21 +76,13 @@ namespace TypesProject.concrete
 
         
 
-        protected override DailyReg UpdateEntityID(IDbCommand cmd, DailyReg dr)
-        {
-            var paramid = cmd.Parameters["@id"] as SqlParameter;
-            var paramdt = cmd.Parameters["@datetime"] as SqlParameter;
-          // dr.isin = int.Parse(paramid.Value.ToString());
-            dr.dailydate= DateTime.Parse(paramdt.Value.ToString());
-            return dr;
-        }
-
-        protected override void UpdateParameters(IDbCommand cmd, DailyReg dr)
+    
+        protected void UpdateParameters(IDbCommand cmd, IDailyReg dr)
         {
             InsertParameters(cmd, dr);
         }
 
-        protected override DailyReg Map(IDataRecord record)
+        public IDailyReg Map(IDataRecord record)
         {
             DailyReg dr = new DailyReg();
             dr.maxval = record.GetDouble(0);
@@ -138,7 +91,57 @@ namespace TypesProject.concrete
             dr.closingval = record.GetDouble(3);
             dr.dailydate = record.GetDateTime(4);
 
-            return new DailyRegProxy(dr, context,record.GetInt32(5));
+            return new DailyRegProxy(dr, mapperHelper.context,record.GetInt32(5));
+        }
+
+        public IDailyReg Create(IDailyReg entity)
+        {
+            using (TransactionScope ts = new TransactionScope(TransactionScopeOption.Required))
+            {
+                mapperHelper.Create(entity,
+                    (cmd, dailyReg) => InsertParameters(cmd, dailyReg),
+                     "INSERT INTO DailyReg (isin, minval, openingval,  maxval, closingval, dailydate) VALUES(@id, @minval, @openingval, @maxval, @closingval, @datetime); select @id=isin, @datetime=dailydate"
+                    );
+                ts.Complete();
+                return entity;
+            }
+        }
+
+        public IDailyReg Read(KeyValuePair<string, DateTime> id)
+        {
+            return mapperHelper.Read(id,
+               (cmd, i) => SelectParameters(cmd, i),
+               "select isin, minval, openingval,  maxval, closingval, dailydate from DailyReg where dailyregId=@id and dailyregdt=@datetime"
+               );            
+        }
+
+        public List<IDailyReg> ReadAll()
+        {
+            return mapperHelper.ReadAll(
+            cmd => { },
+            "select isin, minval, openingval,  maxval, closingval, dailydate from DailyReg"
+            );
+        }
+
+        public bool Update(IDailyReg entity)
+        {
+            return mapperHelper.Update(entity,
+                   (cmd, dailyReg) => UpdateParameters(cmd, dailyReg),
+                    "update DailyReg set minval=@minval, openingval=@openingval, maxval=@maxval, closingval=@closingval where dailyregId=@id and dailyregdt0@datetime"
+                   );
+        }
+
+        public bool Delete(IDailyReg entity)
+        {
+            return mapperHelper.Delete(entity,
+                (cmd, dailyreg) => DeleteParameters(cmd, dailyreg),
+                "delete from DailyReg where dailyregId=@id and dailyregdt=@datetime"
+                );            
+        }
+
+        public List<IDailyReg> MapAll(IDataReader reader)
+        {
+            return mapperHelper.MapAll(reader);
         }
     }
 }

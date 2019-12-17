@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TypesProject.model
 {
-    public class DailyReg
+    public class DailyReg: IDailyReg
     {
         public DailyReg() { }
         public String isin { get; set; }
