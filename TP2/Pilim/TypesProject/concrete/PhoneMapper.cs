@@ -10,7 +10,7 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class PhoneMapper : AbstractMapper<Phone, int?, List<Phone>>,IPhoneMapper
+    class PhoneMapper : AbstractMapper<Phone, int, List<Phone>>,IPhoneMapper
     {
         public PhoneMapper(IContext ctx) : base(ctx)
         {
@@ -96,7 +96,7 @@ namespace TypesProject.concrete
         }
 
 
-        protected override void SelectParameters(IDbCommand cmd, int? k)
+        protected override void SelectParameters(IDbCommand cmd, int k)
         {
             SqlParameter id = new SqlParameter("@id", k);
             cmd.Parameters.Add(id);

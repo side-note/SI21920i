@@ -10,7 +10,7 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class EmailMapper :AbstractMapper<Email, int?, List<Email>>, IEmailMapper
+    class EmailMapper :AbstractMapper<Email, int, List<Email>>, IEmailMapper
     {
         public EmailMapper(IContext ctx) : base(ctx)
         {

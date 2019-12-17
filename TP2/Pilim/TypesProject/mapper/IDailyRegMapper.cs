@@ -7,7 +7,7 @@ using TypesProject.model;
 
 namespace TypesProject.mapper
 {
-    interface IDailyRegMapper: IMapper<DailyReg,KeyValuePair<Instrument?,DateTime?>,List<DailyReg> >
+    interface IDailyRegMapper: IMapper<DailyReg,KeyValuePair<string,DateTime>,List<DailyReg> >
     {
     }
 }

@@ -7,7 +7,7 @@ using TypesProject.model;
 
 namespace TypesProject.mapper
 {
-    interface IClientMapper : IMapper<Client,int?,List<Client>>
+    interface IClientMapper : IMapper<IClient,int,List<IClient>>
     {
 
     }

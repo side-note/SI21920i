@@ -10,7 +10,7 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class MarketMapper: AbstractMapper<Market, int?, List<Market>>, IMarketMapper
+    class MarketMapper: AbstractMapper<Market, int, List<Market>>, IMarketMapper
     {
         public MarketMapper(IContext ctx) : base(ctx)
         {
@@ -43,7 +43,7 @@ namespace TypesProject.concrete
             {
                 while (rd.Read())
                 {
-                    int key = rd.GetInt32(0);
+                    string key = rd.GetString(0);
                     lst.Add(im.Read(key));
                 }
             }
@@ -109,7 +109,7 @@ namespace TypesProject.concrete
         }
 
 
-        protected override void SelectParameters(IDbCommand cmd, int? k)
+        protected override void SelectParameters(IDbCommand cmd, int k)
         {
             SqlParameter id = new SqlParameter("@id", k);
             cmd.Parameters.Add(id);

@@ -10,11 +10,11 @@ namespace TypesProject.model
     {
         public Instrument() { }
 
-        public int? isin { get; set; }
+        public string isin { get; set; }
 
         public string description { get; set; }
 
-        public Market mrktcode { get; set; }
+        public int mrktcode { get; set; }
 
         public virtual ICollection<Portfolio> instrumentPortfolios { get; set; }
         public virtual ICollection <DailyReg> dailyRegs { get; set; }

@@ -10,7 +10,7 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class ExttripleMapper: AbstractMapper<Exttriple, KeyValuePair<int?, DateTime?>, List<Exttriple>>, IExttripleMapper
+    class ExttripleMapper: AbstractMapper<Exttriple, KeyValuePair<int, DateTime>, List<Exttriple>>, IExttripleMapper
     {
         public ExttripleMapper(IContext ctx) : base(ctx)
         {
@@ -78,7 +78,7 @@ namespace TypesProject.concrete
         }
 
 
-        protected override void SelectParameters(IDbCommand cmd, KeyValuePair< int?, DateTime?> p)
+        protected override void SelectParameters(IDbCommand cmd, KeyValuePair< int, DateTime> p)
         {
             SqlParameter id = new SqlParameter("@id",p.Key);
             SqlParameter datetime = new SqlParameter("@datetime",p.Value);

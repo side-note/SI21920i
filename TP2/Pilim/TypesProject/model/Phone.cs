@@ -10,7 +10,7 @@ namespace TypesProject.model
     {
         public Phone() { }
 
-        public int? code { get; set; }
+        public int code { get; set; }
 
         public int number { get; set; }
 

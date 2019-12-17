@@ -11,8 +11,8 @@ namespace TypesProject.mapper
     class DailyMarketProxy : DailyMarket
     {
         private IContext context;
-        private int? marketId;
-        public DailyMarketProxy(DailyMarket dm, IContext ctx, int? marketID) : base()
+        private int marketId;
+        public DailyMarketProxy(DailyMarket dm, IContext ctx, int marketID) : base()
         {
             context = ctx;
             base.Code = dm.Code;

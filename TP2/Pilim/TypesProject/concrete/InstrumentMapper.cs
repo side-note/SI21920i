@@ -10,7 +10,7 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class InstrumentMapper: AbstractMapper<Instrument, int?, List<Instrument>>, IInstrumentMapper
+    class InstrumentMapper: AbstractMapper<Instrument, string, List<Instrument>>, IInstrumentMapper
     {
         public InstrumentMapper(IContext ctx) : base(ctx)
         {
@@ -127,7 +127,7 @@ namespace TypesProject.concrete
         }
 
 
-        protected override void SelectParameters(IDbCommand cmd, int? k)
+        protected override void SelectParameters(IDbCommand cmd, string k)
         {
             SqlParameter p1 = new SqlParameter("@id", k);
             cmd.Parameters.Add(p1);
@@ -136,7 +136,7 @@ namespace TypesProject.concrete
         protected override Instrument UpdateEntityID(IDbCommand cmd, Instrument i)
         {
             var param = cmd.Parameters["@id"] as SqlParameter;
-            i.isin = int.Parse(param.Value.ToString());
+            i.isin = string.Parse(param.Value.ToString());
             return i;
         }
 
@@ -148,7 +148,7 @@ namespace TypesProject.concrete
         protected override Instrument Map(IDataRecord record)
         {
             Instrument i = new Instrument();
-            i.isin = record.GetInt32(0);
+            i.isin = record.GetString(0);
             i.description = record.GetString(1);
             return new InstrumentProxy(i, context, record.GetInt32(2));
         }

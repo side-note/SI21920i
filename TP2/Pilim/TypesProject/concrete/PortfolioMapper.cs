@@ -10,7 +10,7 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class PortfolioMapper: AbstractMapper<Portfolio, String?, List<Portfolio>>, IPortfolioMapper
+    class PortfolioMapper: AbstractMapper<Portfolio, String, List<Portfolio>>, IPortfolioMapper
     {
         public PortfolioMapper(IContext ctx) : base(ctx)
         {
@@ -45,7 +45,7 @@ namespace TypesProject.concrete
             {
                 while (rd.Read())
                 {
-                    int key = rd.GetInt32(0);
+                    string key = rd.GetString(0);
                     lst.Add(im.Read(key));
                 }
             }
@@ -110,7 +110,7 @@ namespace TypesProject.concrete
         }
 
 
-        protected override void SelectParameters(IDbCommand cmd, String? k)
+        protected override void SelectParameters(IDbCommand cmd, String k)
         {
             SqlParameter id = new SqlParameter("@id", k);
             cmd.Parameters.Add(id);
@@ -119,7 +119,7 @@ namespace TypesProject.concrete
         protected override Portfolio UpdateEntityID(IDbCommand cmd,Portfolio p)
         {
             var param = cmd.Parameters["@id"] as SqlParameter;
-         //   p.name= string.Parse(param.Value.ToString());
+            p.name= string.Parse(param.Value.ToString());
             return p;
         }
 

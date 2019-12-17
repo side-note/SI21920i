@@ -90,6 +90,7 @@
     <Compile Include="mapper\InstrumentProxy.cs" />
     <Compile Include="mapper\IPhoneMapper.cs" />
     <Compile Include="mapper\IPortfolioMapper.cs" />
+    <Compile Include="mapper\MapperHelper.cs" />
     <Compile Include="mapper\MarketProxy.cs" />
     <Compile Include="mapper\PhoneProxy.cs" />
     <Compile Include="mapper\PortfolioProxy.cs" />
@@ -98,7 +99,16 @@
     <Compile Include="model\DailyReg.cs" />
     <Compile Include="model\Email.cs" />
     <Compile Include="model\Exttriple.cs" />
+    <Compile Include="model\IClient.cs" />
+    <Compile Include="model\IDailyMarket.cs" />
+    <Compile Include="model\IDailyReg.cs" />
+    <Compile Include="model\IEmail.cs" />
+    <Compile Include="model\IExtTriple.cs" />
+    <Compile Include="model\IInstrument.cs" />
+    <Compile Include="model\IMarket.cs" />
     <Compile Include="model\Instrument.cs" />
+    <Compile Include="model\IPhone.cs" />
+    <Compile Include="model\IPortfolio.cs" />
     <Compile Include="model\Market.cs" />
     <Compile Include="model\Phone.cs" />
     <Compile Include="model\Portfolio.cs" />

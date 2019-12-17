@@ -10,7 +10,7 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class DailyRegMapper : AbstractMapper<DailyReg, KeyValuePair<Instrument?, DateTime?>, List<DailyReg>>, IDailyRegMapper
+    class DailyRegMapper : AbstractMapper<DailyReg, KeyValuePair<string, DateTime?>, List<DailyReg>>, IDailyRegMapper
     {
         public DailyRegMapper(IContext ctx) : base(ctx)
         {
@@ -105,7 +105,7 @@ namespace TypesProject.concrete
             cmd.Parameters.Add(ov);
             cmd.Parameters.Add(cv);
         }
-        protected override void SelectParameters(IDbCommand command, KeyValuePair<Instrument, DateTime?> k)
+        protected override void SelectParameters(IDbCommand command, KeyValuePair<string, DateTime?> k)
         {
             SqlParameter id = new SqlParameter("@id", k.Key);
             SqlParameter dt = new SqlParameter("@datetime", k.Value);
