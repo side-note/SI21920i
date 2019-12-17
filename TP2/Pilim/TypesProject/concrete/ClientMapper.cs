@@ -68,41 +68,13 @@ namespace TypesProject.concrete
 
         }
 
-        public override Client Create(Client client)
-        {
-           
-                return new ClientProxy(client,context) ;
-
-        }
+        public override Client Create(Client client) { return new ClientProxy(client, context); }
 
 
-        public override Client Update(Client client)
-        {
-            return new ClientProxy(base.Update(client), context);
-        }
-        protected override string DeleteCommandText
-        {
-            get
-            {
-                return "delete from Client where clientId=@id";
-            }
-        }
-
-        protected override string InsertCommandText
-        {
-            get
-            {
-                return "INSERT INTO Client (Name, ncc, nif) VALUES(@Name, @ncc, @id); select @id=   nif";
-            }
-        }
-
-        protected override string SelectAllCommandText
-        {
-            get
-            {
-                return "select clientId, name, ncc from Client";
-            }
-        }
+        public override Client Update(Client client) { return new ClientProxy(base.Update(client), context); }
+        protected override string DeleteCommandText => "delete from Client where clientId=@id";
+        protected override string InsertCommandText => "INSERT INTO Client (Name, ncc, nif) VALUES(@Name, @ncc, @id); select @id=   nif";
+        protected override string SelectAllCommandText => "select clientId, name, ncc from Client";
 
         protected override string SelectCommandText
         {
