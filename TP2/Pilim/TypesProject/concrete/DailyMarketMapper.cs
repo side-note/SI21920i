@@ -19,9 +19,9 @@ namespace TypesProject.concrete
             mapperHelper = new MapperHelper<IDailyMarket, KeyValuePair<int, DateTime>, List<IDailyMarket>>(ctx, this);
         }
 
-        internal Market LoadMarket(DailyMarket dm)
+        internal IMarket LoadMarket(DailyMarket dm)
         {
-           MarketMapper mm = new MarketMapper(mapperHelper.context);
+            MarketMapper mm = new MarketMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
             parameters.Add(new SqlParameter("@id", dm.Code));
             parameters.Add(new SqlParameter("@datetime", dm.Date));

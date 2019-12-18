@@ -18,7 +18,7 @@ namespace TypesProject.concrete
         {
             mapperHelper = new MapperHelper<IDailyReg, KeyValuePair<string, DateTime>, List<IDailyReg>>(ctx, this);
         }
-        internal Instrument LoadInstrument(DailyReg dr)
+        internal IInstrument LoadInstrument(DailyReg dr)
         {
             InstrumentMapper im = new InstrumentMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();

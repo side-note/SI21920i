@@ -7,7 +7,7 @@ using TypesProject.model;
 
 namespace TypesProject.mapper
 {
-    interface IEmailMapper : IMapper<Email, int, List<Email>>
+    interface IEmailMapper : IMapper<IEmail, int, List<IEmail>>
     {
     }
 }

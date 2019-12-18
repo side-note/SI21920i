@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TypesProject.model
 {
-    public class Instrument
+    public class Instrument: IInstrument
     {
         public Instrument() { }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TypesProject.model
 {
-    public class Email
+    public class Email : IEmail
     {
         public Email(){}
 

@@ -16,9 +16,9 @@ namespace TypesProject.concrete
             mapperHelper = new MapperHelper<IClient, int, List<IClient>>(ctx,this);
         }
 
-        internal ICollection<Email> LoadEmails(Client c)
+        internal ICollection<IEmail> LoadEmails(Client c)
         {
-            List<Email> lst = new List<Email>();
+            List<IEmail> lst = new List<IEmail>();
 
             EmailMapper em = new EmailMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
@@ -33,9 +33,9 @@ namespace TypesProject.concrete
             }
             return lst;
         }
-        internal ICollection<Phone> LoadPhones(Client c)
+        internal ICollection<IPhone> LoadPhones(Client c)
         {
-            List<Phone> lst = new List<Phone>();
+            List<IPhone> lst = new List<IPhone>();
 
             PhoneMapper pm = new PhoneMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();

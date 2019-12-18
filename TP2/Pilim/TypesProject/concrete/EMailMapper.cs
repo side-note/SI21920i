@@ -5,23 +5,26 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using TypesProject.mapper;
 using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class EmailMapper :AbstractMapper<Email, int, List<Email>>, IEmailMapper
+    class EmailMapper : IEmailMapper
     {
-        public EmailMapper(IContext ctx) : base(ctx)
+        MapperHelper<IEmail, int, List<IEmail>> mapperHelper;
+        public EmailMapper(IContext ctx)
         {
+            mapperHelper = new MapperHelper<IEmail, int, List<IEmail>>(ctx, this);
         }
-        internal Client LoadClient(Email e)
+        internal IClient LoadClient(Email e)
         {
-           ClientMapper cm = new ClientMapper(context);
+            ClientMapper cm = new ClientMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
             parameters.Add(new SqlParameter("@id", e.code));
 
-            using (IDataReader rd = ExecuteReader("select client from email where emailId=@id", parameters))
+            using (IDataReader rd = mapperHelper.ExecuteReader("select client from email where emailId=@id", parameters))
             {
                 if (rd.Read())
                 {
@@ -33,54 +36,14 @@ namespace TypesProject.concrete
 
         }
 
-        protected override string DeleteCommandText
-        {
-            get
-            {
-                return "delete from Email where emailId=@id";
-            }
-        }
-
-        protected override string InsertCommandText
-        {
-            get
-            {
-                return "INSERT INTO Email (code, addr, description) VALUES(@id, @addr, @desc); select @id=code";
-            }
-        }
-
-        protected override string SelectAllCommandText
-        {
-            get
-            {
-                return "select code, addr, description from Email";
-            }
-        }
-
-        protected override string SelectCommandText
-        {
-            get
-            {
-                return String.Format("{0} where emailId=@id", SelectAllCommandText); ;
-            }
-        }
-
-        protected override string UpdateCommandText
-        {
-            get
-            {
-                return "update Email set addr=@addr, description=@desc where emailId=@id";
-            }
-        }
-
-        protected override void DeleteParameters(IDbCommand cmd, Email e)
+        protected void DeleteParameters(IDbCommand cmd, IEmail e)
         {
 
             SqlParameter id = new SqlParameter("@id", e.code);
             cmd.Parameters.Add(id);
         }
 
-        protected override void InsertParameters(IDbCommand cmd, Email e)
+        protected void InsertParameters(IDbCommand cmd, IEmail e)
         {
             SqlParameter addr = new SqlParameter("@addr", e.addr);
             SqlParameter id = new SqlParameter("@id", e.code);
@@ -93,43 +56,73 @@ namespace TypesProject.concrete
         }
 
 
-        protected override void SelectParameters(IDbCommand cmd, int? k)
+        protected void SelectParameters(IDbCommand cmd, int? k)
         {
             SqlParameter id = new SqlParameter("@id", k);
             cmd.Parameters.Add(id);
         }
 
-        protected override Email UpdateEntityID(IDbCommand cmd, Email e)
-        {
-            var param = cmd.Parameters["@id"] as SqlParameter;
-            e.code = int.Parse(param.Value.ToString());
-            return e;
-        }
-
-        protected override void UpdateParameters(IDbCommand cmd, Email e)
+        protected void UpdateParameters(IDbCommand cmd, IEmail e)
         {
             InsertParameters(cmd, e);
         }
 
-        protected override Email Map(IDataRecord record)
+        public IEmail Map(IDataRecord record)
         {
             Email e = new Email();
             e.code = record.GetInt32(0);
             e.addr = record.GetString(1);
             e.description = record.GetString(2);
-            return new EmailProxy(e,context);
+            return new EmailProxy(e, mapperHelper.context);
         }
-        public override Email Create(Email email)
+        public IEmail Create(IEmail entity)
         {
-
-            return new EmailProxy(email, context);
-
+            using (TransactionScope ts = new TransactionScope(TransactionScopeOption.Required))
+            {
+                mapperHelper.Create(entity,
+                    (cmd, email) => InsertParameters(cmd, email),
+                     "INSERT INTO Email (code, addr, description) VALUES(@id, @addr, @desc); select @id=code"
+                    );
+                ts.Complete();
+                return entity;
+            }
         }
 
-
-        public override Email Update(Email email)
+        public List<IEmail> ReadAll()
         {
-            return new EmailProxy(base.Update(email), context);
+            return mapperHelper.ReadAll(
+            cmd => { },
+            "select code, addr, description from Email"
+            );
+        }
+
+        public IEmail Read(int id)
+        {
+            return mapperHelper.Read(id,
+              (cmd, i) => SelectParameters(cmd, i),
+             "select code, addr, description from Email where emailId=@id"
+              );
+        }
+
+        public bool Update(IEmail entity)
+        {
+            return mapperHelper.Update(entity,
+                (cmd, email) => UpdateParameters(cmd, email),
+                "update Email set addr=@addr, description=@desc where emailId=@id"
+                );
+        }
+
+        public bool Delete(IEmail entity)
+        {
+            return mapperHelper.Delete(entity,
+                (cmd, dailyreg) => DeleteParameters(cmd, dailyreg),
+                "delete from Email where emailId = @id"
+                );
+        }
+
+        public List<IEmail> MapAll(IDataReader reader)
+        {
+            return mapperHelper.MapAll(reader);
         }
     }
 }

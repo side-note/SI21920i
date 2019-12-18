@@ -7,7 +7,7 @@ using TypesProject.model;
 
 namespace TypesProject.mapper
 {
-    interface IPortfolioMapper :IMapper<Portfolio, String, List<Portfolio>>
+    interface IPortfolioMapper :IMapper<IPortfolio, String, List<IPortfolio>>
     {
     }
 }

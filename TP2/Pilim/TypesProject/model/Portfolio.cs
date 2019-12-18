@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TypesProject.model
 {
-    public class Portfolio
+    public class Portfolio : IPortfolio
     {
         public Portfolio() { }
         public String name { get; set; }

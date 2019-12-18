@@ -5,24 +5,27 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using TypesProject.mapper;
 using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class PortfolioMapper: AbstractMapper<Portfolio, String, List<Portfolio>>, IPortfolioMapper
+    class PortfolioMapper: IPortfolioMapper
     {
-        public PortfolioMapper(IContext ctx) : base(ctx)
+        MapperHelper<IPortfolio, String, List<IPortfolio>> mapperHelper;
+        public PortfolioMapper(IContext ctx)
         {
+            mapperHelper = new MapperHelper<IPortfolio, string, List<IPortfolio>>(ctx, this);
         }
 
-        internal Client LoadClient(Portfolio p)
+        internal IClient LoadClient(Portfolio p)
         {
-            ClientMapper cm = new ClientMapper(context);
+            ClientMapper cm = new ClientMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
             parameters.Add(new SqlParameter("@id", p.name));
 
-            using (IDataReader rd = ExecuteReader("select client from email where emailId=@id", parameters))
+            using (IDataReader rd = mapperHelper.ExecuteReader("select client from email where emailId=@id", parameters))
             {
                 if (rd.Read())
                 {
@@ -34,14 +37,14 @@ namespace TypesProject.concrete
 
         }
 
-        internal ICollection<Instrument> LoadPortfolios(Portfolio p)
+        internal ICollection<IInstrument> LoadPortfolios(Portfolio p)
         {
-            List<Instrument> lst = new List<Instrument>();
+            List<IInstrument> lst = new List<IInstrument>();
 
-            InstrumentMapper im = new InstrumentMapper(context);
+            InstrumentMapper im = new InstrumentMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
             parameters.Add(new SqlParameter("@id", p.name));
-            using (IDataReader rd = ExecuteReader("select instrumentid from marketinstrument where marketId=@id", parameters))
+            using (IDataReader rd = mapperHelper.ExecuteReader("select instrumentid from marketinstrument where marketId=@id", parameters))
             {
                 while (rd.Read())
                 {
@@ -52,54 +55,14 @@ namespace TypesProject.concrete
             return lst;
         }
 
-        protected override string DeleteCommandText
-        {
-            get
-            {
-                return "delete from Portfolio where potfolioId=@id";
-            }
-        }
-
-        protected override string InsertCommandText
-        {
-            get
-            {
-                return "INSERT INTO portfolio (name, totalval) VALUES(@id, @total); select @id=name";
-            }
-        }
-
-        protected override string SelectAllCommandText
-        {
-            get
-            {
-                return "select name,totalval from Portfolio";
-            }
-        }
-
-        protected override string SelectCommandText
-        {
-            get
-            {
-                return String.Format("{0} where portfolioId=@id", SelectAllCommandText); ;
-            }
-        }
-
-        protected override string UpdateCommandText
-        {
-            get
-            {
-                return "update Portfolio set totalval=@total where portfolioId=@id";
-            }
-        }
-
-        protected override void DeleteParameters(IDbCommand cmd, Portfolio p)
+        protected void DeleteParameters(IDbCommand cmd, IPortfolio p)
         {
 
             SqlParameter id = new SqlParameter("@id",p.name);
             cmd.Parameters.Add(id);
         }
 
-        protected override void InsertParameters(IDbCommand cmd, Portfolio p)
+        protected void InsertParameters(IDbCommand cmd, IPortfolio p)
         {
             SqlParameter id = new SqlParameter("@id", p.name);
             SqlParameter tv = new SqlParameter("@total", p.totalval);
@@ -110,44 +73,75 @@ namespace TypesProject.concrete
         }
 
 
-        protected override void SelectParameters(IDbCommand cmd, String k)
+        protected  void SelectParameters(IDbCommand cmd, String k)
         {
             SqlParameter id = new SqlParameter("@id", k);
             cmd.Parameters.Add(id);
         }
 
-        protected override Portfolio UpdateEntityID(IDbCommand cmd,Portfolio p)
-        {
-            var param = cmd.Parameters["@id"] as SqlParameter;
-            p.name= string.Parse(param.Value.ToString());
-            return p;
-        }
-
-        protected override void UpdateParameters(IDbCommand cmd, Portfolio p)
+        protected void UpdateParameters(IDbCommand cmd, IPortfolio p)
         {
             InsertParameters(cmd, p);
         }
 
-        protected override Portfolio Map(IDataRecord record)
+        public  IPortfolio Map(IDataRecord record)
         {
             Portfolio p = new Portfolio();
             p.totalval = record.GetDouble(0);
             p.name = record.GetString(1);
-            return new PortfolioProxy( p, context);
+            return new PortfolioProxy( p, mapperHelper.context);
 
         }
 
-        public override Portfolio Create(Portfolio portfolio)
+       
+        public IPortfolio Create(IPortfolio entity)
         {
-
-            return new PortfolioProxy(portfolio, context);
-
+            using (TransactionScope ts = new TransactionScope(TransactionScopeOption.Required))
+            {
+                mapperHelper.Create(entity,
+                    (cmd, portfolio) => InsertParameters(cmd, portfolio),
+                     "INSERT INTO portfolio (name, totalval) VALUES(@id, @total); select @id=name"
+                     );
+                ts.Complete();
+                return entity;
+            }
         }
 
-
-        public override Portfolio Update(Portfolio portfolio)
+        public IPortfolio Read(string id)
         {
-            return new PortfolioProxy(base.Update(portfolio), context);
+            return mapperHelper.Read(id,
+                (cmd, i) => SelectParameters(cmd, i),
+                "select name,totalval from Portfolio  where portfolioId=@id"
+                );
+        }
+
+        public List<IPortfolio> ReadAll()
+        {
+            return mapperHelper.ReadAll(
+                cmd => { },
+                "select name,totalval from Portfolio"
+                );
+        }
+
+        public bool Update(IPortfolio entity)
+        {
+            return mapperHelper.Update(entity,
+                (cmd, portfolio) => UpdateParameters(cmd, portfolio),
+                 "update Portfolio set totalval=@total where portfolioId=@id"
+                );
+        }
+
+        public bool Delete(IPortfolio entity)
+        {
+            return mapperHelper.Delete(entity,
+                (cmd, portfolio) => DeleteParameters(cmd, portfolio),
+                "delete from Portfolio where potfolioId=@id"
+                );
+        }
+
+        public List<IPortfolio> MapAll(IDataReader reader)
+        {
+            return mapperHelper.MapAll(reader);
         }
     }
 }

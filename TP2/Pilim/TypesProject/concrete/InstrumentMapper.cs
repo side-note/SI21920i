@@ -5,41 +5,45 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using TypesProject.mapper;
 using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class InstrumentMapper: AbstractMapper<Instrument, string, List<Instrument>>, IInstrumentMapper
+    class InstrumentMapper: IInstrumentMapper
     {
-        public InstrumentMapper(IContext ctx) : base(ctx)
+        MapperHelper<IInstrument, string, List<IInstrument>> mapperHelper;
+        public InstrumentMapper(IContext ctx) 
         {
+            mapperHelper = new MapperHelper<IInstrument, string, List<IInstrument>>(ctx, this);
         }
-        internal ICollection<DailyReg> LoadDailyRegs(Instrument i)
+        internal ICollection<IDailyReg> LoadDailyRegs(Instrument i)
         {
-            List<DailyReg> lst = new List<DailyReg>();
+            List<IDailyReg> lst = new List<IDailyReg>();
 
-            DailyRegMapper drm = new DailyRegMapper(context);
+            DailyRegMapper drm = new DailyRegMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
             parameters.Add(new SqlParameter("@id", i.isin));
-            using (IDataReader rd = ExecuteReader("select dailyregid, dailyregdt from instrumentdailyreg where instrumentId=@id", parameters))
+            using (IDataReader rd = mapperHelper.ExecuteReader("select dailyregid, dailyregdt from instrumentdailyreg where instrumentId=@id", parameters))
             {
                 while (rd.Read())
                 {
-                    int key = rd.GetInt32(0);
-                    lst.Add(drm.Read(key));
+                    KeyValuePair<string, DateTime> pair = new KeyValuePair<string, DateTime>(rd.GetString(0), rd.GetDateTime(1));
+               
+                    lst.Add(drm.Read(pair));
                 }
             }
             return lst;
         }
-        internal ICollection<Portfolio> LoadPortfolios(Instrument i)
+        internal ICollection<IPortfolio> LoadPortfolios(Instrument i)
         {
-            List<Portfolio> lst = new List<Portfolio>();
+            List<IPortfolio> lst = new List<IPortfolio>();
 
-            PortfolioMapper pm = new PortfolioMapper(context);
+            PortfolioMapper pm = new PortfolioMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
             parameters.Add(new SqlParameter("@id", i.isin));
-            using (IDataReader rd = ExecuteReader("select portfolioid from portfolioinstrument where instrumentId=@id", parameters))
+            using (IDataReader rd = mapperHelper.ExecuteReader("select portfolioid from portfolioinstrument where instrumentId=@id", parameters))
             {
                 while (rd.Read())
                 {
@@ -49,12 +53,12 @@ namespace TypesProject.concrete
             }
             return lst;
         }
-        internal Market LoadMarket(Instrument i)
+        internal IMarket LoadMarket(Instrument i)
         {
-            MarketMapper mm = new MarketMapper(context);
+            MarketMapper mm = new MarketMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
             parameters.Add(new SqlParameter("@id", i.isin));
-            using (IDataReader rd = ExecuteReader("select market from instrument where instrumentId=@id", parameters))
+            using (IDataReader rd = mapperHelper.ExecuteReader("select market from instrument where instrumentId=@id", parameters))
             {
                 if (rd.Read())
                 {
@@ -66,54 +70,14 @@ namespace TypesProject.concrete
 
         }
 
-        protected override string DeleteCommandText
-        {
-            get
-            {
-                return "delete from Instrument where instrumentId=@id";
-            }
-        }
-
-        protected override string InsertCommandText
-        {
-            get
-            {
-                return "INSERT INTO Instrument (isin, mrktcode, description) VALUES(@id, @code, @desc); select @id=isin";
-            }
-        }
-
-        protected override string SelectAllCommandText
-        {
-            get
-            {
-                return "select isin, mrktcode, description from Instrument";
-            }
-        }
-
-        protected override string SelectCommandText
-        {
-            get
-            {
-                return String.Format("{0} where instrumentId=@id", SelectAllCommandText); ;
-            }
-        }
-
-        protected override string UpdateCommandText
-        {
-            get
-            {
-                return "update Instrument set mrktcode=@code, description=@desc where instrumentId=@id";
-            }
-        }
-
-        protected override void DeleteParameters(IDbCommand cmd, Instrument i)
+        protected void DeleteParameters(IDbCommand cmd, IInstrument i)
         {
 
             SqlParameter id = new SqlParameter("@id", i.isin);
             cmd.Parameters.Add(id);
         }
 
-        protected override void InsertParameters(IDbCommand cmd, Instrument i)
+        protected void InsertParameters(IDbCommand cmd, IInstrument i)
         {
             SqlParameter desc = new SqlParameter("@desc", i.description);
             SqlParameter id = new SqlParameter("@id", i.isin);
@@ -127,43 +91,83 @@ namespace TypesProject.concrete
         }
 
 
-        protected override void SelectParameters(IDbCommand cmd, string k)
+        protected void SelectParameters(IDbCommand cmd, string k)
         {
             SqlParameter p1 = new SqlParameter("@id", k);
             cmd.Parameters.Add(p1);
         }
 
-        protected override Instrument UpdateEntityID(IDbCommand cmd, Instrument i)
-        {
-            var param = cmd.Parameters["@id"] as SqlParameter;
-            i.isin = string.Parse(param.Value.ToString());
-            return i;
-        }
-
-        protected override void UpdateParameters(IDbCommand cmd, Instrument i)
+      
+        protected void UpdateParameters(IDbCommand cmd, IInstrument i)
         {
             InsertParameters(cmd, i);
         }
 
-        protected override Instrument Map(IDataRecord record)
+        public IInstrument Map(IDataRecord record)
         {
             Instrument i = new Instrument();
             i.isin = record.GetString(0);
             i.description = record.GetString(1);
-            return new InstrumentProxy(i, context, record.GetInt32(2));
+            return new InstrumentProxy(i, mapperHelper.context, record.GetInt32(2));
         }
-        public override Instrument Create(Instrument instrument)
+        public  IInstrument Create(IInstrument instrument)
         {
 
-            return new InstrumentProxy(instrument, context);
+            using (TransactionScope ts = new TransactionScope(TransactionScopeOption.Required))
+            {
+                mapperHelper.Create(instrument,
+                    (cmd, ins) => InsertParameters(cmd, ins),
+                     "INSERT INTO Instrument (isin, mrktcode, description) VALUES(@id, @code, @desc); select @id=isin"
+                    );
+                ts.Complete();
+                return instrument;
+            }
 
         }
 
-
-        public override Instrument Update(Instrument instrument)
+        public IInstrument Read(string id)
         {
-            return new InstrumentProxy(base.Update(instrument), context);
+            return mapperHelper.Read(id,
+                (cmd, i) => SelectParameters(cmd, i),
+                "select isin, mrktcode, description from Instrument where instrumentId=@id"
+                );
         }
+
+        public List<IInstrument> ReadAll()
+        {
+            return mapperHelper.ReadAll(
+                cmd => { },
+                "select isin, mrktcode, description from Instrument"
+                );
+        }
+
+        public bool Update(IInstrument entity)
+        {
+            return mapperHelper.Update(entity,
+                (cmd, ins) => UpdateParameters(cmd,ins),
+                "update Instrument set mrktcode = @code, description = @desc where instrumentId = @id"
+                );
+            
+        }
+
+        public bool Delete(IInstrument entity)
+        {
+            return mapperHelper.Delete(entity,
+                (cmd, ins) => DeleteParameters(cmd, ins),
+                "delete from Instrument where instrumentId=@id"
+                );
+        }
+
+   
+
+        public List<IInstrument> MapAll(IDataReader reader)
+        {
+            return mapperHelper.MapAll(reader);
+        }
+
+       
+
+       
     }
 }
 

@@ -5,23 +5,26 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using TypesProject.mapper;
 using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class PhoneMapper : AbstractMapper<Phone, int, List<Phone>>,IPhoneMapper
+    class PhoneMapper : IPhoneMapper
     {
-        public PhoneMapper(IContext ctx) : base(ctx)
+        MapperHelper<IPhone, int, List<IPhone>> mapperHelper;
+        public PhoneMapper(IContext ctx) 
         {
+            mapperHelper = new MapperHelper<IPhone, int, List<IPhone>>(ctx, this);
         }
-        internal Client LoadClient(Phone p)
+        internal IClient LoadClient(Phone p)
         {
-            ClientMapper cm = new ClientMapper(context);
+            ClientMapper cm = new ClientMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
             parameters.Add(new SqlParameter("@id", p.code));
 
-            using (IDataReader rd = ExecuteReader("select client from phone where phoneId=@id", parameters))
+            using (IDataReader rd = mapperHelper.ExecuteReader("select client from phone where phoneId=@id", parameters))
             {
                 if (rd.Read())
                 {
@@ -32,54 +35,15 @@ namespace TypesProject.concrete
             return null;
 
         }
-        protected override string DeleteCommandText
-        {
-            get
-            {
-                return "delete from Phone where phoneId=@id";
-            }
-        }
-
-        protected override string InsertCommandText
-        {
-            get
-            {
-                return "INSERT INTO Phone (code, areacode, number, description) VALUES(@id, @area, @numb, @desc); select @id=code";
-            }
-        }
-
-        protected override string SelectAllCommandText
-        {
-            get
-            {
-                return "select code, areacode, number, description from Phone";
-            }
-        }
-
-        protected override string SelectCommandText
-        {
-            get
-            {
-                return String.Format("{0} where phoneId=@id", SelectAllCommandText); ;
-            }
-        }
-
-        protected override string UpdateCommandText
-        {
-            get
-            {
-                return "update Phone set number=@numb, areacode=@area, description=@desc where phoneId=@id";
-            }
-        }
-
-        protected override void DeleteParameters(IDbCommand cmd, Phone p)
+ 
+        protected void DeleteParameters(IDbCommand cmd, IPhone p)
         {
 
             SqlParameter id= new SqlParameter("@id", p.code);
             cmd.Parameters.Add(id);
         }
 
-        protected override void InsertParameters(IDbCommand cmd, Phone p)
+        protected void InsertParameters(IDbCommand cmd, IPhone p)
         {
             SqlParameter ac = new SqlParameter("@area", p.areacode);
             SqlParameter id = new SqlParameter("@id", p.code);
@@ -96,44 +60,77 @@ namespace TypesProject.concrete
         }
 
 
-        protected override void SelectParameters(IDbCommand cmd, int k)
+        protected void SelectParameters(IDbCommand cmd, int k)
         {
             SqlParameter id = new SqlParameter("@id", k);
             cmd.Parameters.Add(id);
         }
 
-        protected override Phone UpdateEntityID(IDbCommand cmd, Phone p)
-        {
-            var param = cmd.Parameters["@id"] as SqlParameter;
-            p.code = int.Parse(param.Value.ToString());
-            return p;
-        }
-
-        protected override void UpdateParameters(IDbCommand cmd, Phone p)
+        protected void UpdateParameters(IDbCommand cmd, IPhone p)
         {
             InsertParameters(cmd, p);
         }
 
-        protected override Phone Map(IDataRecord record)
+        public IPhone Map(IDataRecord record)
         {
             Phone p = new Phone();
             p.code = record.GetInt32(0);
             p.description = record.GetString(1);
             p.areacode = record.GetString(2);
             p.number = record.GetInt32(3);
-            return new PhoneProxy(p, context);
+            return new PhoneProxy(p, mapperHelper.context);
         }
-        public override Phone Create(Phone phone)
+        public IPhone Create(IPhone phone)
         {
-
-            return new PhoneProxy(phone, context);
+            using (TransactionScope ts = new TransactionScope(TransactionScopeOption.Required))
+            {
+                mapperHelper.Create(phone,
+                    (cmd, phone) => InsertParameters(cmd, phone),
+                    "INSERT INTO Phone (code, areacode, number, description) VALUES(@id, @area, @numb, @desc); select @id=code"
+                    );
+                ts.Complete();
+                return phone;
+            }
 
         }
 
 
-        public override Phone Update(Phone phone)
+        public bool Update(IPhone phone)
         {
-            return new PhoneProxy(base.Update(phone), context);
+            return mapperHelper.Update(phone,
+                (cmd, phone) => UpdateParameters(cmd, phone),
+               "update Phone set number=@numb, areacode=@area, description=@desc where phoneId=@id"
+                );
+        }
+
+        public IPhone Read(int id)
+        {
+            return mapperHelper.Read(id,
+              (cmd, i) => SelectParameters(cmd, i),
+             "select code, areacode, number, description from Phone  where phoneId = @id"
+              );
+           
+        }
+
+        public List<IPhone> ReadAll()
+        {
+            return mapperHelper.ReadAll(
+            cmd => { },
+            "select code, areacode, number, description from Phone"
+            );
+        }
+
+        public bool Delete(IPhone entity)
+        {
+            return mapperHelper.Delete(entity,
+                (cmd, phone) => DeleteParameters(cmd, phone),
+                 "delete from Phone where phoneId=@id"
+                );
+        }
+
+        public List<IPhone> MapAll(IDataReader reader)
+        {
+            return mapperHelper.MapAll(reader);
         }
     }
 }

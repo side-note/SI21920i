@@ -7,7 +7,7 @@ using TypesProject.model;
 
 namespace TypesProject.mapper
 {
-    interface IPhoneMapper : IMapper<Phone,int, List<Phone>>
+    interface IPhoneMapper : IMapper<IPhone,int, List<IPhone>>
     {
     }
 }

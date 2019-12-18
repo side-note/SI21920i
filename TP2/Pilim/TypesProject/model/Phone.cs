@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TypesProject.model
 {
-    public class Phone
+    public class Phone : IPhone
     {
         public Phone() { }
 
