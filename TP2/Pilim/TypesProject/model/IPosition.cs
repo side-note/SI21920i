@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace TypesProject.model
 {
-    public interface IClient
+    public interface IPosition
     {
-        public int nif { get; set; }
-        public int ncc { get; set; }
-        public String name { get; set; }
+        public int quantity { get; set; }
+        public string name { get; set; }
+        public string isin { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace TypesProject.model
 {
-    interface IInstrument
+    public interface IInstrument
     {
         public string isin { get; set; }
 

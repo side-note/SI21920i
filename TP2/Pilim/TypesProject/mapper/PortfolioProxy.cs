@@ -16,10 +16,10 @@ namespace TypesProject.mapper
             context = ctx;
             base.client = null;
             base.name = p.name;
-            base.portfolioInstruments = null;
+            base.positionInstruments = null;
             base.totalval = p.totalval;
         }
-        public override Client client 
+        public override IClient client 
         {
             get
             {
@@ -32,19 +32,18 @@ namespace TypesProject.mapper
             }
                 set => base.client = value;
             }
-        public override ICollection<Instrument> portfolioInstruments 
-        {
+
+        public override ICollection<IPosition> positionInstruments {
             get
             {
-                if (base.portfolioInstruments == null)
+                if (base.positionInstruments==null) 
                 {
                     PortfolioMapper pm = new PortfolioMapper(context);
-                    base.portfolioInstruments = pm.LoadPortfolios(this);
+                    base.positionInstruments=pm.LoadPositions(this);
                 }
-                return base.portfolioInstruments;
+               return base.positionInstruments;
             }
-            set => base.portfolioInstruments = value; 
-        }
+            set => base.positionInstruments = value; }
 
     }
 }

@@ -17,13 +17,13 @@ namespace TypesProject.concrete
             context = ctx;
         }
 
-        public IEnumerable<Instrument> Find(Func<Instrument, bool> criteria)
+        public IEnumerable<IInstrument> Find(Func<IInstrument, bool> criteria)
         {
             //Implementação muito pouco eficiente.  
             return FindAll().Where(criteria);
         }
 
-        public IEnumerable<Instrument> FindAll()
+        public IEnumerable<IInstrument> FindAll()
         {
             return new InstrumentMapper(context).ReadAll();
         }

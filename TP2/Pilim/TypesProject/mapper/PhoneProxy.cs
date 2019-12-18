@@ -21,7 +21,7 @@ namespace TypesProject.mapper
             base.clientPhone = null;
         }
 
-        public override Client clientPhone 
+        public override IClient clientPhone 
         {
             get
             {

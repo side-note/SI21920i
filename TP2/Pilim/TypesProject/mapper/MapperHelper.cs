@@ -7,6 +7,17 @@ using System.Threading.Tasks;
 
 namespace TypesProject.mapper
 {
+    public static class CollectionExtensions
+    {
+        public static void AddRange(this IDataParameterCollection collection, IEnumerable<IDataParameter> newItems)
+        {
+            foreach (IDataParameter item in newItems)
+            {
+                collection.Add(item);
+            }
+        }
+    }
+
     class MapperHelper <T,Tid,TCol> where TCol : IList<T>, IEnumerable<T>, new()
     {
         public IContext context;
@@ -37,6 +48,7 @@ namespace TypesProject.mapper
             }
         }
 
+     
         protected void ExecuteNonQuery(String commandText, List<IDataParameter> parameters)
         {
             using (IDbCommand cmd = context.createCommand())
@@ -57,7 +69,6 @@ namespace TypesProject.mapper
                 cmd.CommandType = InsertCommandType;
                 InsertParameters(cmd, entity);
                 cmd.ExecuteNonQuery();
-               
                 cmd.Parameters.Clear();
                 return entity;
             }

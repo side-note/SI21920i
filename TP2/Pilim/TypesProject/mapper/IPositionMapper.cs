@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using TypesProject.model;
 
-namespace TypesProject.dal
+namespace TypesProject.mapper
 {
-    interface IInstrumentRepository : IRepository<IInstrument>
+    interface IPositionMapper : IMapper<IPosition, KeyValuePair<string,string>, List<IPosition>>
+
     {
     }
 }

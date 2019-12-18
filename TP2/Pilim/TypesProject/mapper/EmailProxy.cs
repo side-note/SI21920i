@@ -19,7 +19,7 @@ namespace TypesProject.mapper
             base.ClientEmail = null;
         }
 
-        public override Client ClientEmail {
+        public override IClient ClientEmail {
             get
             {
                 if(base.ClientEmail == null)

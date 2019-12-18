@@ -16,8 +16,8 @@ namespace TypesProject.model
 
         public int mrktcode { get; set; }
 
-        public virtual ICollection<Portfolio> instrumentPortfolios { get; set; }
-        public virtual ICollection <DailyReg> dailyRegs { get; set; }
-        public virtual Market instrumentMarket { get; set; }
+        public virtual ICollection<IPosition> instrumentposition { get; set; }
+        public virtual ICollection <IDailyReg> dailyRegs { get; set; }
+        public virtual IMarket instrumentMarket { get; set; }
     }
 }

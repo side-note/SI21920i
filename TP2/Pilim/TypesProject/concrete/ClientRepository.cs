@@ -17,13 +17,13 @@ namespace TypesProject.concrete
             context = ctx;
         }
 
-        public IEnumerable<Client> Find(Func<Client, bool> criteria)
+        public IEnumerable<IClient> Find(Func<IClient, bool> criteria)
         {
             //Implementação muito pouco eficiente.  
             return FindAll().Where(criteria);
         }
 
-        public IEnumerable<Client> FindAll()
+        public IEnumerable<IClient> FindAll()
         {
             return new ClientMapper(context).ReadAll();
         }

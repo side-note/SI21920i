@@ -135,7 +135,8 @@ namespace TypesProject.concrete
             dm.IdxMrkt = record.GetDouble(1);
             dm.IdxOpeningVal = record.GetDouble(2);
             dm.Date = record.GetDateTime(3);
-            return new DailyMarketProxy(dm, mapperHelper.context, record.GetInt32(4));
+            dm.Code = record.GetInt32(4);
+            return dm;
         }
 
         public List<IDailyMarket> MapAll(IDataReader reader)

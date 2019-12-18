@@ -2,7 +2,7 @@
 
 namespace TypesProject.model
 {
-    interface IPortfolio
+    public interface IPortfolio
     {
         public String name { get; set; }
 

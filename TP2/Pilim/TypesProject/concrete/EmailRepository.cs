@@ -17,13 +17,13 @@ namespace TypesProject.concrete
             context = ctx;
         }
 
-        public IEnumerable<Email> Find(System.Func<Email, bool> criteria)
+        public IEnumerable<IEmail> Find(System.Func<IEmail, bool> criteria)
         {
             //Implementação muito pouco eficiente.  
             return FindAll().Where(criteria);
         }
 
-        public IEnumerable<Email> FindAll()
+        public IEnumerable<IEmail> FindAll()
         {
             return new EmailMapper(context).ReadAll();
         }

@@ -63,6 +63,8 @@
     <Compile Include="concrete\PhoneRepository.cs" />
     <Compile Include="concrete\PortfolioMapper.cs" />
     <Compile Include="concrete\PortfolioRepository.cs" />
+    <Compile Include="concrete\PositionMapper.cs" />
+    <Compile Include="concrete\PositionRepository.cs" />
     <Compile Include="dal\IClientRepository.cs" />
     <Compile Include="dal\IDailyMarketRepository.cs" />
     <Compile Include="dal\IDailyRegRepository.cs" />
@@ -72,11 +74,9 @@
     <Compile Include="dal\IMarketRepository.cs" />
     <Compile Include="dal\IPhoneRepository.cs" />
     <Compile Include="dal\IPortfolioRepository.cs" />
+    <Compile Include="dal\IPositionRepository.cs" />
     <Compile Include="dal\IRepository.cs" />
-    <Compile Include="mapper\AbstractMapper.cs" />
     <Compile Include="mapper\ClientProxy.cs" />
-    <Compile Include="mapper\DailyMarketProxy.cs" />
-    <Compile Include="mapper\DailyRegProxy.cs" />
     <Compile Include="mapper\EmailProxy.cs" />
     <Compile Include="mapper\IClientMapper.cs" />
     <Compile Include="dal\IContext.cs" />
@@ -90,10 +90,12 @@
     <Compile Include="mapper\InstrumentProxy.cs" />
     <Compile Include="mapper\IPhoneMapper.cs" />
     <Compile Include="mapper\IPortfolioMapper.cs" />
+    <Compile Include="mapper\IPositionMapper.cs" />
     <Compile Include="mapper\MapperHelper.cs" />
     <Compile Include="mapper\MarketProxy.cs" />
     <Compile Include="mapper\PhoneProxy.cs" />
     <Compile Include="mapper\PortfolioProxy.cs" />
+    <Compile Include="mapper\PositionProxy.cs" />
     <Compile Include="model\Client.cs" />
     <Compile Include="model\DailyMarket.cs" />
     <Compile Include="model\DailyReg.cs" />
@@ -109,9 +111,11 @@
     <Compile Include="model\Instrument.cs" />
     <Compile Include="model\IPhone.cs" />
     <Compile Include="model\IPortfolio.cs" />
+    <Compile Include="model\IPosition.cs" />
     <Compile Include="model\Market.cs" />
     <Compile Include="model\Phone.cs" />
     <Compile Include="model\Portfolio.cs" />
+    <Compile Include="model\Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

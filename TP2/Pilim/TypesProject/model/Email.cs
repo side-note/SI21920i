@@ -16,6 +16,6 @@ namespace TypesProject.model
 
         public int code { get; set; }
 
-        public virtual Client ClientEmail { get; set; }
+        public virtual IClient ClientEmail { get; set; }
     }
 }

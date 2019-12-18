@@ -2,7 +2,7 @@
 
 namespace TypesProject.model
 {
-    interface IExtTriple
+    public interface IExtTriple
     {
         public double value { get; set; }
 

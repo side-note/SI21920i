@@ -17,13 +17,13 @@ namespace TypesProject.concrete
             context = ctx;
         }
 
-        public IEnumerable<Exttriple> Find(System.Func<Exttriple, bool> criteria)
+        public IEnumerable<IExtTriple> Find(Func<IExtTriple, bool> criteria)
         {
             //Implementação muito pouco eficiente.  
             return FindAll().Where(criteria);
         }
 
-        public IEnumerable<Exttriple> FindAll()
+        public IEnumerable<IExtTriple> FindAll()
         {
             return new ExttripleMapper(context).ReadAll();
         }

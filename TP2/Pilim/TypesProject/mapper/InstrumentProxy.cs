@@ -17,11 +17,11 @@ namespace TypesProject.mapper
             base.isin = i.isin;
             base.mrktcode = i.mrktcode;
             base.instrumentMarket = null;
-            base.instrumentPortfolios = null;
+            base.instrumentposition = null;
             base.dailyRegs = null;
         }
 
-        public override ICollection<DailyReg> dailyRegs {
+        public override ICollection<IDailyReg> dailyRegs {
             get
             {
                 if (base.dailyRegs == null)
@@ -33,7 +33,7 @@ namespace TypesProject.mapper
             }
             set => base.dailyRegs = value; 
         }
-        public override Market instrumentMarket {
+        public override IMarket instrumentMarket {
             get
             {
                 if (base.instrumentMarket == null)
@@ -45,17 +45,16 @@ namespace TypesProject.mapper
             }
             set => base.instrumentMarket = value;
         }
-        public override ICollection<Portfolio> instrumentPortfolios {
+        public override ICollection<IPosition> instrumentposition {
             get
             {
-                if (base.instrumentPortfolios == null)
+                if (base.instrumentposition == null)
                 {
                     InstrumentMapper im = new InstrumentMapper(context);
-                    base.instrumentPortfolios = im.LoadPortfolios(this);
+                    base.instrumentposition = im.LoadPosition(this);
                 }
-                return base.instrumentPortfolios;
+                return base.instrumentposition;
             }
-            set => base.instrumentPortfolios = value;
-        }
+            set => base.instrumentposition = value; }
     }
 }

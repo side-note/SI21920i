@@ -13,6 +13,6 @@ namespace TypesProject.model
         public double IdxOpeningVal { get; set; }
         public int Code { get; set; } //como saber que o code é mesmo do Market???
         public DateTime Date { get; set; }
-        public Market market { get; set; } //relação daily market com market
+        public IMarket market { get; set; } //relação daily market com market
     }
 }

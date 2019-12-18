@@ -50,7 +50,7 @@ namespace TypesProject.concrete
             }
             return lst;
         }
-        internal Portfolio LoadPortfolio(Client c)
+        internal IPortfolio LoadPortfolio(Client c)
         {
             PortfolioMapper pm = new PortfolioMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
@@ -66,7 +66,9 @@ namespace TypesProject.concrete
             return null;
 
         }
+     
 
+      
         public IClient Create(IClient iclient) {
            
             using(TransactionScope ts = new TransactionScope(TransactionScopeOption.Required))

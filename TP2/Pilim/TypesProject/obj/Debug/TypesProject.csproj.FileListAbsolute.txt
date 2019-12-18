@@ -1,2 +1,3 @@
 C:\Users\carol\Documents\GitHub\SI21920i\TP2\Pilim\TypesProject\obj\Debug\TypesProject.csprojAssemblyReference.cache
 C:\Users\carol\Documents\GitHub\SI21920i\TP2\Pilim\TypesProject\obj\Debug\TypesProject.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\Documents\GitHub\SI21920i\TP2\Pilim\TypesProject\obj\Debug\TypesProject.csprojAssemblyReference.cache

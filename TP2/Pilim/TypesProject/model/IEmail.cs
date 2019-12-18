@@ -1,6 +1,6 @@
 ﻿namespace TypesProject.model
 {
-    interface IEmail
+    public interface IEmail
     {
         public string addr { get; set; }
         public string description { get; set; }

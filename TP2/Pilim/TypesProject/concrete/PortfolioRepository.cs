@@ -17,13 +17,13 @@ namespace TypesProject.concrete
             context = ctx;
         }
 
-        public IEnumerable<Portfolio> Find(Func<Portfolio, bool> criteria)
+        public IEnumerable<IPortfolio> Find(Func<IPortfolio, bool> criteria)
         {
             //Implementação muito pouco eficiente.  
             return FindAll().Where(criteria);
         }
 
-        public IEnumerable<Portfolio> FindAll()
+        public IEnumerable<IPortfolio> FindAll()
         {
             return new PortfolioMapper(context).ReadAll();
         }

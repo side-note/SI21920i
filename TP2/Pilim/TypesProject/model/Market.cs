@@ -14,7 +14,7 @@ namespace TypesProject.model
         public int Code { get; set; }
         public string Description { get; set; }
         public string Name { get; set; }
-        public virtual ICollection<DailyMarket> dailyMarkets { get; set; }
-        public virtual ICollection<Instrument> marketInstruments { get; set; }
+        public virtual ICollection<IDailyMarket> dailyMarkets { get; set; }
+        public virtual ICollection<IInstrument> marketInstruments { get; set; }
     }
 }

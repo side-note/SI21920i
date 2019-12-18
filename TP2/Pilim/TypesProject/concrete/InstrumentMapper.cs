@@ -36,19 +36,19 @@ namespace TypesProject.concrete
             }
             return lst;
         }
-        internal ICollection<IPortfolio> LoadPortfolios(Instrument i)
+        internal ICollection<IPosition> LoadPosition(Instrument i)
         {
-            List<IPortfolio> lst = new List<IPortfolio>();
+            List<IPosition> lst = new List<IPosition>();
 
-            PortfolioMapper pm = new PortfolioMapper(mapperHelper.context);
+            PositionMapper pm = new PositionMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
             parameters.Add(new SqlParameter("@id", i.isin));
             using (IDataReader rd = mapperHelper.ExecuteReader("select portfolioid from portfolioinstrument where instrumentId=@id", parameters))
             {
                 while (rd.Read())
                 {
-                    String key = rd.GetString(0);
-                    lst.Add(pm.Read(key));
+                    KeyValuePair<string, string> pair = new KeyValuePair<string, string>(rd.GetString(0), rd.GetString(1));
+                    lst.Add(pm.Read(pair));
                 }
             }
             return lst;
@@ -108,7 +108,8 @@ namespace TypesProject.concrete
             Instrument i = new Instrument();
             i.isin = record.GetString(0);
             i.description = record.GetString(1);
-            return new InstrumentProxy(i, mapperHelper.context, record.GetInt32(2));
+            i.mrktcode = record.GetInt32(2);
+            return new InstrumentProxy(i, mapperHelper.context);
         }
         public  IInstrument Create(IInstrument instrument)
         {

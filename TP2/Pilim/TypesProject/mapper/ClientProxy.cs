@@ -24,7 +24,7 @@ namespace TypesProject.mapper
                 base.email = null;
                
             }
-             public override Portfolio portfolio
+             public override IPortfolio portfolio
             {
                 get
                 {
@@ -35,13 +35,11 @@ namespace TypesProject.mapper
                     }
                     return base.portfolio;
                 }
-                set
-                {
-                    base.portfolio = value;
-                }
+                set => base.portfolio = value;
+                
             }
 
-        public override ICollection<Email> email
+        public override ICollection<IEmail> email
         {
             get
             {
@@ -57,7 +55,7 @@ namespace TypesProject.mapper
         
         }
 
-        public override ICollection<Phone> phone 
+        public override ICollection<IPhone> phone 
         { get
             {
                 if(base.phone==null)

@@ -17,13 +17,13 @@ namespace TypesProject.concrete
             context = ctx;
         }
 
-        public IEnumerable<DailyMarket> Find(Func<DailyMarket, bool> criteria)
+        public IEnumerable<IDailyMarket> Find(Func<IDailyMarket, bool> criteria)
         {
             //Implementação muito pouco eficiente.  
             return FindAll().Where(criteria);
         }
 
-        public IEnumerable<DailyMarket> FindAll()
+        public IEnumerable<IDailyMarket> FindAll()
         {
             return new DailyMarketMapper(context).ReadAll();
         }

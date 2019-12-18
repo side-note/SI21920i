@@ -13,8 +13,8 @@ namespace TypesProject.model
 
         public double totalval { get; set; }
 
-        public virtual Client client { get; set; }
+        public virtual IClient client { get; set; }
 
-        public virtual ICollection<Instrument> portfolioInstruments { get; set; }
+        public virtual ICollection<IPosition> positionInstruments { get; set; }
     }
 }

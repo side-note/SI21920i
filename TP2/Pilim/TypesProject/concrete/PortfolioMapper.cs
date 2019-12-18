@@ -37,18 +37,18 @@ namespace TypesProject.concrete
 
         }
 
-        internal ICollection<IInstrument> LoadPortfolios(Portfolio p)
+        internal ICollection<IPosition> LoadPositions(Portfolio p)
         {
-            List<IInstrument> lst = new List<IInstrument>();
+            List<IPosition> lst = new List<IPosition>();
 
-            InstrumentMapper im = new InstrumentMapper(mapperHelper.context);
+            PositionMapper im = new PositionMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
             parameters.Add(new SqlParameter("@id", p.name));
             using (IDataReader rd = mapperHelper.ExecuteReader("select instrumentid from marketinstrument where marketId=@id", parameters))
             {
                 while (rd.Read())
                 {
-                    string key = rd.GetString(0);
+                    KeyValuePair<string, string> key = new KeyValuePair<string, string>(rd.GetString(0),rd.GetString(1));
                     lst.Add(im.Read(key));
                 }
             }

@@ -1,6 +1,6 @@
 ﻿namespace TypesProject.model
 {
-    interface IPhone
+    public interface IPhone
     {
         public int code { get; set; }
 

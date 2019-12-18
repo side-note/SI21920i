@@ -18,6 +18,6 @@ namespace TypesProject.model
 
         public string areacode { get; set; }
 
-        public virtual Client clientPhone { get; set; }
+        public virtual IClient clientPhone { get; set; }
     }
 }

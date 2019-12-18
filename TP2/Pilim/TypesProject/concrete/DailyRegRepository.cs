@@ -17,13 +17,13 @@ namespace TypesProject.concrete
             context = ctx;
         }
 
-        public IEnumerable<DailyReg> Find(System.Func<DailyReg, bool> criteria)
+        public IEnumerable<IDailyReg> Find(Func<IDailyReg, bool> criteria)
         {
             //Implementação muito pouco eficiente.  
             return FindAll().Where(criteria);
         }
 
-        public IEnumerable<DailyReg> FindAll()
+        public IEnumerable<IDailyReg> FindAll()
         {
             return new DailyRegMapper(context).ReadAll();
         }

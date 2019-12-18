@@ -90,8 +90,9 @@ namespace TypesProject.concrete
             dr.openingval = record.GetDouble(2);
             dr.closingval = record.GetDouble(3);
             dr.dailydate = record.GetDateTime(4);
+            dr.isin = record.GetString(5);
 
-            return new DailyRegProxy(dr, mapperHelper.context,record.GetInt32(5));
+            return dr;
         }
 
         public IDailyReg Create(IDailyReg entity)

@@ -7,7 +7,7 @@ using TypesProject.model;
 
 namespace TypesProject.dal
 {
-    interface IInstrumentRepository : IRepository<IInstrument>
+    interface IPositionRepository: IRepository<IPosition>
     {
     }
 }

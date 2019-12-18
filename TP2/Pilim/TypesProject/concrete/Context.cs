@@ -24,6 +24,7 @@ namespace TypesProject.concrete
         private MarketRepository _marketRepository;
         private PhoneRepository _phoneRepository;
         private PortfolioRepository _portfolioRepository;
+        private PositionRepository _positionRepository;
 
 
         public Context(string cs)
@@ -38,6 +39,7 @@ namespace TypesProject.concrete
             _marketRepository = new MarketRepository(this);
             _phoneRepository = new PhoneRepository(this);
             _portfolioRepository = new PortfolioRepository(this);
+            _positionRepository = new PositionRepository(this);
         }
 
         public void Open()
@@ -144,6 +146,14 @@ namespace TypesProject.concrete
             get
             {
                 return _portfolioRepository;
+            }
+        }
+
+        public PositionRepository Positions
+        {
+            get
+            {
+                return _positionRepository;
             }
         }
     }

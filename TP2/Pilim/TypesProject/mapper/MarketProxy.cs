@@ -22,7 +22,7 @@ namespace TypesProject.mapper
 
         }
 
-        public override ICollection<DailyMarket> dailyMarkets { 
+        public override ICollection<IDailyMarket> dailyMarkets { 
             get 
             {
                 if (base.dailyMarkets == null)
@@ -35,7 +35,7 @@ namespace TypesProject.mapper
             } 
             set => base.dailyMarkets = value; 
         }
-        public override ICollection<Instrument> marketInstruments {
+        public override ICollection<IInstrument> marketInstruments {
             get
             {
                 if(base.marketInstruments == null){

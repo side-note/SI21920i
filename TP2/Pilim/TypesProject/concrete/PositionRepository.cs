@@ -9,24 +9,21 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class PhoneRepository : IPhoneRepository
+    class PositionRepository : IPositionRepository
     {
         private IContext context;
-        public PhoneRepository(IContext ctx)
+        public PositionRepository(IContext ctx)
         {
             context = ctx;
         }
-
-        public IEnumerable<IPhone> Find(Func<IPhone, bool> criteria)
+        public IEnumerable<IPosition> Find(Func<IPosition, bool> criteria)
         {
-            //Implementação muito pouco eficiente.  
-            return FindAll().Where(criteria);
+            throw new NotImplementedException();
         }
 
-        public IEnumerable<IPhone> FindAll()
+        public IEnumerable<IPosition> FindAll()
         {
-            return new PhoneMapper(context).ReadAll();
+            throw new NotImplementedException();
         }
     }
 }
-
