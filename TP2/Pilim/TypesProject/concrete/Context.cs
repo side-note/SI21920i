@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
+using TypesProject.dal;
 using TypesProject.mapper;
 
 namespace TypesProject.concrete
@@ -77,85 +78,27 @@ namespace TypesProject.concrete
             }
         }
 
-        public ClientRepository Clients
-        {
-            get
-            {
-                return _clientRepository;
-            }
-        }
+        public IClientRepository Clients => _clientRepository;
 
-        public DailyMarketRepository DailyMarkets
-        {
-            get
-            {
-                return _dailyMarketRepository;
-            }
-        }
+        public IDailyMarketRepository DailyMarkets => _dailyMarketRepository;
 
-        public DailyRegRepository DailyRegs
-        {
-            get
-            {
-                return _dailyRegRepository;
-            }
-        }
+        public IDailyRegRepository DailyRegs => _dailyRegRepository;
 
-        public EmailRepository Emails
-        {
-            get
-            {
-                return _emailRepository;
-            }
-        }
+        public IEmailRepository Emails =>_emailRepository;
+      
+        public IExttripleRepository Exttriples =>_exttripleRepository;
 
-        public ExttripleRepository Exttriples
-        {
-            get
-            {
-                return _exttripleRepository;
-            }
-        }
+        public IInstrumentRepository Instruments=> _instrumentRepository;
 
-        public InstrumentRepository Instruments
-        {
-            get
-            {
-                return _instrumentRepository;
-            }
-        }
+        public IMarketRepository Markets =>_marketRepository;
+      
+        public IPhoneRepository Phones => _phoneRepository;
+     
 
-        public MarketRepository Markets
-        {
-            get
-            {
-                return _marketRepository;
-            }
-        }
-
-        public PhoneRepository Phones
-        {
-            get
-            {
-                return _phoneRepository;
-            }
-        }
-
-        public PortfolioRepository Portfolios
-        {
-            get
-            {
-                return _portfolioRepository;
-            }
-        }
-
-        public PositionRepository Positions
-        {
-            get
-            {
-                return _positionRepository;
-            }
-        }
+        public IPortfolioRepository Portfolios =>_portfolioRepository;
+      
+        public IPositionRepository Positions =>_positionRepository;
+       
     }
 }
 
