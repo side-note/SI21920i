@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EF_TP2_52D_14_1920i.repositories
 {
-    class DAILYMARKETREPOSITORY
+    class DailyMarketRepository
     {
     }
 }
