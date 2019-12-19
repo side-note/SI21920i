@@ -91,6 +91,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="partials\CLIENT.cs" />
+    <Compile Include="partials\DAILYMARKET.cs" />
+    <Compile Include="partials\DAILYREG.cs" />
+    <Compile Include="partials\EMAIL.cs" />
+    <Compile Include="partials\INSTRUMENT.cs" />
+    <Compile Include="partials\MARKET.cs" />
+    <Compile Include="partials\PHONE.cs" />
+    <Compile Include="partials\PORTFOLIO.cs" />
+    <Compile Include="partials\POSITION.cs" />
     <Compile Include="PHONE.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -134,6 +143,16 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\App\App.csproj">
+      <Project>{e487ccca-f0d5-4cb1-a6ea-35ea32a9318b}</Project>
+      <Name>App</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TypesProject\TypesProject.csproj">
+      <Project>{2e1eea0d-73b5-491c-92e9-41cd8c07348c}</Project>
+      <Name>TypesProject</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

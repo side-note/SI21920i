@@ -8,8 +8,11 @@ namespace TypesProject.model
 {
     public interface IPosition
     {
-        public int quantity { get; set; }
+        public int? quantity { get; set; }
         public string name { get; set; }
         public string isin { get; set; }
+
+        public ICollection<IPortfolio> portfolios { get; set; }
+        public ICollection<IInstrument> instruments { get; set; }
     }
 }

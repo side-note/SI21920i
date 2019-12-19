@@ -57,7 +57,9 @@ create table EMAIL(
 	code		int,
 	description	varchar(300),
 	addr		varchar(50),
-	constraint pkemail primary key(code)
+	nif		decimal(9),
+	constraint pkemail primary key(code),
+	constraint fkclient_email foreign key(nif) references CLIENT(nif)
 );
 
 create table PHONE(
@@ -65,7 +67,9 @@ create table PHONE(
 	description	varchar(300),
 	areacode	varchar(4),
 	number		decimal(9),
-	constraint pkphone primary key(code)
+	nif		decimal(9),
+	constraint pkphone primary key(code),
+	constraint fkclient_phone foreign key(nif) references CLIENT(nif)
 );
 create table EXTTRIPLE(
 	value		money not null,

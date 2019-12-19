@@ -25,13 +25,13 @@ insert into POSITION values (1, '111111111_portfolio', 111111111111);
 insert into POSITION values (2, '444444444_portfolio', 222222222222);
 insert into POSITION values (3, '111111111_portfolio', 333333333333);
 
-insert into EMAIL values (1,'Nuno mail','ncardeal@pilim.com');
-insert into EMAIL values (2,'Carol mail','carolct@pilim.com');
-insert into EMAIL values (3,'Juju mail','jujucmps@pilim.com');
+insert into EMAIL values (1,'Nuno mail','ncardeal@pilim.com',111111111);
+insert into EMAIL values (2,'Carol mail','carolct@pilim.com',222222222);
+insert into EMAIL values (3,'Juju mail','jujucmps@pilim.com', 444444444);
 
-insert into PHONE values (1,'Nuno phone', '+351', 961222333);
-insert into PHONE values (2,'Carol phone', '+351', 911222333);
-insert into PHONE values (3,'Juju phone', '+351', 921222333);
+insert into PHONE values (1,'Nuno phone', '+351', 961222333,111111111);
+insert into PHONE values (2,'Carol phone', '+351', 911222333,222222222);
+insert into PHONE values (3,'Juju phone', '+351', 921222333, 444444444);
 
 insert into EXTTRIPLE values (1111, '2019-11-01 11:11:11', 111111111111);
 insert into EXTTRIPLE values (2222, '2019-11-01 12:12:12', 111111111111);

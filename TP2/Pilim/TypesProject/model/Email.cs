@@ -15,7 +15,8 @@ namespace TypesProject.model
         public string description { get; set; }
 
         public int code { get; set; }
-
+        public decimal? nif { get; set; }
         public virtual IClient ClientEmail { get; set; }
+        
     }
 }

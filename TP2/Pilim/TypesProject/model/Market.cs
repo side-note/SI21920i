@@ -11,9 +11,9 @@ namespace TypesProject.model
         public Market()
         {
         }
-        public int Code { get; set; }
-        public string Description { get; set; }
-        public string Name { get; set; }
+        public int code { get; set; }
+        public string description { get; set; }
+        public string name { get; set; }
         public virtual ICollection<IDailyMarket> dailyMarkets { get; set; }
         public virtual ICollection<IInstrument> marketInstruments { get; set; }
     }

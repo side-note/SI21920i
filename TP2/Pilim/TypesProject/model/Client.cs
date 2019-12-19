@@ -9,8 +9,8 @@ namespace TypesProject.model
     public class Client : IClient
     {
         public Client() { }
-        public int nif { get; set; }
-        public int ncc { get; set; }
+        public decimal nif { get; set; }
+        public decimal? ncc { get; set; }
         public String name { get; set; }
         public virtual IPortfolio portfolio { get; set; }
         public virtual ICollection<IEmail> email { get; set; }

@@ -8,8 +8,13 @@ namespace TypesProject.model
 {
     public interface IClient
     {
-        public int nif { get; set; }
-        public int ncc { get; set; }
+        public decimal nif { get; set; }
+        public decimal? ncc { get; set; }
         public String name { get; set; }
+
+        public  IPortfolio portfolio { get; set; }
+        public ICollection<IEmail> email { get; set; }
+        public  ICollection<IPhone> phone { get; set; }
     }
 }
+

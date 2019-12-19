@@ -51,6 +51,7 @@
           <Property Name="code" Type="int" Nullable="false" />
           <Property Name="description" Type="varchar" MaxLength="300" />
           <Property Name="addr" Type="varchar" MaxLength="50" />
+          <Property Name="nif" Type="decimal" Precision="9" Scale="0" />
         </EntityType>
         <EntityType Name="EXTTRIPLE">
           <Key>
@@ -85,6 +86,7 @@
           <Property Name="description" Type="varchar" MaxLength="300" />
           <Property Name="areacode" Type="varchar" MaxLength="4" />
           <Property Name="number" Type="decimal" Precision="9" Scale="0" />
+          <Property Name="nif" Type="decimal" Precision="9" Scale="0" />
         </EntityType>
         <EntityType Name="PORTFOLIO">
           <Key>
@@ -120,6 +122,30 @@ warning 6002: The table/view 'TL52D_14.dbo.PORTFOLIO_SUMMARY' does not have a pr
               <PropertyRef Name="nif" />
             </Principal>
             <Dependent Role="CLIENT_PORTFOLIO">
+              <PropertyRef Name="nif" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkclient_email">
+          <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="0..1" />
+          <End Role="EMAIL" Type="Self.EMAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENT">
+              <PropertyRef Name="nif" />
+            </Principal>
+            <Dependent Role="EMAIL">
+              <PropertyRef Name="nif" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkclient_phone">
+          <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="0..1" />
+          <End Role="PHONE" Type="Self.PHONE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENT">
+              <PropertyRef Name="nif" />
+            </Principal>
+            <Dependent Role="PHONE">
               <PropertyRef Name="nif" />
             </Dependent>
           </ReferentialConstraint>
@@ -290,6 +316,14 @@ warning 6002: The table/view 'TL52D_14.dbo.PORTFOLIO_SUMMARY' does not have a pr
             <End Role="CLIENT" EntitySet="CLIENT" />
             <End Role="CLIENT_PORTFOLIO" EntitySet="CLIENT_PORTFOLIO" />
           </AssociationSet>
+          <AssociationSet Name="fkclient_email" Association="Self.fkclient_email">
+            <End Role="CLIENT" EntitySet="CLIENT" />
+            <End Role="EMAIL" EntitySet="EMAIL" />
+          </AssociationSet>
+          <AssociationSet Name="fkclient_phone" Association="Self.fkclient_phone">
+            <End Role="CLIENT" EntitySet="CLIENT" />
+            <End Role="PHONE" EntitySet="PHONE" />
+          </AssociationSet>
           <AssociationSet Name="fkdailymrkt" Association="Self.fkdailymrkt">
             <End Role="MARKET" EntitySet="MARKET" />
             <End Role="DAILYMARKET" EntitySet="DAILYMARKET" />
@@ -341,6 +375,8 @@ warning 6002: The table/view 'TL52D_14.dbo.PORTFOLIO_SUMMARY' does not have a pr
           <Property Name="nif" Type="Decimal" Precision="9" Scale="0" Nullable="false" />
           <Property Name="ncc" Type="Decimal" Precision="7" Scale="0" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="EMAIL" Relationship="Self.fkclient_email" FromRole="CLIENT" ToRole="EMAIL" />
+          <NavigationProperty Name="PHONE" Relationship="Self.fkclient_phone" FromRole="CLIENT" ToRole="PHONE" />
           <NavigationProperty Name="PORTFOLIO" Relationship="Self.CLIENT_PORTFOLIO" FromRole="CLIENT" ToRole="PORTFOLIO" />
         </EntityType>
         <EntityType Name="DAILYMARKET">
@@ -375,6 +411,8 @@ warning 6002: The table/view 'TL52D_14.dbo.PORTFOLIO_SUMMARY' does not have a pr
           <Property Name="code" Type="Int32" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="addr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nif" Type="Decimal" Precision="9" Scale="0" />
+          <NavigationProperty Name="CLIENT" Relationship="Self.fkclient_email" FromRole="EMAIL" ToRole="CLIENT" />
         </EntityType>
         <EntityType Name="EXTTRIPLE">
           <Key>
@@ -414,6 +452,8 @@ warning 6002: The table/view 'TL52D_14.dbo.PORTFOLIO_SUMMARY' does not have a pr
           <Property Name="description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="areacode" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Name="number" Type="Decimal" Precision="9" Scale="0" />
+          <Property Name="nif" Type="Decimal" Precision="9" Scale="0" />
+          <NavigationProperty Name="CLIENT" Relationship="Self.fkclient_phone" FromRole="PHONE" ToRole="CLIENT" />
         </EntityType>
         <EntityType Name="PORTFOLIO">
           <Key>
@@ -443,6 +483,30 @@ warning 6002: The table/view 'TL52D_14.dbo.PORTFOLIO_SUMMARY' does not have a pr
           <Property Name="NoInstruments" Type="Int32" />
           <Property Name="totalval" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
+        <Association Name="fkclient_email">
+          <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="0..1" />
+          <End Role="EMAIL" Type="Self.EMAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENT">
+              <PropertyRef Name="nif" />
+            </Principal>
+            <Dependent Role="EMAIL">
+              <PropertyRef Name="nif" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkclient_phone">
+          <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="0..1" />
+          <End Role="PHONE" Type="Self.PHONE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENT">
+              <PropertyRef Name="nif" />
+            </Principal>
+            <Dependent Role="PHONE">
+              <PropertyRef Name="nif" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fkdailymrkt">
           <End Role="MARKET" Type="Self.MARKET" Multiplicity="1" />
           <End Role="DAILYMARKET" Type="Self.DAILYMARKET" Multiplicity="*" />
@@ -507,7 +571,7 @@ warning 6002: The table/view 'TL52D_14.dbo.PORTFOLIO_SUMMARY' does not have a pr
           <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="*" />
           <End Role="PORTFOLIO" Type="Self.PORTFOLIO" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="TL52D_14Entities5" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="TL52D_14Entities7" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CLIENT" EntityType="Self.CLIENT" />
           <EntitySet Name="DAILYMARKET" EntityType="Self.DAILYMARKET" />
           <EntitySet Name="DAILYREG" EntityType="Self.DAILYREG" />
@@ -519,6 +583,14 @@ warning 6002: The table/view 'TL52D_14.dbo.PORTFOLIO_SUMMARY' does not have a pr
           <EntitySet Name="PORTFOLIO" EntityType="Self.PORTFOLIO" />
           <EntitySet Name="POSITION" EntityType="Self.POSITION" />
           <EntitySet Name="PORTFOLIO_SUMMARY" EntityType="Self.PORTFOLIO_SUMMARY" />
+          <AssociationSet Name="fkclient_email" Association="Self.fkclient_email">
+            <End Role="CLIENT" EntitySet="CLIENT" />
+            <End Role="EMAIL" EntitySet="EMAIL" />
+          </AssociationSet>
+          <AssociationSet Name="fkclient_phone" Association="Self.fkclient_phone">
+            <End Role="CLIENT" EntitySet="CLIENT" />
+            <End Role="PHONE" EntitySet="PHONE" />
+          </AssociationSet>
           <AssociationSet Name="fkdailymrkt" Association="Self.fkdailymrkt">
             <End Role="MARKET" EntitySet="MARKET" />
             <End Role="DAILYMARKET" EntitySet="DAILYMARKET" />
@@ -588,7 +660,7 @@ warning 6002: The table/view 'TL52D_14.dbo.PORTFOLIO_SUMMARY' does not have a pr
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="TL52D_14ModelStoreContainer" CdmEntityContainer="TL52D_14Entities5">
+        <EntityContainerMapping StorageEntityContainer="TL52D_14ModelStoreContainer" CdmEntityContainer="TL52D_14Entities7">
           <EntitySetMapping Name="CLIENT">
             <EntityTypeMapping TypeName="TL52D_14Model.CLIENT">
               <MappingFragment StoreEntitySet="CLIENT">
@@ -627,6 +699,7 @@ warning 6002: The table/view 'TL52D_14.dbo.PORTFOLIO_SUMMARY' does not have a pr
                 <ScalarProperty Name="code" ColumnName="code" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="addr" ColumnName="addr" />
+                <ScalarProperty Name="nif" ColumnName="nif" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -664,6 +737,7 @@ warning 6002: The table/view 'TL52D_14.dbo.PORTFOLIO_SUMMARY' does not have a pr
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="areacode" ColumnName="areacode" />
                 <ScalarProperty Name="number" ColumnName="number" />
+                <ScalarProperty Name="nif" ColumnName="nif" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

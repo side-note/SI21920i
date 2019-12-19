@@ -10,7 +10,7 @@ namespace TypesProject.model
     {
         public Exttriple() { }
 
-        public double value { get; set; }
+        public decimal value { get; set; }
 
         public int id { get; set; }
 

@@ -9,9 +9,9 @@ namespace TypesProject.model
     public class Portfolio : IPortfolio
     {
         public Portfolio() { }
-        public String name { get; set; }
+        public string name { get; set; }
 
-        public double totalval { get; set; }
+        public decimal totalval { get; set; }
 
         public virtual IClient client { get; set; }
 

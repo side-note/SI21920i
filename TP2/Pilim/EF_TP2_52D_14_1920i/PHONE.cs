@@ -18,5 +18,8 @@ namespace EF_TP2_52D_14_1920i
         public string description { get; set; }
         public string areacode { get; set; }
         public Nullable<decimal> number { get; set; }
+        public Nullable<decimal> nif { get; set; }
+    
+        public virtual CLIENT CLIENT { get; set; }
     }
 }

@@ -15,10 +15,10 @@ namespace EF_TP2_52D_14_1920i
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class TL52D_14Entities5 : DbContext
+    public partial class TL52D_14Entities7 : DbContext
     {
-        public TL52D_14Entities5()
-            : base("name=TL52D_14Entities5")
+        public TL52D_14Entities7()
+            : base("name=TL52D_14Entities7")
         {
         }
     
@@ -39,7 +39,7 @@ namespace EF_TP2_52D_14_1920i
         public virtual DbSet<POSITION> POSITION { get; set; }
         public virtual DbSet<PORTFOLIO_SUMMARY> PORTFOLIO_SUMMARY { get; set; }
     
-        [DbFunction("TL52D_14Entities5", "FundamentalDataTable")]
+        [DbFunction("TL52D_14Entities7", "FundamentalDataTable")]
         public virtual IQueryable<FundamentalDataTable_Result> FundamentalDataTable(string isin, Nullable<System.DateTime> date)
         {
             var isinParameter = isin != null ?
@@ -50,17 +50,17 @@ namespace EF_TP2_52D_14_1920i
                 new ObjectParameter("date", date) :
                 new ObjectParameter("date", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<FundamentalDataTable_Result>("[TL52D_14Entities5].[FundamentalDataTable](@isin, @date)", isinParameter, dateParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<FundamentalDataTable_Result>("[TL52D_14Entities7].[FundamentalDataTable](@isin, @date)", isinParameter, dateParameter);
         }
     
-        [DbFunction("TL52D_14Entities5", "Portfolio_List")]
+        [DbFunction("TL52D_14Entities7", "Portfolio_List")]
         public virtual IQueryable<Portfolio_List_Result> Portfolio_List(string name)
         {
             var nameParameter = name != null ?
                 new ObjectParameter("name", name) :
                 new ObjectParameter("name", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Portfolio_List_Result>("[TL52D_14Entities5].[Portfolio_List](@name)", nameParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Portfolio_List_Result>("[TL52D_14Entities7].[Portfolio_List](@name)", nameParameter);
         }
     
         public virtual int createPortfolio(Nullable<decimal> nif)

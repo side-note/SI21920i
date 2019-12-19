@@ -98,6 +98,12 @@ namespace TypesProject.concrete
         public IPortfolioRepository Portfolios =>_portfolioRepository;
       
         public IPositionRepository Positions =>_positionRepository;
+
+        public virtual void createPortfolio(int nif)
+        {
+            string name = nif + "_portfolio";
+
+        }
        
     }
 }

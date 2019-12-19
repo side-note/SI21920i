@@ -8,7 +8,7 @@ namespace TypesProject.model
 {
    public class Position: IPosition
     {
-        public int quantity { get; set; }
+        public int? quantity { get; set; }
         public string name { get; set; }
         public string isin { get; set; }
 

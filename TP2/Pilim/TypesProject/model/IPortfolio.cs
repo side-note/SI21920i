@@ -1,11 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TypesProject.model
 {
     public interface IPortfolio
     {
-        public String name { get; set; }
+        string name { get; set; }
 
-        public double totalval { get; set; }
+        decimal? totalval { get; set; }
+
+         IClient client { get; set; }
+
+        ICollection<IPosition> positionInstruments { get; set; }
     }
 }

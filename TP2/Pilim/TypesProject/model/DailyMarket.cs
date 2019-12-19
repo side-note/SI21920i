@@ -8,11 +8,11 @@ namespace TypesProject.model
 {
      public class DailyMarket : IDailyMarket
        {
-        public double IdxMrkt { get; set; }
-        public double DailyVar  { get; set; }
-        public double IdxOpeningVal { get; set; }
-        public int Code { get; set; } //como saber que o code é mesmo do Market???
-        public DateTime Date { get; set; }
+        public decimal? idxmrkt { get; set; }
+        public decimal? dailyvar  { get; set; }
+        public decimal? idxopeningval { get; set; }
+        public int code { get; set; } //como saber que o code é mesmo do Market???
+        public DateTime date { get; set; }
         public IMarket market { get; set; } //relação daily market com market
     }
 }

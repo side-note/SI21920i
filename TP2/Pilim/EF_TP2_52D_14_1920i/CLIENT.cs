@@ -17,6 +17,8 @@ namespace EF_TP2_52D_14_1920i
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CLIENT()
         {
+            this.EMAIL = new HashSet<EMAIL>();
+            this.PHONE = new HashSet<PHONE>();
             this.PORTFOLIO = new HashSet<PORTFOLIO>();
         }
     
@@ -24,6 +26,10 @@ namespace EF_TP2_52D_14_1920i
         public Nullable<decimal> ncc { get; set; }
         public string name { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EMAIL> EMAIL { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PHONE> PHONE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PORTFOLIO> PORTFOLIO { get; set; }
     }

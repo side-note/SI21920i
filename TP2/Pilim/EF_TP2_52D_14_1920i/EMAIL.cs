@@ -17,5 +17,8 @@ namespace EF_TP2_52D_14_1920i
         public int code { get; set; }
         public string description { get; set; }
         public string addr { get; set; }
+        public Nullable<decimal> nif { get; set; }
+    
+        public virtual CLIENT CLIENT { get; set; }
     }
 }
