@@ -5,7 +5,7 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="TL52D_14Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="CLIENT">
+        <EntityType Name="Client">
           <Key>
             <PropertyRef Name="nif" />
           </Key>
@@ -13,7 +13,7 @@
           <Property Name="ncc" Type="decimal" Precision="7" Scale="0" />
           <Property Name="name" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="CLIENT_PORTFOLIO">
+        <EntityType Name="Client_Portfolio">
           <Key>
             <PropertyRef Name="name" />
             <PropertyRef Name="nif" />
@@ -21,7 +21,7 @@
           <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="nif" Type="decimal" Precision="9" Scale="0" Nullable="false" />
         </EntityType>
-        <EntityType Name="DAILYMARKET">
+        <EntityType Name="DailyMarket">
           <Key>
             <PropertyRef Name="code" />
             <PropertyRef Name="date" />
@@ -32,7 +32,7 @@
           <Property Name="code" Type="int" Nullable="false" />
           <Property Name="date" Type="date" Nullable="false" />
         </EntityType>
-        <EntityType Name="DAILYREG">
+        <EntityType Name="DailyReg">
           <Key>
             <PropertyRef Name="isin" />
             <PropertyRef Name="dailydate" />
@@ -44,7 +44,7 @@
           <Property Name="closingval" Type="money" />
           <Property Name="dailydate" Type="date" Nullable="false" />
         </EntityType>
-        <EntityType Name="EMAIL">
+        <EntityType Name="Email">
           <Key>
             <PropertyRef Name="code" />
           </Key>
@@ -53,7 +53,7 @@
           <Property Name="addr" Type="varchar" MaxLength="50" />
           <Property Name="nif" Type="decimal" Precision="9" Scale="0" />
         </EntityType>
-        <EntityType Name="EXTTRIPLE">
+        <EntityType Name="Exttriple">
           <Key>
             <PropertyRef Name="datetime" />
             <PropertyRef Name="id" />
@@ -62,7 +62,7 @@
           <Property Name="datetime" Type="datetime" Nullable="false" />
           <Property Name="id" Type="char" MaxLength="12" Nullable="false" />
         </EntityType>
-        <EntityType Name="INSTRUMENT">
+        <EntityType Name="Instrument">
           <Key>
             <PropertyRef Name="isin" />
           </Key>
@@ -70,7 +70,7 @@
           <Property Name="description" Type="varchar" MaxLength="300" />
           <Property Name="mrktcode" Type="int" />
         </EntityType>
-        <EntityType Name="MARKET">
+        <EntityType Name="Market">
           <Key>
             <PropertyRef Name="code" />
           </Key>
@@ -78,7 +78,7 @@
           <Property Name="description" Type="varchar" MaxLength="300" />
           <Property Name="name" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="PHONE">
+        <EntityType Name="Phone">
           <Key>
             <PropertyRef Name="code" />
           </Key>
@@ -88,14 +88,14 @@
           <Property Name="number" Type="decimal" Precision="9" Scale="0" />
           <Property Name="nif" Type="decimal" Precision="9" Scale="0" />
         </EntityType>
-        <EntityType Name="PORTFOLIO">
+        <EntityType Name="Portfolio">
           <Key>
             <PropertyRef Name="name" />
           </Key>
           <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="totalval" Type="money" />
         </EntityType>
-        <EntityType Name="POSITION">
+        <EntityType Name="Position">
           <Key>
             <PropertyRef Name="name" />
             <PropertyRef Name="isin" />
@@ -105,8 +105,8 @@
           <Property Name="isin" Type="char" MaxLength="12" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'TL52D_14.dbo.PORTFOLIO_SUMMARY' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="PORTFOLIO_SUMMARY">
+warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Portfolio_Summary">
           <Key>
             <PropertyRef Name="name" />
           </Key>
@@ -115,109 +115,109 @@ warning 6002: The table/view 'TL52D_14.dbo.PORTFOLIO_SUMMARY' does not have a pr
           <Property Name="totalval" Type="money" />
         </EntityType>
         <Association Name="fkCLIENT">
-          <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="1" />
-          <End Role="CLIENT_PORTFOLIO" Type="Self.CLIENT_PORTFOLIO" Multiplicity="*" />
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Client_Portfolio" Type="Self.Client_Portfolio" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CLIENT">
+            <Principal Role="Client">
               <PropertyRef Name="nif" />
             </Principal>
-            <Dependent Role="CLIENT_PORTFOLIO">
+            <Dependent Role="Client_Portfolio">
               <PropertyRef Name="nif" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="fkclient_email">
-          <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="0..1" />
-          <End Role="EMAIL" Type="Self.EMAIL" Multiplicity="*" />
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Email" Type="Self.Email" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CLIENT">
+            <Principal Role="Client">
               <PropertyRef Name="nif" />
             </Principal>
-            <Dependent Role="EMAIL">
+            <Dependent Role="Email">
               <PropertyRef Name="nif" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="fkclient_phone">
-          <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="0..1" />
-          <End Role="PHONE" Type="Self.PHONE" Multiplicity="*" />
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Phone" Type="Self.Phone" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CLIENT">
+            <Principal Role="Client">
               <PropertyRef Name="nif" />
             </Principal>
-            <Dependent Role="PHONE">
+            <Dependent Role="Phone">
               <PropertyRef Name="nif" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="fkdailymrkt">
-          <End Role="MARKET" Type="Self.MARKET" Multiplicity="1" />
-          <End Role="DAILYMARKET" Type="Self.DAILYMARKET" Multiplicity="*" />
+          <End Role="Market" Type="Self.Market" Multiplicity="1" />
+          <End Role="DailyMarket" Type="Self.DailyMarket" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="MARKET">
+            <Principal Role="Market">
               <PropertyRef Name="code" />
             </Principal>
-            <Dependent Role="DAILYMARKET">
+            <Dependent Role="DailyMarket">
               <PropertyRef Name="code" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="fkinstrument">
-          <End Role="MARKET" Type="Self.MARKET" Multiplicity="0..1" />
-          <End Role="INSTRUMENT" Type="Self.INSTRUMENT" Multiplicity="*" />
+          <End Role="Market" Type="Self.Market" Multiplicity="0..1" />
+          <End Role="Instrument" Type="Self.Instrument" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="MARKET">
+            <Principal Role="Market">
               <PropertyRef Name="code" />
             </Principal>
-            <Dependent Role="INSTRUMENT">
+            <Dependent Role="Instrument">
               <PropertyRef Name="mrktcode" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="fkinstrument_pos">
-          <End Role="INSTRUMENT" Type="Self.INSTRUMENT" Multiplicity="1" />
-          <End Role="POSITION" Type="Self.POSITION" Multiplicity="*" />
+          <End Role="Instrument" Type="Self.Instrument" Multiplicity="1" />
+          <End Role="Position" Type="Self.Position" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="INSTRUMENT">
+            <Principal Role="Instrument">
               <PropertyRef Name="isin" />
             </Principal>
-            <Dependent Role="POSITION">
+            <Dependent Role="Position">
               <PropertyRef Name="isin" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="fkinstrument_reg">
-          <End Role="INSTRUMENT" Type="Self.INSTRUMENT" Multiplicity="1" />
-          <End Role="DAILYREG" Type="Self.DAILYREG" Multiplicity="*" />
+          <End Role="Instrument" Type="Self.Instrument" Multiplicity="1" />
+          <End Role="DailyReg" Type="Self.DailyReg" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="INSTRUMENT">
+            <Principal Role="Instrument">
               <PropertyRef Name="isin" />
             </Principal>
-            <Dependent Role="DAILYREG">
+            <Dependent Role="DailyReg">
               <PropertyRef Name="isin" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="fkPORTFOLIO">
-          <End Role="PORTFOLIO" Type="Self.PORTFOLIO" Multiplicity="1" />
-          <End Role="CLIENT_PORTFOLIO" Type="Self.CLIENT_PORTFOLIO" Multiplicity="*" />
+          <End Role="Portfolio" Type="Self.Portfolio" Multiplicity="1" />
+          <End Role="Client_Portfolio" Type="Self.Client_Portfolio" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PORTFOLIO">
+            <Principal Role="Portfolio">
               <PropertyRef Name="name" />
             </Principal>
-            <Dependent Role="CLIENT_PORTFOLIO">
+            <Dependent Role="Client_Portfolio">
               <PropertyRef Name="name" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="fkportfolio_pos">
-          <End Role="PORTFOLIO" Type="Self.PORTFOLIO" Multiplicity="1" />
-          <End Role="POSITION" Type="Self.POSITION" Multiplicity="*" />
+          <End Role="Portfolio" Type="Self.Portfolio" Multiplicity="1" />
+          <End Role="Position" Type="Self.Position" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PORTFOLIO">
+            <Principal Role="Portfolio">
               <PropertyRef Name="name" />
             </Principal>
-            <Dependent Role="POSITION">
+            <Dependent Role="Position">
               <PropertyRef Name="name" />
             </Dependent>
           </ReferentialConstraint>
@@ -294,59 +294,59 @@ warning 6002: The table/view 'TL52D_14.dbo.PORTFOLIO_SUMMARY' does not have a pr
           <Parameter Name="isin" Type="char" Mode="In" />
         </Function>
         <EntityContainer Name="TL52D_14ModelStoreContainer">
-          <EntitySet Name="CLIENT" EntityType="Self.CLIENT" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CLIENT_PORTFOLIO" EntityType="Self.CLIENT_PORTFOLIO" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="DAILYMARKET" EntityType="Self.DAILYMARKET" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="DAILYREG" EntityType="Self.DAILYREG" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="EMAIL" EntityType="Self.EMAIL" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="EXTTRIPLE" EntityType="Self.EXTTRIPLE" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="INSTRUMENT" EntityType="Self.INSTRUMENT" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="MARKET" EntityType="Self.MARKET" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PHONE" EntityType="Self.PHONE" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PORTFOLIO" EntityType="Self.PORTFOLIO" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="POSITION" EntityType="Self.POSITION" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PORTFOLIO_SUMMARY" EntityType="Self.PORTFOLIO_SUMMARY" store:Type="Views" store:Schema="dbo">
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client_Portfolio" EntityType="Self.Client_Portfolio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DailyMarket" EntityType="Self.DailyMarket" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DailyReg" EntityType="Self.DailyReg" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Email" EntityType="Self.Email" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Exttriple" EntityType="Self.Exttriple" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Instrument" EntityType="Self.Instrument" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Market" EntityType="Self.Market" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Phone" EntityType="Self.Phone" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Portfolio" EntityType="Self.Portfolio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Portfolio_Summary" EntityType="Self.Portfolio_Summary" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [PORTFOLIO_SUMMARY].[name] AS [name], 
-    [PORTFOLIO_SUMMARY].[NoInstruments] AS [NoInstruments], 
-    [PORTFOLIO_SUMMARY].[totalval] AS [totalval]
-    FROM [dbo].[PORTFOLIO_SUMMARY] AS [PORTFOLIO_SUMMARY]</DefiningQuery>
+    [Portfolio_Summary].[name] AS [name], 
+    [Portfolio_Summary].[NoInstruments] AS [NoInstruments], 
+    [Portfolio_Summary].[totalval] AS [totalval]
+    FROM [dbo].[Portfolio_Summary] AS [Portfolio_Summary]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="fkCLIENT" Association="Self.fkCLIENT">
-            <End Role="CLIENT" EntitySet="CLIENT" />
-            <End Role="CLIENT_PORTFOLIO" EntitySet="CLIENT_PORTFOLIO" />
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Client_Portfolio" EntitySet="Client_Portfolio" />
           </AssociationSet>
           <AssociationSet Name="fkclient_email" Association="Self.fkclient_email">
-            <End Role="CLIENT" EntitySet="CLIENT" />
-            <End Role="EMAIL" EntitySet="EMAIL" />
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Email" EntitySet="Email" />
           </AssociationSet>
           <AssociationSet Name="fkclient_phone" Association="Self.fkclient_phone">
-            <End Role="CLIENT" EntitySet="CLIENT" />
-            <End Role="PHONE" EntitySet="PHONE" />
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Phone" EntitySet="Phone" />
           </AssociationSet>
           <AssociationSet Name="fkdailymrkt" Association="Self.fkdailymrkt">
-            <End Role="MARKET" EntitySet="MARKET" />
-            <End Role="DAILYMARKET" EntitySet="DAILYMARKET" />
+            <End Role="Market" EntitySet="Market" />
+            <End Role="DailyMarket" EntitySet="DailyMarket" />
           </AssociationSet>
           <AssociationSet Name="fkinstrument" Association="Self.fkinstrument">
-            <End Role="MARKET" EntitySet="MARKET" />
-            <End Role="INSTRUMENT" EntitySet="INSTRUMENT" />
+            <End Role="Market" EntitySet="Market" />
+            <End Role="Instrument" EntitySet="Instrument" />
           </AssociationSet>
           <AssociationSet Name="fkinstrument_pos" Association="Self.fkinstrument_pos">
-            <End Role="INSTRUMENT" EntitySet="INSTRUMENT" />
-            <End Role="POSITION" EntitySet="POSITION" />
+            <End Role="Instrument" EntitySet="Instrument" />
+            <End Role="Position" EntitySet="Position" />
           </AssociationSet>
           <AssociationSet Name="fkinstrument_reg" Association="Self.fkinstrument_reg">
-            <End Role="INSTRUMENT" EntitySet="INSTRUMENT" />
-            <End Role="DAILYREG" EntitySet="DAILYREG" />
+            <End Role="Instrument" EntitySet="Instrument" />
+            <End Role="DailyReg" EntitySet="DailyReg" />
           </AssociationSet>
           <AssociationSet Name="fkPORTFOLIO" Association="Self.fkPORTFOLIO">
-            <End Role="PORTFOLIO" EntitySet="PORTFOLIO" />
-            <End Role="CLIENT_PORTFOLIO" EntitySet="CLIENT_PORTFOLIO" />
+            <End Role="Portfolio" EntitySet="Portfolio" />
+            <End Role="Client_Portfolio" EntitySet="Client_Portfolio" />
           </AssociationSet>
           <AssociationSet Name="fkportfolio_pos" Association="Self.fkportfolio_pos">
-            <End Role="PORTFOLIO" EntitySet="PORTFOLIO" />
-            <End Role="POSITION" EntitySet="POSITION" />
+            <End Role="Portfolio" EntitySet="Portfolio" />
+            <End Role="Position" EntitySet="Position" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -368,18 +368,18 @@ warning 6002: The table/view 'TL52D_14.dbo.PORTFOLIO_SUMMARY' does not have a pr
           <Property Name="CurrVal" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Dailyvarperc" Type="Decimal" Precision="5" Scale="2" />
         </ComplexType>
-        <EntityType Name="CLIENT">
+        <EntityType Name="Client">
           <Key>
             <PropertyRef Name="nif" />
           </Key>
           <Property Name="nif" Type="Decimal" Precision="9" Scale="0" Nullable="false" />
           <Property Name="ncc" Type="Decimal" Precision="7" Scale="0" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="EMAIL" Relationship="Self.fkclient_email" FromRole="CLIENT" ToRole="EMAIL" />
-          <NavigationProperty Name="PHONE" Relationship="Self.fkclient_phone" FromRole="CLIENT" ToRole="PHONE" />
-          <NavigationProperty Name="PORTFOLIO" Relationship="Self.CLIENT_PORTFOLIO" FromRole="CLIENT" ToRole="PORTFOLIO" />
+          <NavigationProperty Name="Email" Relationship="Self.fkclient_email" FromRole="Client" ToRole="Email" />
+          <NavigationProperty Name="Phone" Relationship="Self.fkclient_phone" FromRole="Client" ToRole="Phone" />
+          <NavigationProperty Name="Portfolio" Relationship="Self.Client_Portfolio" FromRole="Client" ToRole="Portfolio" />
         </EntityType>
-        <EntityType Name="DAILYMARKET">
+        <EntityType Name="DailyMarket">
           <Key>
             <PropertyRef Name="code" />
             <PropertyRef Name="date" />
@@ -389,9 +389,9 @@ warning 6002: The table/view 'TL52D_14.dbo.PORTFOLIO_SUMMARY' does not have a pr
           <Property Name="idxopeningval" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="code" Type="Int32" Nullable="false" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="MARKET" Relationship="Self.fkdailymrkt" FromRole="DAILYMARKET" ToRole="MARKET" />
+          <NavigationProperty Name="Market" Relationship="Self.fkdailymrkt" FromRole="DailyMarket" ToRole="Market" />
         </EntityType>
-        <EntityType Name="DAILYREG">
+        <EntityType Name="DailyReg">
           <Key>
             <PropertyRef Name="isin" />
             <PropertyRef Name="dailydate" />
@@ -402,9 +402,9 @@ warning 6002: The table/view 'TL52D_14.dbo.PORTFOLIO_SUMMARY' does not have a pr
           <Property Name="maxval" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="closingval" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="dailydate" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="INSTRUMENT" Relationship="Self.fkinstrument_reg" FromRole="DAILYREG" ToRole="INSTRUMENT" />
+          <NavigationProperty Name="Instrument" Relationship="Self.fkinstrument_reg" FromRole="DailyReg" ToRole="Instrument" />
         </EntityType>
-        <EntityType Name="EMAIL">
+        <EntityType Name="Email">
           <Key>
             <PropertyRef Name="code" />
           </Key>
@@ -412,9 +412,9 @@ warning 6002: The table/view 'TL52D_14.dbo.PORTFOLIO_SUMMARY' does not have a pr
           <Property Name="description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="addr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="nif" Type="Decimal" Precision="9" Scale="0" />
-          <NavigationProperty Name="CLIENT" Relationship="Self.fkclient_email" FromRole="EMAIL" ToRole="CLIENT" />
+          <NavigationProperty Name="Client" Relationship="Self.fkclient_email" FromRole="Email" ToRole="Client" />
         </EntityType>
-        <EntityType Name="EXTTRIPLE">
+        <EntityType Name="Exttriple">
           <Key>
             <PropertyRef Name="datetime" />
             <PropertyRef Name="id" />
@@ -423,28 +423,28 @@ warning 6002: The table/view 'TL52D_14.dbo.PORTFOLIO_SUMMARY' does not have a pr
           <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="id" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
         </EntityType>
-        <EntityType Name="INSTRUMENT">
+        <EntityType Name="Instrument">
           <Key>
             <PropertyRef Name="isin" />
           </Key>
           <Property Name="isin" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="mrktcode" Type="Int32" />
-          <NavigationProperty Name="DAILYREG" Relationship="Self.fkinstrument_reg" FromRole="INSTRUMENT" ToRole="DAILYREG" />
-          <NavigationProperty Name="MARKET" Relationship="Self.fkinstrument" FromRole="INSTRUMENT" ToRole="MARKET" />
-          <NavigationProperty Name="POSITION" Relationship="Self.fkinstrument_pos" FromRole="INSTRUMENT" ToRole="POSITION" />
+          <NavigationProperty Name="DailyReg" Relationship="Self.fkinstrument_reg" FromRole="Instrument" ToRole="DailyReg" />
+          <NavigationProperty Name="Market" Relationship="Self.fkinstrument" FromRole="Instrument" ToRole="Market" />
+          <NavigationProperty Name="Position" Relationship="Self.fkinstrument_pos" FromRole="Instrument" ToRole="Position" />
         </EntityType>
-        <EntityType Name="MARKET">
+        <EntityType Name="Market">
           <Key>
             <PropertyRef Name="code" />
           </Key>
           <Property Name="code" Type="Int32" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="DAILYMARKET" Relationship="Self.fkdailymrkt" FromRole="MARKET" ToRole="DAILYMARKET" />
-          <NavigationProperty Name="INSTRUMENT" Relationship="Self.fkinstrument" FromRole="MARKET" ToRole="INSTRUMENT" />
+          <NavigationProperty Name="DailyMarket" Relationship="Self.fkdailymrkt" FromRole="Market" ToRole="DailyMarket" />
+          <NavigationProperty Name="Instrument" Relationship="Self.fkinstrument" FromRole="Market" ToRole="Instrument" />
         </EntityType>
-        <EntityType Name="PHONE">
+        <EntityType Name="Phone">
           <Key>
             <PropertyRef Name="code" />
           </Key>
@@ -453,18 +453,18 @@ warning 6002: The table/view 'TL52D_14.dbo.PORTFOLIO_SUMMARY' does not have a pr
           <Property Name="areacode" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Name="number" Type="Decimal" Precision="9" Scale="0" />
           <Property Name="nif" Type="Decimal" Precision="9" Scale="0" />
-          <NavigationProperty Name="CLIENT" Relationship="Self.fkclient_phone" FromRole="PHONE" ToRole="CLIENT" />
+          <NavigationProperty Name="Client" Relationship="Self.fkclient_phone" FromRole="Phone" ToRole="Client" />
         </EntityType>
-        <EntityType Name="PORTFOLIO">
+        <EntityType Name="Portfolio">
           <Key>
             <PropertyRef Name="name" />
           </Key>
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="totalval" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="POSITION" Relationship="Self.fkportfolio_pos" FromRole="PORTFOLIO" ToRole="POSITION" />
-          <NavigationProperty Name="CLIENT" Relationship="Self.CLIENT_PORTFOLIO" FromRole="PORTFOLIO" ToRole="CLIENT" />
+          <NavigationProperty Name="Position" Relationship="Self.fkportfolio_pos" FromRole="Portfolio" ToRole="Position" />
+          <NavigationProperty Name="Client" Relationship="Self.Client_Portfolio" FromRole="Portfolio" ToRole="Client" />
         </EntityType>
-        <EntityType Name="POSITION">
+        <EntityType Name="Position">
           <Key>
             <PropertyRef Name="name" />
             <PropertyRef Name="isin" />
@@ -472,10 +472,10 @@ warning 6002: The table/view 'TL52D_14.dbo.PORTFOLIO_SUMMARY' does not have a pr
           <Property Name="quantity" Type="Int32" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="isin" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="INSTRUMENT" Relationship="Self.fkinstrument_pos" FromRole="POSITION" ToRole="INSTRUMENT" />
-          <NavigationProperty Name="PORTFOLIO" Relationship="Self.fkportfolio_pos" FromRole="POSITION" ToRole="PORTFOLIO" />
+          <NavigationProperty Name="Instrument" Relationship="Self.fkinstrument_pos" FromRole="Position" ToRole="Instrument" />
+          <NavigationProperty Name="Portfolio" Relationship="Self.fkportfolio_pos" FromRole="Position" ToRole="Portfolio" />
         </EntityType>
-        <EntityType Name="PORTFOLIO_SUMMARY">
+        <EntityType Name="Portfolio_Summary">
           <Key>
             <PropertyRef Name="name" />
           </Key>
@@ -484,136 +484,136 @@ warning 6002: The table/view 'TL52D_14.dbo.PORTFOLIO_SUMMARY' does not have a pr
           <Property Name="totalval" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <Association Name="fkclient_email">
-          <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="0..1" />
-          <End Role="EMAIL" Type="Self.EMAIL" Multiplicity="*" />
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Email" Type="Self.Email" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CLIENT">
+            <Principal Role="Client">
               <PropertyRef Name="nif" />
             </Principal>
-            <Dependent Role="EMAIL">
+            <Dependent Role="Email">
               <PropertyRef Name="nif" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="fkclient_phone">
-          <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="0..1" />
-          <End Role="PHONE" Type="Self.PHONE" Multiplicity="*" />
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Phone" Type="Self.Phone" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CLIENT">
+            <Principal Role="Client">
               <PropertyRef Name="nif" />
             </Principal>
-            <Dependent Role="PHONE">
+            <Dependent Role="Phone">
               <PropertyRef Name="nif" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="fkdailymrkt">
-          <End Role="MARKET" Type="Self.MARKET" Multiplicity="1" />
-          <End Role="DAILYMARKET" Type="Self.DAILYMARKET" Multiplicity="*" />
+          <End Role="Market" Type="Self.Market" Multiplicity="1" />
+          <End Role="DailyMarket" Type="Self.DailyMarket" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="MARKET">
+            <Principal Role="Market">
               <PropertyRef Name="code" />
             </Principal>
-            <Dependent Role="DAILYMARKET">
+            <Dependent Role="DailyMarket">
               <PropertyRef Name="code" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="fkinstrument_reg">
-          <End Role="INSTRUMENT" Type="Self.INSTRUMENT" Multiplicity="1" />
-          <End Role="DAILYREG" Type="Self.DAILYREG" Multiplicity="*" />
+          <End Role="Instrument" Type="Self.Instrument" Multiplicity="1" />
+          <End Role="DailyReg" Type="Self.DailyReg" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="INSTRUMENT">
+            <Principal Role="Instrument">
               <PropertyRef Name="isin" />
             </Principal>
-            <Dependent Role="DAILYREG">
+            <Dependent Role="DailyReg">
               <PropertyRef Name="isin" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="fkinstrument">
-          <End Role="MARKET" Type="Self.MARKET" Multiplicity="0..1" />
-          <End Role="INSTRUMENT" Type="Self.INSTRUMENT" Multiplicity="*" />
+          <End Role="Market" Type="Self.Market" Multiplicity="0..1" />
+          <End Role="Instrument" Type="Self.Instrument" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="MARKET">
+            <Principal Role="Market">
               <PropertyRef Name="code" />
             </Principal>
-            <Dependent Role="INSTRUMENT">
+            <Dependent Role="Instrument">
               <PropertyRef Name="mrktcode" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="fkinstrument_pos">
-          <End Role="INSTRUMENT" Type="Self.INSTRUMENT" Multiplicity="1" />
-          <End Role="POSITION" Type="Self.POSITION" Multiplicity="*" />
+          <End Role="Instrument" Type="Self.Instrument" Multiplicity="1" />
+          <End Role="Position" Type="Self.Position" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="INSTRUMENT">
+            <Principal Role="Instrument">
               <PropertyRef Name="isin" />
             </Principal>
-            <Dependent Role="POSITION">
+            <Dependent Role="Position">
               <PropertyRef Name="isin" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="fkportfolio_pos">
-          <End Role="PORTFOLIO" Type="Self.PORTFOLIO" Multiplicity="1" />
-          <End Role="POSITION" Type="Self.POSITION" Multiplicity="*" />
+          <End Role="Portfolio" Type="Self.Portfolio" Multiplicity="1" />
+          <End Role="Position" Type="Self.Position" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PORTFOLIO">
+            <Principal Role="Portfolio">
               <PropertyRef Name="name" />
             </Principal>
-            <Dependent Role="POSITION">
+            <Dependent Role="Position">
               <PropertyRef Name="name" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="CLIENT_PORTFOLIO">
-          <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="*" />
-          <End Role="PORTFOLIO" Type="Self.PORTFOLIO" Multiplicity="*" />
+        <Association Name="Client_Portfolio">
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <End Role="Portfolio" Type="Self.Portfolio" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="TL52D_14Entities7" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="CLIENT" EntityType="Self.CLIENT" />
-          <EntitySet Name="DAILYMARKET" EntityType="Self.DAILYMARKET" />
-          <EntitySet Name="DAILYREG" EntityType="Self.DAILYREG" />
-          <EntitySet Name="EMAIL" EntityType="Self.EMAIL" />
-          <EntitySet Name="EXTTRIPLE" EntityType="Self.EXTTRIPLE" />
-          <EntitySet Name="INSTRUMENT" EntityType="Self.INSTRUMENT" />
-          <EntitySet Name="MARKET" EntityType="Self.MARKET" />
-          <EntitySet Name="PHONE" EntityType="Self.PHONE" />
-          <EntitySet Name="PORTFOLIO" EntityType="Self.PORTFOLIO" />
-          <EntitySet Name="POSITION" EntityType="Self.POSITION" />
-          <EntitySet Name="PORTFOLIO_SUMMARY" EntityType="Self.PORTFOLIO_SUMMARY" />
+        <EntityContainer Name="TL52D_14Entities8" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Client" EntityType="Self.Client" />
+          <EntitySet Name="DailyMarket" EntityType="Self.DailyMarket" />
+          <EntitySet Name="DailyReg" EntityType="Self.DailyReg" />
+          <EntitySet Name="Email" EntityType="Self.Email" />
+          <EntitySet Name="Exttriple" EntityType="Self.Exttriple" />
+          <EntitySet Name="Instrument" EntityType="Self.Instrument" />
+          <EntitySet Name="Market" EntityType="Self.Market" />
+          <EntitySet Name="Phone" EntityType="Self.Phone" />
+          <EntitySet Name="Portfolio" EntityType="Self.Portfolio" />
+          <EntitySet Name="Position" EntityType="Self.Position" />
+          <EntitySet Name="Portfolio_Summary" EntityType="Self.Portfolio_Summary" />
           <AssociationSet Name="fkclient_email" Association="Self.fkclient_email">
-            <End Role="CLIENT" EntitySet="CLIENT" />
-            <End Role="EMAIL" EntitySet="EMAIL" />
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Email" EntitySet="Email" />
           </AssociationSet>
           <AssociationSet Name="fkclient_phone" Association="Self.fkclient_phone">
-            <End Role="CLIENT" EntitySet="CLIENT" />
-            <End Role="PHONE" EntitySet="PHONE" />
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Phone" EntitySet="Phone" />
           </AssociationSet>
           <AssociationSet Name="fkdailymrkt" Association="Self.fkdailymrkt">
-            <End Role="MARKET" EntitySet="MARKET" />
-            <End Role="DAILYMARKET" EntitySet="DAILYMARKET" />
+            <End Role="Market" EntitySet="Market" />
+            <End Role="DailyMarket" EntitySet="DailyMarket" />
           </AssociationSet>
           <AssociationSet Name="fkinstrument_reg" Association="Self.fkinstrument_reg">
-            <End Role="INSTRUMENT" EntitySet="INSTRUMENT" />
-            <End Role="DAILYREG" EntitySet="DAILYREG" />
+            <End Role="Instrument" EntitySet="Instrument" />
+            <End Role="DailyReg" EntitySet="DailyReg" />
           </AssociationSet>
           <AssociationSet Name="fkinstrument" Association="Self.fkinstrument">
-            <End Role="MARKET" EntitySet="MARKET" />
-            <End Role="INSTRUMENT" EntitySet="INSTRUMENT" />
+            <End Role="Market" EntitySet="Market" />
+            <End Role="Instrument" EntitySet="Instrument" />
           </AssociationSet>
           <AssociationSet Name="fkinstrument_pos" Association="Self.fkinstrument_pos">
-            <End Role="INSTRUMENT" EntitySet="INSTRUMENT" />
-            <End Role="POSITION" EntitySet="POSITION" />
+            <End Role="Instrument" EntitySet="Instrument" />
+            <End Role="Position" EntitySet="Position" />
           </AssociationSet>
           <AssociationSet Name="fkportfolio_pos" Association="Self.fkportfolio_pos">
-            <End Role="PORTFOLIO" EntitySet="PORTFOLIO" />
-            <End Role="POSITION" EntitySet="POSITION" />
+            <End Role="Portfolio" EntitySet="Portfolio" />
+            <End Role="Position" EntitySet="Position" />
           </AssociationSet>
-          <AssociationSet Name="CLIENT_PORTFOLIO" Association="Self.CLIENT_PORTFOLIO">
-            <End Role="CLIENT" EntitySet="CLIENT" />
-            <End Role="PORTFOLIO" EntitySet="PORTFOLIO" />
+          <AssociationSet Name="Client_Portfolio" Association="Self.Client_Portfolio">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Portfolio" EntitySet="Portfolio" />
           </AssociationSet>
           <FunctionImport Name="FundamentalDataTable" IsComposable="true" ReturnType="Collection(TL52D_14Model.FundamentalDataTable_Result)">
             <Parameter Name="isin" Mode="In" Type="String" />
@@ -660,19 +660,19 @@ warning 6002: The table/view 'TL52D_14.dbo.PORTFOLIO_SUMMARY' does not have a pr
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="TL52D_14ModelStoreContainer" CdmEntityContainer="TL52D_14Entities7">
-          <EntitySetMapping Name="CLIENT">
-            <EntityTypeMapping TypeName="TL52D_14Model.CLIENT">
-              <MappingFragment StoreEntitySet="CLIENT">
+        <EntityContainerMapping StorageEntityContainer="TL52D_14ModelStoreContainer" CdmEntityContainer="TL52D_14Entities8">
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="TL52D_14Model.Client">
+              <MappingFragment StoreEntitySet="Client">
                 <ScalarProperty Name="nif" ColumnName="nif" />
                 <ScalarProperty Name="ncc" ColumnName="ncc" />
                 <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DAILYMARKET">
-            <EntityTypeMapping TypeName="TL52D_14Model.DAILYMARKET">
-              <MappingFragment StoreEntitySet="DAILYMARKET">
+          <EntitySetMapping Name="DailyMarket">
+            <EntityTypeMapping TypeName="TL52D_14Model.DailyMarket">
+              <MappingFragment StoreEntitySet="DailyMarket">
                 <ScalarProperty Name="idxmrkt" ColumnName="idxmrkt" />
                 <ScalarProperty Name="dailyvar" ColumnName="dailyvar" />
                 <ScalarProperty Name="idxopeningval" ColumnName="idxopeningval" />
@@ -681,9 +681,9 @@ warning 6002: The table/view 'TL52D_14.dbo.PORTFOLIO_SUMMARY' does not have a pr
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DAILYREG">
-            <EntityTypeMapping TypeName="TL52D_14Model.DAILYREG">
-              <MappingFragment StoreEntitySet="DAILYREG">
+          <EntitySetMapping Name="DailyReg">
+            <EntityTypeMapping TypeName="TL52D_14Model.DailyReg">
+              <MappingFragment StoreEntitySet="DailyReg">
                 <ScalarProperty Name="isin" ColumnName="isin" />
                 <ScalarProperty Name="minval" ColumnName="minval" />
                 <ScalarProperty Name="openingval" ColumnName="openingval" />
@@ -693,9 +693,9 @@ warning 6002: The table/view 'TL52D_14.dbo.PORTFOLIO_SUMMARY' does not have a pr
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="EMAIL">
-            <EntityTypeMapping TypeName="TL52D_14Model.EMAIL">
-              <MappingFragment StoreEntitySet="EMAIL">
+          <EntitySetMapping Name="Email">
+            <EntityTypeMapping TypeName="TL52D_14Model.Email">
+              <MappingFragment StoreEntitySet="Email">
                 <ScalarProperty Name="code" ColumnName="code" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="addr" ColumnName="addr" />
@@ -703,36 +703,36 @@ warning 6002: The table/view 'TL52D_14.dbo.PORTFOLIO_SUMMARY' does not have a pr
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="EXTTRIPLE">
-            <EntityTypeMapping TypeName="TL52D_14Model.EXTTRIPLE">
-              <MappingFragment StoreEntitySet="EXTTRIPLE">
+          <EntitySetMapping Name="Exttriple">
+            <EntityTypeMapping TypeName="TL52D_14Model.Exttriple">
+              <MappingFragment StoreEntitySet="Exttriple">
                 <ScalarProperty Name="value" ColumnName="value" />
                 <ScalarProperty Name="datetime" ColumnName="datetime" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="INSTRUMENT">
-            <EntityTypeMapping TypeName="TL52D_14Model.INSTRUMENT">
-              <MappingFragment StoreEntitySet="INSTRUMENT">
+          <EntitySetMapping Name="Instrument">
+            <EntityTypeMapping TypeName="TL52D_14Model.Instrument">
+              <MappingFragment StoreEntitySet="Instrument">
                 <ScalarProperty Name="isin" ColumnName="isin" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="mrktcode" ColumnName="mrktcode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MARKET">
-            <EntityTypeMapping TypeName="TL52D_14Model.MARKET">
-              <MappingFragment StoreEntitySet="MARKET">
+          <EntitySetMapping Name="Market">
+            <EntityTypeMapping TypeName="TL52D_14Model.Market">
+              <MappingFragment StoreEntitySet="Market">
                 <ScalarProperty Name="code" ColumnName="code" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PHONE">
-            <EntityTypeMapping TypeName="TL52D_14Model.PHONE">
-              <MappingFragment StoreEntitySet="PHONE">
+          <EntitySetMapping Name="Phone">
+            <EntityTypeMapping TypeName="TL52D_14Model.Phone">
+              <MappingFragment StoreEntitySet="Phone">
                 <ScalarProperty Name="code" ColumnName="code" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="areacode" ColumnName="areacode" />
@@ -741,37 +741,37 @@ warning 6002: The table/view 'TL52D_14.dbo.PORTFOLIO_SUMMARY' does not have a pr
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PORTFOLIO">
-            <EntityTypeMapping TypeName="TL52D_14Model.PORTFOLIO">
-              <MappingFragment StoreEntitySet="PORTFOLIO">
+          <EntitySetMapping Name="Portfolio">
+            <EntityTypeMapping TypeName="TL52D_14Model.Portfolio">
+              <MappingFragment StoreEntitySet="Portfolio">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="totalval" ColumnName="totalval" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="POSITION">
-            <EntityTypeMapping TypeName="TL52D_14Model.POSITION">
-              <MappingFragment StoreEntitySet="POSITION">
+          <EntitySetMapping Name="Position">
+            <EntityTypeMapping TypeName="TL52D_14Model.Position">
+              <MappingFragment StoreEntitySet="Position">
                 <ScalarProperty Name="quantity" ColumnName="quantity" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="isin" ColumnName="isin" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PORTFOLIO_SUMMARY">
-            <EntityTypeMapping TypeName="TL52D_14Model.PORTFOLIO_SUMMARY">
-              <MappingFragment StoreEntitySet="PORTFOLIO_SUMMARY">
+          <EntitySetMapping Name="Portfolio_Summary">
+            <EntityTypeMapping TypeName="TL52D_14Model.Portfolio_Summary">
+              <MappingFragment StoreEntitySet="Portfolio_Summary">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="NoInstruments" ColumnName="NoInstruments" />
                 <ScalarProperty Name="totalval" ColumnName="totalval" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="CLIENT_PORTFOLIO" TypeName="TL52D_14Model.CLIENT_PORTFOLIO" StoreEntitySet="CLIENT_PORTFOLIO">
-            <EndProperty Name="CLIENT">
+          <AssociationSetMapping Name="Client_Portfolio" TypeName="TL52D_14Model.Client_Portfolio" StoreEntitySet="Client_Portfolio">
+            <EndProperty Name="Client">
               <ScalarProperty Name="nif" ColumnName="nif" />
             </EndProperty>
-            <EndProperty Name="PORTFOLIO">
+            <EndProperty Name="Portfolio">
               <ScalarProperty Name="name" ColumnName="name" />
             </EndProperty>
           </AssociationSetMapping>

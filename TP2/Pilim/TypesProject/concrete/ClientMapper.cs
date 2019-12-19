@@ -10,10 +10,10 @@ namespace TypesProject.concrete
 {
     class ClientMapper :  IClientMapper
     {
-        MapperHelper<IClient, int, List<IClient>> mapperHelper;
+        MapperHelper<IClient, decimal, List<IClient>> mapperHelper;
         public ClientMapper(IContext ctx)
         {
-            mapperHelper = new MapperHelper<IClient, int, List<IClient>>(ctx,this);
+            mapperHelper = new MapperHelper<IClient, decimal, List<IClient>>(ctx,this);
         }
 
         internal ICollection<IEmail> LoadEmails(Client c)
@@ -92,13 +92,7 @@ namespace TypesProject.concrete
 
 
         }
-        public IClient Read(int id)
-        {
-            return mapperHelper.Read(id,
-                (cmd,i)=>SelectParameters(cmd,i),
-                "select clientId, name, ncc from Client where clientId=@id"
-                );
-    }
+      
 
     public List<IClient> ReadAll()
     {
@@ -168,6 +162,13 @@ namespace TypesProject.concrete
             return new ClientProxy(c, mapperHelper.context);
         }
 
+        public IClient Read(decimal id)
+        {
+            return mapperHelper.Read(id,
+                (cmd, i) => SelectParameters(cmd, i),
+                "select clientId, name, ncc from Client where clientId=@id"
+                );
+        }
     }
 }
     

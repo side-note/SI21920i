@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TypesProject.model;
 
-namespace TypesProject.mapper
+namespace EF_TP2_52D_14_1920i.repositories
 {
-    interface IPortfolioMapper :IMapper<IPortfolio, string, List<IPortfolio>>
+    class PHONEREPOSITORY
     {
     }
 }

@@ -12,14 +12,14 @@ namespace EF_TP2_52D_14_1920i
     using System;
     using System.Collections.Generic;
     
-    public partial class CLIENT
+    public partial class Client
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CLIENT()
+        public Client()
         {
-            this.EMAIL = new HashSet<EMAIL>();
-            this.PHONE = new HashSet<PHONE>();
-            this.PORTFOLIO = new HashSet<PORTFOLIO>();
+            this.Email = new HashSet<Email>();
+            this.Phone = new HashSet<Phone>();
+            this.Portfolio = new HashSet<Portfolio>();
         }
     
         public decimal nif { get; set; }
@@ -27,10 +27,10 @@ namespace EF_TP2_52D_14_1920i
         public string name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EMAIL> EMAIL { get; set; }
+        public virtual ICollection<Email> Email { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PHONE> PHONE { get; set; }
+        public virtual ICollection<Phone> Phone { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PORTFOLIO> PORTFOLIO { get; set; }
+        public virtual ICollection<Portfolio> Portfolio { get; set; }
     }
 }

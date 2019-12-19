@@ -1,6 +1,6 @@
-create view PORTFOLIO_SUMMARY as
-select PORTFOLIO.name, T1.NoInstruments, PORTFOLIO.totalval from (select name, count(isin) as NoInstruments from POSITION group by name) T1
+create view Portfolio_Summary as
+select Portfolio.name, T1.NoInstruments, Portfolio.totalval from (select name, count(isin) as NoInstruments from Position group by name) T1
 JOIN
-PORTFOLIO
-on T1.name = PORTFOLIO.name
+Portfolio
+on T1.name = Portfolio.name
 go

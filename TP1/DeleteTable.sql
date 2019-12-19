@@ -1,11 +1,11 @@
-delete from PHONE
-delete from EMAIL
-delete from POSITION
-delete from INSTRUMENT
-delete from PORTFOLIO
-delete from CLIENT
-delete from DAILYMARKET
-delete from MARKET
-delete from DAILYREG
+delete from Phone
+delete from Email
+delete from Position
+delete from Instrument
+delete from Portfolio
+delete from Client
+delete from DailyMarket
+delete from Market
+delete from DailyReg
 
 

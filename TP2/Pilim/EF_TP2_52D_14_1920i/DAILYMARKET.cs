@@ -12,7 +12,7 @@ namespace EF_TP2_52D_14_1920i
     using System;
     using System.Collections.Generic;
     
-    public partial class DAILYMARKET
+    public partial class DailyMarket
     {
         public Nullable<decimal> idxmrkt { get; set; }
         public Nullable<decimal> dailyvar { get; set; }
@@ -20,6 +20,6 @@ namespace EF_TP2_52D_14_1920i
         public int code { get; set; }
         public System.DateTime date { get; set; }
     
-        public virtual MARKET MARKET { get; set; }
+        public virtual Market Market { get; set; }
     }
 }

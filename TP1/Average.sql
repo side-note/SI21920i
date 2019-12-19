@@ -5,7 +5,7 @@ begin
     declare @initdate date
     set @initdate = getdate() - @days
     declare @average money
-    set @average = (select AVG(closingval) from dbo.DAILYREG where DAILYREG.isin = @isin and dailydate >= @initdate)
+    set @average = (select AVG(closingval) from dbo.DailyReg where DAILYREG.isin = @isin and dailydate >= @initdate)
     return @average
 end
 Go

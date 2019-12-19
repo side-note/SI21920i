@@ -8,10 +8,9 @@ using TypesProject.model;
 namespace EF_TP2_52D_14_1920i
 {
 
-    public partial class PORTFOLIO : IPortfolio
+    public partial class Portfolio : IPortfolio
     {
-        //public string name { get; set ; }
-       //public double totalval { get ; set ; }
+      
         public IClient client { get; set ; }
         public ICollection<IPosition> positionInstruments { get; set; }
     }

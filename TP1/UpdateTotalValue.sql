@@ -3,20 +3,20 @@ create procedure dbo.UpdateTotalVal @name varchar(50),
                                     @isin char(12)
 as
 begin
-    insert into dbo.POSITION
+    insert into dbo.Position
     values (@quantity,
             @name,
             @isin)
-    update dbo.PORTFOLIO
+    update dbo.Portfolio
     set totalval = (select sum(quantity * closingval)
-                    from dbo.POSITION
-                             join dbo.DAILYREG on POSITION.isin = dbo.DAILYREG.isin
+                    from dbo.Position
+                             join dbo.DailyReg on Position.isin = dbo.DailyReg.isin
                     where name = @name
                       and dailydate = (select
                                        top 1
                                        dailydate
-                                       from dbo.DAILYREG
-                                       where isin = dbo.POSITION.isin
+                                       from dbo.DailyReg
+                                       where isin = dbo.Position.isin
                                        order by dailydate desc))
     where name = @name
 end

@@ -28,5 +28,7 @@ exec UpdateTotalVal @name = '555555555_portfolio', @quantity = 50000, @isin = 11
 select * from Portfolio_List('111111111_portfolio')
 
 --l)
-select * from PORTFOLIO_SUMMARY
+select * from Portfolio_Summary
+
+
 

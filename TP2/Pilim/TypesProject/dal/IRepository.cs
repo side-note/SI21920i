@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace TypesProject.dal
 {
-    interface IRepository<T>
+   public  interface IRepository<T>
     {
 
-        bool Update(T value, Func<T, bool> criteria);
-        bool Delete(T value, Func<T, bool> criteria);
+        bool Update(T value);
+        bool Delete(T value);
         T Insert(T value);
-        IEnumerable<T> FindAll();
-        IEnumerable<T> Find(Func<T, bool> criteria);
+        T Find(params object[] keys);
     }
 }

@@ -12,6 +12,6 @@ sqlcmd -S 10.62.73.95 -U TL52D_14 -P CJN1920i -i "./TP1/FundamentalData.sql"
 sqlcmd -S 10.62.73.95 -U TL52D_14 -P CJN1920i -i "./TP1/CreatePortfolio.sql"
 sqlcmd -S 10.62.73.95 -U TL52D_14 -P CJN1920i -i "./TP1/UpdateTotalValue.sql"
 sqlcmd -S 10.62.73.95 -U TL52D_14 -P CJN1920i -i "./TP1/PortfolioList.sql"
-sqlcmd -S 10.62.73.95 -U TL52D_14 -P CJN1920i -i "./TP1/PORTFOLIO_SUMMARY_VIEW.sql"
+sqlcmd -S 10.62.73.95 -U TL52D_14 -P CJN1920i -i "./TP1/Portfolio_Summary_View.sql"
 
 

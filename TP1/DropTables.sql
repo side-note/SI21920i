@@ -1,13 +1,13 @@
-drop table if exists DAILYREG;
-drop table if exists EXTTRIPLE;
-drop table if exists PHONE;
-drop table if exists EMAIL;
-drop table if exists POSITION;
-drop table if exists INSTRUMENT;
-drop table if exists CLIENT_PORTFOLIO;
-drop table if exists PORTFOLIO;
-drop table if exists CLIENT;
-drop table if exists DAILYMARKET;
-drop table if exists MARKET;
+drop table if exists DailyReg;
+drop table if exists Exttriple;
+drop table if exists Phone;
+drop table if exists Email;
+drop table if exists Position;
+drop table if exists Instrument;
+drop table if exists Client_Portfolio;
+drop table if exists Portfolio;
+drop table if exists Client;
+drop table if exists DailyMarket;
+drop table if exists Market;
 
 

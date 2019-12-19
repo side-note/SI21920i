@@ -7,7 +7,7 @@ using TypesProject.model;
 
 namespace EF_TP2_52D_14_1920i
 {
-    public partial class DAILYMARKET : IDailyMarket
+    public partial class DailyMarket : IDailyMarket
     {
         public IMarket market { get; set; }
         

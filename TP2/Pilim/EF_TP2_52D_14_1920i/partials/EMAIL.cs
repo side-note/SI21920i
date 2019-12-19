@@ -7,9 +7,9 @@ using TypesProject.model;
 
 namespace EF_TP2_52D_14_1920i
 {
-    public partial class EMAIL : IEmail
+    public partial class Email : IEmail
     {
-        public IClient ClientEmail { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        int IEmail.nif { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public IClient ClientEmail { get; set; }
     }
+      
 }

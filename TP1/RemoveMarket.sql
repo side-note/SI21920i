@@ -3,12 +3,12 @@ create procedure remove_market
 as
 set transaction isolation level read committed
 begin tran
-    if exists(select code from MARKET where @code = code)
+    if exists(select code from Market where @code = code)
         begin
-            delete from DAILYREG where isin = (select isin from INSTRUMENT where mrktcode = @code)
-            delete from POSITION where isin = (select isin from INSTRUMENT where mrktcode = @code)
-            delete from INSTRUMENT where mrktcode = @code
-            delete from DAILYMARKET where code = @code
+            delete from DailyReg where isin = (select isin from INSTRUMENT where mrktcode = @code)
+            delete from Position where isin = (select isin from INSTRUMENT where mrktcode = @code)
+            delete from Instrument where mrktcode = @code
+            delete from DailyMarket where code = @code
             delete from MARKET where code = @code
         end
 commit

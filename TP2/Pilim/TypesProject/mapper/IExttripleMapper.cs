@@ -7,7 +7,7 @@ using TypesProject.model;
 
 namespace TypesProject.mapper
 {
-    interface IExttripleMapper: IMapper<IExtTriple,KeyValuePair<int,DateTime>,List<IExtTriple>>
+    interface IExttripleMapper: IMapper<IExtTriple,KeyValuePair<string,DateTime>,List<IExtTriple>>
     {
     }
 }

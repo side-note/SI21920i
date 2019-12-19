@@ -12,7 +12,7 @@ namespace EF_TP2_52D_14_1920i
     using System;
     using System.Collections.Generic;
     
-    public partial class EXTTRIPLE
+    public partial class Exttriple
     {
         public decimal value { get; set; }
         public System.DateTime datetime { get; set; }

@@ -7,7 +7,7 @@ using TypesProject.model;
 
 namespace TypesProject.dal
 {
-    interface IClientRepository : IRepository<IClient>
+    public interface IClientRepository : IRepository<IClient>
     {
     }
 }

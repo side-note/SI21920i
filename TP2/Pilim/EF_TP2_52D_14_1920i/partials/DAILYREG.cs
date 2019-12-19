@@ -7,7 +7,7 @@ using TypesProject.model;
 
 namespace EF_TP2_52D_14_1920i
 {
-    public partial class DAILYREG : IDailyReg
+    public partial class DailyReg : IDailyReg
     {
         public IInstrument instrument { get ; set; }
        

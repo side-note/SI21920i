@@ -12,13 +12,13 @@ namespace EF_TP2_52D_14_1920i
     using System;
     using System.Collections.Generic;
     
-    public partial class POSITION
+    public partial class Position
     {
         public Nullable<int> quantity { get; set; }
         public string name { get; set; }
         public string isin { get; set; }
     
-        public virtual INSTRUMENT INSTRUMENT { get; set; }
-        public virtual PORTFOLIO PORTFOLIO { get; set; }
+        public virtual Instrument Instrument { get; set; }
+        public virtual Portfolio Portfolio { get; set; }
     }
 }

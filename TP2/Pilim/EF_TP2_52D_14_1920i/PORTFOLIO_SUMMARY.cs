@@ -12,7 +12,7 @@ namespace EF_TP2_52D_14_1920i
     using System;
     using System.Collections.Generic;
     
-    public partial class PORTFOLIO_SUMMARY
+    public partial class Portfolio_Summary
     {
         public string name { get; set; }
         public Nullable<int> NoInstruments { get; set; }

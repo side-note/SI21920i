@@ -1,11 +1,11 @@
-create table MARKET(
+create table Market(
 	code		int,
 	description	varchar(300),
 	name		varchar(50),
 	constraint pkmarket primary key(code)
 );
 
-create table DAILYMARKET(
+create table DailyMarket(
 	idxmrkt			money,
 	dailyvar		money,
 	idxopeningval	money,
@@ -15,20 +15,20 @@ create table DAILYMARKET(
 	constraint pkdailymrkt primary key(date, code)
 );
 
-create table CLIENT(
+create table Client(
 	nif		decimal(9),
 	ncc		decimal(7),
 	name	varchar(50),
 	constraint pkclient primary key(nif)
 );
 
-create table PORTFOLIO(
+create table Portfolio(
 	name		varchar(50),
 	totalval	money,
 	constraint pkportfolio primary key(name)
 );
 
-create table CLIENT_PORTFOLIO(
+create table Client_Portfolio(
 	name varchar(50),
 	nif decimal(9),
 	constraint pkCLIENT_PORTFOLIO primary key(name, nif),
@@ -36,7 +36,7 @@ create table CLIENT_PORTFOLIO(
 	constraint fkPORTFOLIO foreign key(name) references PORTFOLIO(name) 
 );
 
-create table INSTRUMENT(
+create table Instrument(
 	isin			char(12),
 	description		varchar(300),
 	mrktcode        int,
@@ -44,7 +44,7 @@ create table INSTRUMENT(
 	constraint fkinstrument foreign key (mrktcode) references MARKET(code)
 );
 
-create table POSITION(
+create table Position(
 	quantity		int,
 	name			varchar(50),
 	isin			char(12),
@@ -53,7 +53,7 @@ create table POSITION(
 	constraint fkinstrument_pos foreign key(isin) references INSTRUMENT(isin)
 );
 
-create table EMAIL(
+create table Email(
 	code		int,
 	description	varchar(300),
 	addr		varchar(50),
@@ -62,7 +62,7 @@ create table EMAIL(
 	constraint fkclient_email foreign key(nif) references CLIENT(nif)
 );
 
-create table PHONE(
+create table Phone(
 	code		int,
 	description	varchar(300),
 	areacode	varchar(4),
@@ -71,7 +71,7 @@ create table PHONE(
 	constraint pkphone primary key(code),
 	constraint fkclient_phone foreign key(nif) references CLIENT(nif)
 );
-create table EXTTRIPLE(
+create table Exttriple(
 	value		money not null,
 	datetime	datetime not null,
 	id			char(12) not null,
@@ -79,7 +79,7 @@ create table EXTTRIPLE(
 
 );
 
-create table DAILYREG(
+create table DailyReg(
 	isin				char(12),
 	minval				money,
 	openingval			money,

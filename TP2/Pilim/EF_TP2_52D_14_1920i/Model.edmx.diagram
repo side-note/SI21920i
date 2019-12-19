@@ -4,32 +4,26 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f285dc4bb16b42e1a0ce757a418776b2" Name="Diagram1">
-        <EntityTypeShape EntityType="TL52D_14Model.CLIENT" Width="1.5" PointX="0.5" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TL52D_14Model.DAILYMARKET" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TL52D_14Model.DAILYREG" Width="1.5" PointX="5.25" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TL52D_14Model.EMAIL" Width="1.5" PointX="1.75" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="TL52D_14Model.EXTTRIPLE" Width="1.5" PointX="8.375" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TL52D_14Model.INSTRUMENT" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TL52D_14Model.MARKET" Width="1.5" PointX="1" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TL52D_14Model.PHONE" Width="1.5" PointX="3" PointY="12.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TL52D_14Model.PORTFOLIO" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TL52D_14Model.POSITION" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="TL52D_14Model.PORTFOLIO_SUMMARY" Width="1.5" PointX="8.375" PointY="4.25" IsExpanded="true" />
-        <AssociationConnector Association="TL52D_14Model.fkclient_email" ManuallyRouted="true" >
-          <ConnectorPoint PointX="1.6746125448982305" PointY="3.6725878906249996" />
-          <ConnectorPoint PointX="1.6746125448982305" PointY="5" />
-          <ConnectorPoint PointX="0.75" PointY="5" />
-          <ConnectorPoint PointX="0.75" PointY="10.115143229166666" />
-          <ConnectorPoint PointX="1.75" PointY="10.115143229166666" />
-        </AssociationConnector>
+      <Diagram DiagramId="73b38cac2e1346648be56700ec44ced9" Name="Diagram1">
+        <EntityTypeShape EntityType="TL52D_14Model.Client" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TL52D_14Model.DailyMarket" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TL52D_14Model.DailyReg" Width="1.5" PointX="5.25" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TL52D_14Model.Email" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TL52D_14Model.Exttriple" Width="1.5" PointX="7.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TL52D_14Model.Instrument" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TL52D_14Model.Market" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TL52D_14Model.Phone" Width="1.5" PointX="3" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TL52D_14Model.Portfolio" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TL52D_14Model.Position" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TL52D_14Model.Portfolio_Summary" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="TL52D_14Model.fkclient_email" ManuallyRouted="false" />
         <AssociationConnector Association="TL52D_14Model.fkclient_phone" ManuallyRouted="false" />
         <AssociationConnector Association="TL52D_14Model.fkdailymrkt" ManuallyRouted="false" />
         <AssociationConnector Association="TL52D_14Model.fkinstrument_reg" ManuallyRouted="false" />
         <AssociationConnector Association="TL52D_14Model.fkinstrument" ManuallyRouted="false" />
         <AssociationConnector Association="TL52D_14Model.fkinstrument_pos" ManuallyRouted="false" />
         <AssociationConnector Association="TL52D_14Model.fkportfolio_pos" ManuallyRouted="false" />
-        <AssociationConnector Association="TL52D_14Model.CLIENT_PORTFOLIO" ManuallyRouted="false" />
+        <AssociationConnector Association="TL52D_14Model.Client_Portfolio" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

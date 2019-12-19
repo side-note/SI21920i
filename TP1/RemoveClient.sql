@@ -3,9 +3,9 @@ create procedure remove_client
 as
 set transaction isolation level read committed
 begin tran
-    if exists(select nif from CLIENT where @nif = nif)
+    if exists(select nif from Client where @nif = nif)
         begin
-            delete from CLIENT where nif = @nif
-            delete from CLIENT_PORTFOLIO where nif = @nif
+            delete from Client where nif = @nif
+            delete from Client_PORTFOLIO where nif = @nif
         end
 commit

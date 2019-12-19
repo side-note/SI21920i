@@ -7,7 +7,7 @@ using TypesProject.model;
 
 namespace EF_TP2_52D_14_1920i
 {
-    public partial class CLIENT : IClient
+    public partial class Client : IClient
     {
         public IPortfolio portfolio { get; set; }
         public ICollection<IEmail> email { get; set; }

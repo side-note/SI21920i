@@ -7,7 +7,7 @@ using TypesProject.model;
 
 namespace EF_TP2_52D_14_1920i
 {
-    public partial class PHONE : IPhone
+    public partial class Phone : IPhone
     {
         public IClient clientPhone { get ; set; }
     

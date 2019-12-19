@@ -52,28 +52,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CLIENT.cs">
+    <Compile Include="Client.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAILYMARKET.cs">
+    <Compile Include="DailyMarket.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAILYREG.cs">
+    <Compile Include="DailyReg.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="EMAIL.cs">
+    <Compile Include="Email.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="EXTTRIPLE.cs">
+    <Compile Include="Exttriple.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="FundamentalDataTable_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="INSTRUMENT.cs">
+    <Compile Include="Instrument.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="MARKET.cs">
+    <Compile Include="Market.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model.Context.cs">
@@ -91,32 +91,42 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
-    <Compile Include="partials\CLIENT.cs" />
-    <Compile Include="partials\DAILYMARKET.cs" />
-    <Compile Include="partials\DAILYREG.cs" />
-    <Compile Include="partials\EMAIL.cs" />
-    <Compile Include="partials\INSTRUMENT.cs" />
-    <Compile Include="partials\MARKET.cs" />
-    <Compile Include="partials\PHONE.cs" />
-    <Compile Include="partials\PORTFOLIO.cs" />
-    <Compile Include="partials\POSITION.cs" />
-    <Compile Include="PHONE.cs">
+    <Compile Include="partials\Client.cs" />
+    <Compile Include="partials\DailyMarket.cs" />
+    <Compile Include="partials\DailyReg.cs" />
+    <Compile Include="partials\Email.cs" />
+    <Compile Include="partials\Instrument.cs" />
+    <Compile Include="partials\Market.cs" />
+    <Compile Include="partials\Phone.cs" />
+    <Compile Include="partials\Portfolio.cs" />
+    <Compile Include="partials\Position.cs" />
+    <Compile Include="Phone.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="PORTFOLIO.cs">
+    <Compile Include="Portfolio.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Portfolio_List_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="PORTFOLIO_SUMMARY.cs">
+    <Compile Include="Portfolio_Summary.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="POSITION.cs">
+    <Compile Include="Position.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="repositories\ClientRepository.cs" />
+    <Compile Include="repositories\DAILYMARKETREPOSITORY.cs" />
+    <Compile Include="repositories\DAILYREGREPOSITORY.cs" />
+    <Compile Include="repositories\EMAILREPOSITORY.cs" />
+    <Compile Include="repositories\EXTTRIPPLEREPOSITORY.cs" />
+    <Compile Include="repositories\INSTRUMENTREPOSITORY.cs" />
+    <Compile Include="repositories\MARKETREPOSITORY.cs" />
+    <Compile Include="repositories\PHONEREPOSITORY.cs" />
+    <Compile Include="repositories\PORTFOLIOREPOSITORY.cs" />
+    <Compile Include="repositories\POSITIONREPOSITORY.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -133,6 +143,16 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\App\App.csproj">
+      <Project>{e487ccca-f0d5-4cb1-a6ea-35ea32a9318b}</Project>
+      <Name>App</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TypesProject\TypesProject.csproj">
+      <Project>{2e1eea0d-73b5-491c-92e9-41cd8c07348c}</Project>
+      <Name>TypesProject</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model.edmx</DependentUpon>
@@ -143,16 +163,6 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\App\App.csproj">
-      <Project>{e487ccca-f0d5-4cb1-a6ea-35ea32a9318b}</Project>
-      <Name>App</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TypesProject\TypesProject.csproj">
-      <Project>{2e1eea0d-73b5-491c-92e9-41cd8c07348c}</Project>
-      <Name>TypesProject</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -7,10 +7,10 @@ using TypesProject.model;
 
 namespace EF_TP2_52D_14_1920i
 {
-    public partial class INSTRUMENT : IInstrument
+    public partial class Instrument : IInstrument
     {
-        public ICollection<IPosition> instrumentposition { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public ICollection<IDailyReg> dailyRegs { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public IMarket instrumentMarket { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ICollection<IPosition> instrumentposition { get; set; }
+        public ICollection<IDailyReg> dailyRegs { get; set; }
+        public IMarket instrumentMarket { get; set ; }
     }
 }

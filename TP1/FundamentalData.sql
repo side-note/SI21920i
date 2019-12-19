@@ -11,18 +11,18 @@ create function dbo.FundamentalDataTable(@isin char(12), @date date)
 as
 begin
     declare @dailyvar money
-    set @dailyvar = (select maxval from dbo.DAILYREG where isin = @isin and dailydate = @date) -
-                    (select minval from dbo.DAILYREG where isin = @isin and dailydate = @date)
+    set @dailyvar = (select maxval from dbo.DailyReg where isin = @isin and dailydate = @date) -
+                    (select minval from dbo.DailyReg where isin = @isin and dailydate = @date)
     declare @var6m money
-    set @var6m = (select top 1 maxval from dbo.DAILYREG where dailydate >= (getdate() - 180) order by maxval desc) -
-                 (select top 1 minval from dbo.DAILYREG where dailydate >= (getdate() - 180) order by minval)
+    set @var6m = (select top 1 maxval from dbo.DailyReg where dailydate >= (getdate() - 180) order by maxval desc) -
+                 (select top 1 minval from dbo.DailyReg where dailydate >= (getdate() - 180) order by minval)
     insert into @ret
     values (@dailyvar,
             dbo.get_Currval(@isin),
             dbo.Average(180, @isin),
             @var6m,
-            @dailyvar / (select minval from dbo.DAILYREG where isin = @isin and dailydate = @date),
-            @var6m / (select top 1 minval from dbo.DAILYREG where dailydate >= (getdate() - 180) order by minval))
+            @dailyvar / (select minval from dbo.DailyReg where isin = @isin and dailydate = @date),
+            @var6m / (select top 1 minval from dbo.DailyReg where dailydate >= (getdate() - 180) order by minval))
     return
 end
 GO

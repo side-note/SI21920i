@@ -5,16 +5,16 @@ create procedure update_market
 as
 set transaction isolation level read committed
 begin tran
-    if exists(select code from MARKET where code = @code)
+    if exists(select code from Market where code = @code)
         begin
-            update dbo.MARKET
+            update dbo.Market
             set description = @description,
                 name = @name
-            where @code = dbo.MARKET.code
+            where @code = dbo.Market.code
         end
     else
         begin
-            insert into MARKET values
+            insert into Market values
             (
             @code,
             @description,

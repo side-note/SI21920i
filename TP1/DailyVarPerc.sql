@@ -9,7 +9,7 @@ begin
     declare @last_closingval money
     set @last_closingval = (select closingval from
                                (select top 2 closingval,
-                                ROW_NUMBER() over (order by dailydate desc) as rn from DAILYREG
+                                ROW_NUMBER() over (order by dailydate desc) as rn from DailyReg
                                 where isin = @isin) as cte
                             where rn = 2)
     if @current_closingval < @last_closingval

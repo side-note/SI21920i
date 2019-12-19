@@ -12,13 +12,13 @@ namespace EF_TP2_52D_14_1920i
     using System;
     using System.Collections.Generic;
     
-    public partial class INSTRUMENT
+    public partial class Instrument
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public INSTRUMENT()
+        public Instrument()
         {
-            this.DAILYREG = new HashSet<DAILYREG>();
-            this.POSITION = new HashSet<POSITION>();
+            this.DailyReg = new HashSet<DailyReg>();
+            this.Position = new HashSet<Position>();
         }
     
         public string isin { get; set; }
@@ -26,9 +26,9 @@ namespace EF_TP2_52D_14_1920i
         public Nullable<int> mrktcode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DAILYREG> DAILYREG { get; set; }
-        public virtual MARKET MARKET { get; set; }
+        public virtual ICollection<DailyReg> DailyReg { get; set; }
+        public virtual Market Market { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<POSITION> POSITION { get; set; }
+        public virtual ICollection<Position> Position { get; set; }
     }
 }

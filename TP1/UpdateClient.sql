@@ -5,16 +5,16 @@ create procedure update_client
 as
 set transaction isolation level read committed
 begin transaction
-    IF EXISTS(select nif from CLIENT where nif = @nif)
+    IF EXISTS(select nif from Client where nif = @nif)
         begin
-            update dbo.CLIENT
+            update dbo.Client
             set ncc  = @ncc,
             name = @name
-            where @nif = dbo.CLIENT.nif
+            where @nif = dbo.Client.nif
         end
     ELSE
         begin
-            insert into dbo.CLIENT values
+            insert into dbo.Client values
             (
              @nif,
              @ncc,

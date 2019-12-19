@@ -4,19 +4,21 @@ set transaction isolation level read committed
 create procedure update_client
     @ncc decimal(7),
     @nif decimal(9),
-    @name varchar(50)
+    @name varchar(50),
+    @description varchar(300),
+    @code int
 as
 begin transaction
-    IF EXISTS(select nif from CLIENT where nif = @nif)
+    IF EXISTS(select nif from Client where nif = @nif)
         begin
-            update dbo.CLIENT
+            update dbo.Client
             set ncc  = @ncc,
             name = @name
-            where @nif = dbo.CLIENT.nif
+            where @nif = dbo.Client.nif
         end
     ELSE
         begin
-            insert into dbo.CLIENT values
+            insert into dbo.Client values
             (
              @nif,
              @ncc,
@@ -27,24 +29,24 @@ commit
 
 EXEC update_client @ncc = 2345678,@nif = 333222111, @name = 'JoanaBanana'
 
-select * from CLIENT
+select * from Client
 drop procedure update_client
 create procedure remove_client
     @nif decimal(9)
 as
 begin tran
-    if exists(select nif from CLIENT where @nif = nif)
+    if exists(select nif from Client where @nif = nif)
         begin
-            delete from CLIENT where nif = @nif
-            delete from CLIENT_PORTFOLIO where nif = @nif
+            delete from Client where nif = @nif
+            delete from Client_Portfolio where nif = @nif
         end
 commit
 exec remove_client @nif = 333222111
 drop procedure remove_client
 
 begin tran @update_Market
-    update dbo.MARKET
+    update dbo.Market
     set description = @description,
         name        = @name
-    where @code = dbo.MARKET.code
+    where @code = dbo.Market.code
 commit

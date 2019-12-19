@@ -12,21 +12,21 @@ namespace EF_TP2_52D_14_1920i
     using System;
     using System.Collections.Generic;
     
-    public partial class PORTFOLIO
+    public partial class Portfolio
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PORTFOLIO()
+        public Portfolio()
         {
-            this.POSITION = new HashSet<POSITION>();
-            this.CLIENT = new HashSet<CLIENT>();
+            this.Position = new HashSet<Position>();
+            this.Client = new HashSet<Client>();
         }
     
         public string name { get; set; }
         public Nullable<decimal> totalval { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<POSITION> POSITION { get; set; }
+        public virtual ICollection<Position> Position { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CLIENT> CLIENT { get; set; }
+        public virtual ICollection<Client> Client { get; set; }
     }
 }

@@ -12,13 +12,13 @@ namespace EF_TP2_52D_14_1920i
     using System;
     using System.Collections.Generic;
     
-    public partial class MARKET
+    public partial class Market
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public MARKET()
+        public Market()
         {
-            this.DAILYMARKET = new HashSet<DAILYMARKET>();
-            this.INSTRUMENT = new HashSet<INSTRUMENT>();
+            this.DailyMarket = new HashSet<DailyMarket>();
+            this.Instrument = new HashSet<Instrument>();
         }
     
         public int code { get; set; }
@@ -26,8 +26,8 @@ namespace EF_TP2_52D_14_1920i
         public string name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DAILYMARKET> DAILYMARKET { get; set; }
+        public virtual ICollection<DailyMarket> DailyMarket { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<INSTRUMENT> INSTRUMENT { get; set; }
+        public virtual ICollection<Instrument> Instrument { get; set; }
     }
 }

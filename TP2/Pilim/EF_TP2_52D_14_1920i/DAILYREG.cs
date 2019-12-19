@@ -12,7 +12,7 @@ namespace EF_TP2_52D_14_1920i
     using System;
     using System.Collections.Generic;
     
-    public partial class DAILYREG
+    public partial class DailyReg
     {
         public string isin { get; set; }
         public Nullable<decimal> minval { get; set; }
@@ -21,6 +21,6 @@ namespace EF_TP2_52D_14_1920i
         public Nullable<decimal> closingval { get; set; }
         public System.DateTime dailydate { get; set; }
     
-        public virtual INSTRUMENT INSTRUMENT { get; set; }
+        public virtual Instrument Instrument { get; set; }
     }
 }

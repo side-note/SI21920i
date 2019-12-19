@@ -19,7 +19,7 @@ namespace TypesProject.concrete
             mapper = new EmailMapper(ctx);
         }
 
-        public bool Delete(IEmail value, Func<IEmail, bool> criteria)
+        public bool Delete(IEmail value)
         {
             if (criteria(value))
                 return mapper.Delete(value);
@@ -41,9 +41,9 @@ namespace TypesProject.concrete
             return mapper.Create(value);
         }
 
-        public bool Update(IEmail value, Func<IEmail, bool> criteria)
+        public bool Update(IEmail value)
         {
-            if (criteria(value))
+          
                 return mapper.Update(value);
             return false;
         }
