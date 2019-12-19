@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App", "App\App.csproj", "{E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypesProject", "TypesProject\TypesProject.csproj", "{2E1EEA0D-73B5-491C-92E9-41CD8C07348C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EF_TP2_52D_14_1920i", "EF_TP2_52D_14_1920i\EF_TP2_52D_14_1920i.csproj", "{B527A55D-C776-4554-A7AA-B3BF5671768C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2E1EEA0D-73B5-491C-92E9-41CD8C07348C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E1EEA0D-73B5-491C-92E9-41CD8C07348C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E1EEA0D-73B5-491C-92E9-41CD8C07348C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B527A55D-C776-4554-A7AA-B3BF5671768C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B527A55D-C776-4554-A7AA-B3BF5671768C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B527A55D-C776-4554-A7AA-B3BF5671768C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B527A55D-C776-4554-A7AA-B3BF5671768C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

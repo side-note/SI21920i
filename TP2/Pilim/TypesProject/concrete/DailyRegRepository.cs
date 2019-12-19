@@ -12,20 +12,40 @@ namespace TypesProject.concrete
     class DailyRegRepository : IDailyRegRepository
     {
         private IContext context;
+        private DailyRegMapper mapper;
         public DailyRegRepository(IContext ctx)
         {
             context = ctx;
+            mapper = new DailyRegMapper(context);
+        }
+
+        public bool Delete(IDailyReg value, Func<IDailyReg, bool> criteria)
+        {
+            if (criteria(value))
+                return mapper.Delete(value);
+            return false;
         }
 
         public IEnumerable<IDailyReg> Find(Func<IDailyReg, bool> criteria)
-        {
-            //Implementação muito pouco eficiente.  
+        { 
             return FindAll().Where(criteria);
         }
 
         public IEnumerable<IDailyReg> FindAll()
         {
-            return new DailyRegMapper(context).ReadAll();
+            return mapper.ReadAll();
+        }
+
+        public IDailyReg Insert(IDailyReg value)
+        {
+            return mapper.Create(value);
+        }
+
+        public bool Update(IDailyReg value, Func<IDailyReg, bool> criteria)
+        {
+            if (criteria(value))
+                return mapper.Update(value);
+            return false;
         }
     }
 }

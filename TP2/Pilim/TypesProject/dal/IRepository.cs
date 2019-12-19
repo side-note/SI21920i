@@ -8,6 +8,10 @@ namespace TypesProject.dal
 {
     interface IRepository<T>
     {
+
+        bool Update(T value, Func<T, bool> criteria);
+        bool Delete(T value, Func<T, bool> criteria);
+        T Insert(T value);
         IEnumerable<T> FindAll();
         IEnumerable<T> Find(Func<T, bool> criteria);
     }

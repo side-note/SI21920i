@@ -12,20 +12,41 @@ namespace TypesProject.concrete
     class ClientRepository : IClientRepository
     {
         private IContext context;
+        private ClientMapper mapper;
         public ClientRepository(IContext ctx)
         {
             context = ctx;
+            mapper = new ClientMapper(ctx);
+        }
+
+        public bool Delete(IClient value,Func<IClient, bool> criteria)
+        {
+            if(criteria(value))
+                return mapper.Delete(value);
+            return false;
         }
 
         public IEnumerable<IClient> Find(Func<IClient, bool> criteria)
         {
-            //Implementação muito pouco eficiente.  
+           
             return FindAll().Where(criteria);
         }
 
         public IEnumerable<IClient> FindAll()
         {
-            return new ClientMapper(context).ReadAll();
+            return mapper.ReadAll();
+        }
+
+        public IClient Insert(IClient value)
+        {
+            return mapper.Create(value);
+        }
+
+        public bool Update(IClient value, Func<IClient, bool> criteria)
+        {
+            if (criteria(value))
+                return mapper.Update(value);
+            return false;
         }
     }
 }

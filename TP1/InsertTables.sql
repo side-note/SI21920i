@@ -1,6 +1,7 @@
 insert into MARKET values (111, 'Description1', 'Market1');
 insert into MARKET values (222, 'Description2', 'Market2');
 
+
 insert into	DAILYMARKET values (111, 1111, 11111, 111,'2019-11-01');
 insert into	DAILYMARKET values (222, 2222, 22222, 222,'2019-11-03');
 
