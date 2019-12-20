@@ -12,14 +12,14 @@ using TypesProject.model;
 namespace TypesProject.concrete
 {
 
-    class ExttripleMapper: IExttripleMapper
+    public class ExttripleMapper: IExttripleMapper
     {
-        MapperHelper<IExtTriple, KeyValuePair<int, DateTime>, List<IExtTriple>> mapperHelper;
+        MapperHelper<IExttriple, KeyValuePair<string, DateTime>, List<IExttriple>> mapperHelper;
         public ExttripleMapper(IContext ctx) 
         {
-            mapperHelper = new MapperHelper<IExtTriple, KeyValuePair<int, DateTime>, List<IExtTriple>>(ctx, this);
+            mapperHelper = new MapperHelper<IExttriple, KeyValuePair<string, DateTime>, List<IExttriple>>(ctx, this);
         }
-        protected void DeleteParameters(IDbCommand cmd, IExtTriple e)
+        protected void DeleteParameters(IDbCommand cmd, IExttriple e)
         {
 
             SqlParameter id = new SqlParameter("@id", e.id);
@@ -28,7 +28,7 @@ namespace TypesProject.concrete
             cmd.Parameters.Add(datetime);
         }
 
-        protected void InsertParameters(IDbCommand cmd, IExtTriple e)
+        protected void InsertParameters(IDbCommand cmd, IExttriple e)
         {
             SqlParameter id = new SqlParameter("@id", e.id);
             SqlParameter datetime = new SqlParameter("@datetime", e.datetime);
@@ -41,7 +41,7 @@ namespace TypesProject.concrete
         }
 
 
-        protected void SelectParameters(IDbCommand cmd, KeyValuePair< int, DateTime> p)
+        protected void SelectParameters(IDbCommand cmd, KeyValuePair< string, DateTime> p)
         {
             SqlParameter id = new SqlParameter("@id",p.Key);
             SqlParameter datetime = new SqlParameter("@datetime",p.Value);
@@ -49,21 +49,21 @@ namespace TypesProject.concrete
             cmd.Parameters.Add(datetime);
         }
 
-        protected void UpdateParameters(IDbCommand cmd, IExtTriple e)
+        protected void UpdateParameters(IDbCommand cmd, IExttriple e)
         {
             InsertParameters(cmd, e);
         }
 
-        public  IExtTriple Map(IDataRecord record)
+        public  IExttriple Map(IDataRecord record)
         {
             Exttriple e= new Exttriple();
-            e.id = record.GetInt32(0);
+            e.id = record.GetString(0);
             e.datetime = record.GetDateTime(1);
-            e.value = record.GetDouble(2);
+            e.value = record.GetDecimal(2);
             return e;
         }
 
-        public IExtTriple Create(IExtTriple entity)
+        public IExttriple Create(IExttriple entity)
         {
             using (TransactionScope ts = new TransactionScope(TransactionScopeOption.Required))
             {
@@ -76,7 +76,7 @@ namespace TypesProject.concrete
             }
         }
 
-        public IExtTriple Read(KeyValuePair<int, DateTime> id)
+        public IExttriple Read(KeyValuePair<string, DateTime> id)
         {
             return mapperHelper.Read(id,
                 (cmd,i) => SelectParameters(cmd,i),
@@ -84,7 +84,7 @@ namespace TypesProject.concrete
                 );
         }
 
-        public List<IExtTriple> ReadAll()
+        public List<IExttriple> ReadAll()
         {
             return mapperHelper.ReadAll(
                 cmd => { },
@@ -92,7 +92,7 @@ namespace TypesProject.concrete
                 );
         }
 
-        public bool Update(IExtTriple entity)
+        public bool Update(IExttriple entity)
         {
             return mapperHelper.Update(entity,
                 (cmd, exttriple) => UpdateParameters(cmd, exttriple),
@@ -100,7 +100,7 @@ namespace TypesProject.concrete
                );
         }
 
-        public bool Delete(IExtTriple entity)
+        public bool Delete(IExttriple entity)
         {
             return mapperHelper.Delete(entity,
                 (cmd, exttriple) => DeleteParameters(cmd, exttriple),
@@ -109,7 +109,7 @@ namespace TypesProject.concrete
         }
 
       
-        public List<IExtTriple> MapAll(IDataReader reader)
+        public List<IExttriple> MapAll(IDataReader reader)
         {
             return mapperHelper.MapAll(reader);
         }

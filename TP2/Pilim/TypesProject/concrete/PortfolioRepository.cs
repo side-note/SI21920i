@@ -9,9 +9,9 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class PortfolioRepository : IPortfolioRepository
+    public class PortfolioRepository : IPortfolioRepository
     {
-        private IContext context;
+        private readonly IContext context;
         private PortfolioMapper mapper;
         public PortfolioRepository(IContext ctx)
         {
@@ -19,21 +19,14 @@ namespace TypesProject.concrete
             mapper = new PortfolioMapper(ctx);
         }
 
-        public bool Delete(IPortfolio value, Func<IPortfolio, bool> criteria)
+        public bool Delete(IPortfolio value)
         {
-            if (criteria(value))
-                return mapper.Delete(value);
-            return false;
+            return mapper.Delete(value);
         }
 
-        public IEnumerable<IPortfolio> Find(Func<IPortfolio, bool> criteria)
+        public IPortfolio Find(params object[] keys)
         {
-            return FindAll().Where(criteria);
-        }
-
-        public IEnumerable<IPortfolio> FindAll()
-        {
-            return mapper.ReadAll();
+            return mapper.Read((string)keys[0]);
         }
 
         public IPortfolio Insert(IPortfolio value)
@@ -41,11 +34,9 @@ namespace TypesProject.concrete
             return mapper.Create(value);
         }
 
-        public bool Update(IPortfolio value, Func<IPortfolio, bool> criteria)
+        public bool Update(IPortfolio value)
         {
-            if (criteria(value))
-                return mapper.Update(value);
-            return false;
+            return mapper.Update(value);
         }
     }
 }

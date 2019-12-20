@@ -7,7 +7,7 @@ using TypesProject.model;
 
 namespace TypesProject.dal
 {
-    interface IPhoneRepository : IRepository<IPhone>
+    public interface IPhoneRepository : IRepository<IPhone>
     {
     }
 }

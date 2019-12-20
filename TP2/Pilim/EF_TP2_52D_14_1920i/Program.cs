@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace EF_TP2_52D_14_1920i
 {
-    class Program
+    [TestClass]
+    public class Program
     {
-        static void Main(string[] args)
-        {
-        }
+       [TestMethod]
     }
 }

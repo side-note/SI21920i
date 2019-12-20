@@ -7,7 +7,7 @@ using TypesProject.model;
 
 namespace TypesProject.mapper
 {
-    interface IDailyRegMapper: IMapper<IDailyReg,KeyValuePair<string,DateTime>,List<IDailyReg> >
+    public interface IDailyRegMapper: IMapper<IDailyReg,KeyValuePair<string,DateTime>,List<IDailyReg> >
     {
     }
 }

@@ -9,7 +9,7 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class MarketRepository: IMarketRepository
+    public class MarketRepository: IMarketRepository
     {
         private IContext context;
         private MarketMapper mapper;
@@ -18,21 +18,14 @@ namespace TypesProject.concrete
             context = ctx;
         }
 
-        public bool Delete(IMarket value, Func<IMarket, bool> criteria)
+        public bool Delete(IMarket value)
         {
-            if (criteria(value))
-                return mapper.Delete(value);
-            return false;
+            return mapper.Delete(value);
         }
 
-        public IEnumerable<IMarket> Find(Func<IMarket, bool> criteria)
+        public IMarket Find(params object[] keys)
         {
-            return FindAll().Where(criteria);
-        }
-
-        public IEnumerable<IMarket> FindAll()
-        {
-            return mapper.ReadAll();
+            return mapper.Read((int)keys[0]);
         }
 
         public IMarket Insert(IMarket value)
@@ -40,11 +33,9 @@ namespace TypesProject.concrete
             return mapper.Create(value);
         }
 
-        public bool Update(IMarket value, Func<IMarket, bool> criteria)
+        public bool Update(IMarket value)
         {
-            if (criteria(value))
-                return mapper.Update(value);
-            return false;
+            return mapper.Update(value);
         }
     }
 }

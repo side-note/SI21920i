@@ -9,9 +9,9 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class PositionRepository : IPositionRepository
+    public class PositionRepository : IPositionRepository
     {
-        private IContext context;
+        private readonly IContext context;
         private PositionMapper mapper;
         public PositionRepository(IContext ctx)
         {
@@ -19,21 +19,15 @@ namespace TypesProject.concrete
             mapper = new PositionMapper(ctx);
         }
 
-        public bool Delete(IPosition value, Func<IPosition, bool> criteria)
+        public bool Delete(IPosition value)
         {
-            if (criteria(value))
-                return mapper.Delete(value);
-            return false;
+            return mapper.Delete(value);
         }
 
-        public IEnumerable<IPosition> Find(Func<IPosition, bool> criteria)
+        public IPosition Find(params object[] keys)
         {
-            return FindAll().Where(criteria);
-        }
-
-        public IEnumerable<IPosition> FindAll()
-        {
-            return mapper.ReadAll();
+            KeyValuePair<string, string> key = new KeyValuePair<string, string>((string)keys[0], (string)keys[1]);
+            return mapper.Read(key);
         }
 
         public IPosition Insert(IPosition value)
@@ -41,11 +35,9 @@ namespace TypesProject.concrete
             return mapper.Create(value);
         }
 
-        public bool Update(IPosition value, Func<IPosition, bool> criteria)
+        public bool Update(IPosition value)
         {
-            if (criteria(value))
-                return mapper.Update(value);
-            return false;
+            return mapper.Update(value);
         }
     }
 }

@@ -11,7 +11,7 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class MarketMapper: IMarketMapper
+    public class MarketMapper: IMarketMapper
     {
         MapperHelper<IMarket, int, List<IMarket>> mapperHelper;
         public MarketMapper(IContext ctx)
@@ -24,7 +24,7 @@ namespace TypesProject.concrete
 
             DailyMarketMapper dmm = new DailyMarketMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
-            parameters.Add(new SqlParameter("@id", m.Code));
+            parameters.Add(new SqlParameter("@id", m.code));
             using (IDataReader rd = mapperHelper.ExecuteReader("select dailymarketid, dailymarketdt from marketdailymarket where marketId=@id", parameters))
             {
                 while (rd.Read())
@@ -41,7 +41,7 @@ namespace TypesProject.concrete
 
             InstrumentMapper im = new InstrumentMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
-            parameters.Add(new SqlParameter("@id", m.Code));
+            parameters.Add(new SqlParameter("@id", m.code));
             using (IDataReader rd = mapperHelper.ExecuteReader("select instrumentid from marketinstrument where marketId=@id", parameters))
             {
                 while (rd.Read())
@@ -57,15 +57,15 @@ namespace TypesProject.concrete
         protected void DeleteParameters(IDbCommand cmd, IMarket m)
         {
 
-            SqlParameter id = new SqlParameter("@id", m.Code);
+            SqlParameter id = new SqlParameter("@id", m.code);
             cmd.Parameters.Add(id);
         }
 
         protected void InsertParameters(IDbCommand cmd, IMarket m)
         {
-            SqlParameter n = new SqlParameter("@Name", m.Name);
-            SqlParameter id = new SqlParameter("@id", m.Code);
-            SqlParameter d = new SqlParameter("@desc", m.Description);
+            SqlParameter n = new SqlParameter("@Name", m.name);
+            SqlParameter id = new SqlParameter("@id", m.code);
+            SqlParameter d = new SqlParameter("@desc", m.description);
             id.Direction = ParameterDirection.InputOutput;
 
             cmd.Parameters.Add(n);
@@ -88,9 +88,9 @@ namespace TypesProject.concrete
         public IMarket Map(IDataRecord record)
         {
             Market m = new Market();
-            m.Code = record.GetInt32(0);
-            m.Name = record.GetString(1);
-            m.Description = record.GetString(2);
+            m.code = record.GetInt32(0);
+            m.name = record.GetString(1);
+            m.description = record.GetString(2);
             return new MarketProxy(m, mapperHelper.context);
         }
         public IMarket Create(IMarket market)

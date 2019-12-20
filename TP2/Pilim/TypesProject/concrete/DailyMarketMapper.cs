@@ -11,7 +11,7 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class DailyMarketMapper:  IDailyMarketMapper
+    public class DailyMarketMapper:  IDailyMarketMapper
     {
         MapperHelper<IDailyMarket, KeyValuePair<int, DateTime>, List<IDailyMarket>> mapperHelper;
         public DailyMarketMapper(IContext ctx) 
@@ -23,8 +23,8 @@ namespace TypesProject.concrete
         {
             MarketMapper mm = new MarketMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
-            parameters.Add(new SqlParameter("@id", dm.Code));
-            parameters.Add(new SqlParameter("@datetime", dm.Date));
+            parameters.Add(new SqlParameter("@id", dm.code));
+            parameters.Add(new SqlParameter("@datetime", dm.date));
 
             using (IDataReader rd = mapperHelper.ExecuteReader("select market from dailymarket where dailymarketId=@id and dailymarketdt=@datetime ", parameters))
             {
@@ -42,8 +42,8 @@ namespace TypesProject.concrete
         protected void DeleteParameters(IDbCommand cmd, IDailyMarket dm)
         {
 
-            SqlParameter id = new SqlParameter("@id", dm.Code);
-            SqlParameter datetime = new SqlParameter("@datetime", dm.Date);
+            SqlParameter id = new SqlParameter("@id", dm.code);
+            SqlParameter datetime = new SqlParameter("@datetime", dm.date);
 
             cmd.Parameters.Add(id);
             cmd.Parameters.Add(datetime);
@@ -51,11 +51,11 @@ namespace TypesProject.concrete
 
         protected  void InsertParameters(IDbCommand cmd, IDailyMarket dm)
         {
-            SqlParameter idm = new SqlParameter("@IdxMrkt", dm.IdxMrkt);
-            SqlParameter id = new SqlParameter("@id", dm.Code);
-            SqlParameter dt = new SqlParameter("@datetime", dm.Date);
-            SqlParameter dv = new SqlParameter("@dailyVar", dm.DailyVar);
-            SqlParameter iov = new SqlParameter("@IdxOpeningVal", dm.IdxOpeningVal);
+            SqlParameter idm = new SqlParameter("@IdxMrkt", dm.idxmrkt);
+            SqlParameter id = new SqlParameter("@id", dm.code);
+            SqlParameter dt = new SqlParameter("@datetime", dm.date);
+            SqlParameter dv = new SqlParameter("@dailyVar", dm.dailyvar);
+            SqlParameter iov = new SqlParameter("@IdxOpeningVal", dm.idxopeningval);
             id.Direction = ParameterDirection.InputOutput;
             dt.Direction = ParameterDirection.InputOutput;
 
@@ -131,11 +131,11 @@ namespace TypesProject.concrete
         public IDailyMarket Map(IDataRecord record)
         {
             DailyMarket dm = new DailyMarket();
-            dm.DailyVar = record.GetDouble(0);
-            dm.IdxMrkt = record.GetDouble(1);
-            dm.IdxOpeningVal = record.GetDouble(2);
-            dm.Date = record.GetDateTime(3);
-            dm.Code = record.GetInt32(4);
+            dm.dailyvar = record.GetDecimal(0);
+            dm.idxmrkt = record.GetDecimal(1);
+            dm.idxopeningval = record.GetDecimal(2);
+            dm.date = record.GetDateTime(3);
+            dm.code = record.GetInt32(4);
             return dm;
         }
 

@@ -9,7 +9,7 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class ExttripleRepository : IExttripleRepository
+   public class ExttripleRepository : IExttripleRepository
     {
         private IContext context;
         private ExttripleMapper mapper;
@@ -19,33 +19,25 @@ namespace TypesProject.concrete
             mapper = new ExttripleMapper(ctx);
         }
 
-        public bool Delete(IExtTriple value, Func<IExtTriple, bool> criteria)
+        public bool Delete(IExttriple value)
         {
-            if (criteria(value))
-                return mapper.Delete(value);
-            return false;
+            return mapper.Delete(value);
         }
 
-        public IEnumerable<IExtTriple> Find(Func<IExtTriple, bool> criteria)
+        public IExttriple Find(params object[] keys)
         {
-            return FindAll().Where(criteria);
+            KeyValuePair<string, DateTime> key = new KeyValuePair<string, DateTime>((string)keys[0], (DateTime)keys[1]);
+            return mapper.Read(key);
         }
 
-        public IEnumerable<IExtTriple> FindAll()
-        {
-            return mapper.ReadAll();
-        }
-
-        public IExtTriple Insert(IExtTriple value)
+        public IExttriple Insert(IExttriple value)
         {
             return mapper.Create(value);
         }
 
-        public bool Update(IExtTriple value, Func<IExtTriple, bool> criteria)
+        public bool Update(IExttriple value)
         {
-            if (criteria(value))
-                return mapper.Update(value);
-            return false;
+            return mapper.Update(value);
         }
     }
 }

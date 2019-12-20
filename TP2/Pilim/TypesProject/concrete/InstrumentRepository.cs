@@ -9,32 +9,21 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class InstrumentRepository : IInstrumentRepository
+   public class InstrumentRepository : IInstrumentRepository
         
     {
         private InstrumentMapper mapper;
-        private IContext context;
+        private readonly IContext context;
+
         public InstrumentRepository(IContext ctx)
         {
             context = ctx;
             mapper = new InstrumentMapper(ctx);
         }
 
-        public bool Delete(IInstrument value, Func<IInstrument, bool> criteria)
+        public bool Delete(IInstrument value)
         {
-            if (criteria(value))
-                return mapper.Delete(value);
-            return false;
-        }
-
-        public IEnumerable<IInstrument> Find(Func<IInstrument, bool> criteria)
-        {
-            return FindAll().Where(criteria);
-        }
-
-        public IEnumerable<IInstrument> FindAll()
-        {
-            return mapper.ReadAll();
+            return mapper.Delete(value);
         }
 
         public IInstrument Insert(IInstrument value)
@@ -42,11 +31,14 @@ namespace TypesProject.concrete
             return mapper.Create(value);
         }
 
-        public bool Update(IInstrument value, Func<IInstrument, bool> criteria)
+        public bool Update(IInstrument value)
         {
-            if (criteria(value))
-                return mapper.Update(value);
-            return false;
+            return mapper.Update(value);
+        }
+
+        public IInstrument Find(params object[] keys)
+        {
+            return mapper.Read((string)keys[0]);
         }
     }
 }

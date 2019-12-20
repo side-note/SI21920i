@@ -8,10 +8,10 @@ using TypesProject.model;
 
 namespace TypesProject.mapper
 {
-    class PortfolioProxy : Portfolio
+   public class PortfolioProxy : Portfolio
     {
         IContext context;
-        public PortfolioProxy(Portfolio p, IContext ctx) : base()
+        public PortfolioProxy(IPortfolio p, IContext ctx) : base()
         {
             context = ctx;
             base.client = null;

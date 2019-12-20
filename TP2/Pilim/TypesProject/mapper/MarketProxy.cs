@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,15 +9,15 @@ using TypesProject.model;
 
 namespace TypesProject.mapper
 {
-    class MarketProxy : Market
+    public class MarketProxy : Market
     {
         private IContext context;
-        public MarketProxy(Market m,IContext ctx ) : base()
+        public MarketProxy(IMarket m,IContext ctx ) : base()
         {
             context = ctx;
-            base.Code = m.Code;
-            base.Description = m.Description;
-            base.Name = m.Name;
+            base.code = m.code;
+            base.description = m.description;
+            base.name = m.name;
             base.marketInstruments = null;
             base.dailyMarkets = null;
 

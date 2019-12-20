@@ -2,11 +2,11 @@
 
 namespace TypesProject.model
 {
-    public interface IExtTriple
+    public interface IExttriple
     {
         public decimal value { get; set; }
 
-        public int id { get; set; }
+        public string id { get; set; }
 
         public DateTime datetime { get; set; }
     }

@@ -9,9 +9,9 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class DailyMarketRepository : IDailyMarketRepository
+    public class DailyMarketRepository : IDailyMarketRepository
     {
-        private IContext context;
+        private readonly IContext context;
         private DailyMarketMapper mapper;
 
 
@@ -22,22 +22,15 @@ namespace TypesProject.concrete
 
         }
 
-        public bool Delete(IDailyMarket value, Func<IDailyMarket, bool> criteria)
+        public bool Delete(IDailyMarket value)
         {
-            if (criteria(value))
-                return mapper.Delete(value);
-            return false;
+            return mapper.Delete(value);
         }
 
-        public IEnumerable<IDailyMarket> Find(Func<IDailyMarket, bool> criteria)
+        public IDailyMarket Find(params object[] keys)
         {
-            
-            return FindAll().Where(criteria);
-        }
-
-        public IEnumerable<IDailyMarket> FindAll()
-        {
-            return mapper.ReadAll();
+            KeyValuePair<int, DateTime> key = new KeyValuePair<int, DateTime>((int)keys[0], (DateTime)keys[1]);
+            return mapper.Read(key);
         }
 
         public IDailyMarket Insert(IDailyMarket value)
@@ -45,11 +38,9 @@ namespace TypesProject.concrete
             return mapper.Create(value);
         }
 
-        public bool Update(IDailyMarket value, Func<IDailyMarket, bool> criteria)
+        public bool Update(IDailyMarket value)
         {
-            if (criteria(value))
-                return mapper.Update(value);
-            return false;
+            return mapper.Update(value);
         }
     }
 }

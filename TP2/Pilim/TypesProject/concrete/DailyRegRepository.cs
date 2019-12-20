@@ -9,9 +9,9 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class DailyRegRepository : IDailyRegRepository
+    public class DailyRegRepository : IDailyRegRepository
     {
-        private IContext context;
+        private readonly IContext context;
         private DailyRegMapper mapper;
         public DailyRegRepository(IContext ctx)
         {
@@ -19,21 +19,15 @@ namespace TypesProject.concrete
             mapper = new DailyRegMapper(context);
         }
 
-        public bool Delete(IDailyReg value, Func<IDailyReg, bool> criteria)
+        public bool Delete(IDailyReg value)
         {
-            if (criteria(value))
-                return mapper.Delete(value);
-            return false;
+            return mapper.Delete(value);
         }
 
-        public IEnumerable<IDailyReg> Find(Func<IDailyReg, bool> criteria)
-        { 
-            return FindAll().Where(criteria);
-        }
-
-        public IEnumerable<IDailyReg> FindAll()
+        public IDailyReg Find(params object[] keys)
         {
-            return mapper.ReadAll();
+            KeyValuePair<string, DateTime> key = new KeyValuePair<string, DateTime>((string)keys[0], (DateTime)keys[1]);
+            return mapper.Read(key);
         }
 
         public IDailyReg Insert(IDailyReg value)
@@ -41,12 +35,11 @@ namespace TypesProject.concrete
             return mapper.Create(value);
         }
 
-        public bool Update(IDailyReg value, Func<IDailyReg, bool> criteria)
+        public bool Update(IDailyReg value)
         {
-            if (criteria(value))
-                return mapper.Update(value);
-            return false;
+            return mapper.Update(value);
         }
+
     }
 }
 

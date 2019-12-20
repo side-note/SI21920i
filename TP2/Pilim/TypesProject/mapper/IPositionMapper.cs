@@ -7,7 +7,7 @@ using TypesProject.model;
 
 namespace TypesProject.mapper
 {
-    interface IPositionMapper : IMapper<IPosition, KeyValuePair<string,string>, List<IPosition>>
+    public interface IPositionMapper : IMapper<IPosition, KeyValuePair<string,string>, List<IPosition>>
 
     {
     }

@@ -8,7 +8,7 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class ClientMapper :  IClientMapper
+   public  class ClientMapper :  IClientMapper
     {
         MapperHelper<IClient, decimal, List<IClient>> mapperHelper;
         public ClientMapper(IContext ctx)
@@ -141,7 +141,7 @@ namespace TypesProject.concrete
         }
 
 
-        protected void SelectParameters(IDbCommand cmd, int k)
+        protected void SelectParameters(IDbCommand cmd, decimal k)
         {
             SqlParameter id = new SqlParameter("@id", k);
             cmd.Parameters.Add(id);

@@ -11,7 +11,7 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class InstrumentMapper: IInstrumentMapper
+   public class InstrumentMapper: IInstrumentMapper
     {
         MapperHelper<IInstrument, string, List<IInstrument>> mapperHelper;
         public InstrumentMapper(IContext ctx) 

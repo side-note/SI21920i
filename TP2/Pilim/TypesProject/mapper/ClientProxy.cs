@@ -8,11 +8,11 @@ using TypesProject.model;
 
 namespace TypesProject.mapper
 {
-    class ClientProxy : Client
+    public class ClientProxy : Client
     {
      
             private IContext context;
-            public ClientProxy(Client c, IContext ctx) : base()
+            public ClientProxy(IClient c, IContext ctx) : base()
             {
                 context = ctx;
 

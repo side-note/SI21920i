@@ -7,7 +7,7 @@ using TypesProject.model;
 
 namespace TypesProject.dal
 {
-    interface IExttripleRepository: IRepository<IExtTriple>
+    public interface IExttripleRepository: IRepository<IExttriple>
     {
     }
 }

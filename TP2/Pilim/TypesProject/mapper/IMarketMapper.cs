@@ -7,7 +7,7 @@ using TypesProject.model;
 
 namespace TypesProject.mapper
 {
-    interface IMarketMapper : IMapper<IMarket, int, List<IMarket>>
+    public interface IMarketMapper : IMapper<IMarket, int, List<IMarket>>
     {
     }
 }

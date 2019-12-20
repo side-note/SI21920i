@@ -11,7 +11,7 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class PortfolioMapper: IPortfolioMapper
+     public  class PortfolioMapper: IPortfolioMapper
     {
         MapperHelper<IPortfolio, String, List<IPortfolio>> mapperHelper;
         public PortfolioMapper(IContext ctx)
@@ -87,7 +87,7 @@ namespace TypesProject.concrete
         public  IPortfolio Map(IDataRecord record)
         {
             Portfolio p = new Portfolio();
-            p.totalval = record.GetDouble(0);
+            p.totalval = record.GetDecimal(0);
             p.name = record.GetString(1);
             return new PortfolioProxy( p, mapperHelper.context);
 

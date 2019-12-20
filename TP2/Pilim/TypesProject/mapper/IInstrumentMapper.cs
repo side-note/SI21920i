@@ -7,7 +7,7 @@ using TypesProject.model;
 
 namespace TypesProject.mapper
 {
-    interface IInstrumentMapper: IMapper<IInstrument,string,List<IInstrument>>
+    public interface IInstrumentMapper: IMapper<IInstrument,string,List<IInstrument>>
     {
     }
 }

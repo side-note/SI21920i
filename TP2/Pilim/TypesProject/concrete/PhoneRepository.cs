@@ -9,9 +9,9 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class PhoneRepository : IPhoneRepository
+    public class PhoneRepository : IPhoneRepository
     {
-        private IContext context;
+        private readonly IContext context;
         private PhoneMapper mapper;
         public PhoneRepository(IContext ctx)
         {
@@ -19,21 +19,14 @@ namespace TypesProject.concrete
             mapper = new PhoneMapper(ctx);
         }
 
-        public bool Delete(IPhone value, Func<IPhone, bool> criteria)
+        public bool Delete(IPhone value)
         {
-            if (criteria(value))
-                return mapper.Delete(value);
-            return false;
+            return mapper.Delete(value);
         }
 
-        public IEnumerable<IPhone> Find(Func<IPhone, bool> criteria)
+        public IPhone Find(params object[] keys)
         {
-            return FindAll().Where(criteria);
-        }
-
-        public IEnumerable<IPhone> FindAll()
-        {
-            return mapper.ReadAll();
+            return mapper.Read((int)keys[0]);
         }
 
         public IPhone Insert(IPhone value)
@@ -41,11 +34,9 @@ namespace TypesProject.concrete
             return mapper.Create(value);
         }
 
-        public bool Update(IPhone value, Func<IPhone, bool> criteria)
+        public bool Update(IPhone value)
         {
-            if (criteria(value))
-                return mapper.Update(value);
-            return false;
+            return mapper.Update(value);
         }
     }
 }

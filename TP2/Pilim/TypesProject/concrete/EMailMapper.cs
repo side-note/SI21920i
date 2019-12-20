@@ -11,7 +11,7 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class EmailMapper : IEmailMapper
+    public class EmailMapper : IEmailMapper
     {
         MapperHelper<IEmail, int, List<IEmail>> mapperHelper;
         public EmailMapper(IContext ctx)

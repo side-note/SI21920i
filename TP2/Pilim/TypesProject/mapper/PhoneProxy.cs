@@ -8,10 +8,10 @@ using TypesProject.model;
 
 namespace TypesProject.mapper
 {
-    class PhoneProxy :Phone
+    public class PhoneProxy :Phone
     {
         private IContext context;
-        public PhoneProxy(Phone p, IContext ctx) : base()
+        public PhoneProxy(IPhone p, IContext ctx) : base()
         {
             context = ctx;
             base.areacode = p.areacode;

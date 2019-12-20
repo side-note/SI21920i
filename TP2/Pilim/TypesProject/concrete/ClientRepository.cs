@@ -9,9 +9,9 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class ClientRepository : IClientRepository
+    public class ClientRepository : IClientRepository
     {
-        private IContext context;
+        private readonly IContext context;
         private ClientMapper mapper;
         public ClientRepository(IContext ctx)
         {
@@ -19,22 +19,14 @@ namespace TypesProject.concrete
             mapper = new ClientMapper(ctx);
         }
 
-        public bool Delete(IClient value,Func<IClient, bool> criteria)
+        public bool Delete(IClient value)
         {
-            if(criteria(value))
-                return mapper.Delete(value);
-            return false;
+            return mapper.Delete(value);
         }
 
-        public IEnumerable<IClient> Find(Func<IClient, bool> criteria)
+        public IClient Find(params object[] keys)
         {
-           
-            return FindAll().Where(criteria);
-        }
-
-        public IEnumerable<IClient> FindAll()
-        {
-            return mapper.ReadAll();
+            return mapper.Read((decimal)keys[0]);
         }
 
         public IClient Insert(IClient value)
@@ -42,11 +34,9 @@ namespace TypesProject.concrete
             return mapper.Create(value);
         }
 
-        public bool Update(IClient value, Func<IClient, bool> criteria)
+        public bool Update(IClient value)
         {
-            if (criteria(value))
-                return mapper.Update(value);
-            return false;
+            return mapper.Update(value);
         }
     }
 }

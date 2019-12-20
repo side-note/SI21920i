@@ -7,7 +7,7 @@ using TypesProject.model;
 
 namespace TypesProject.dal
 {
-    interface IEmailRepository: IRepository<IEmail>
+    public interface IEmailRepository: IRepository<IEmail>
     {
     }
 }

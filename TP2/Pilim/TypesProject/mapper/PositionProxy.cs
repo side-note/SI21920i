@@ -8,11 +8,11 @@ using TypesProject.model;
 
 namespace TypesProject.mapper
 {
-    class PositionProxy : Position
+    public class PositionProxy : Position
     {
         private IContext context;
 
-        public PositionProxy(Position p, IContext ctx): base()
+        public PositionProxy(IPosition p, IContext ctx): base()
         {
             context = ctx;
             base.instruments = null;
@@ -21,6 +21,9 @@ namespace TypesProject.mapper
             base.portfolios = null;
             base.quantity = p.quantity;
         }
+
+        public decimal CurrVal { get; set; }
+        public decimal Dailyvarperc { get; set; }
         public override ICollection<IInstrument> instruments {
             get
             {

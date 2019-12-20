@@ -7,7 +7,7 @@ using TypesProject.model;
 
 namespace TypesProject.dal
 {
-    interface IMarketRepository : IRepository<IMarket>
+    public interface IMarketRepository : IRepository<IMarket>
     {
     }
 }

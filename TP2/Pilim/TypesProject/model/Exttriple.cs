@@ -6,14 +6,10 @@ using System.Threading.Tasks;
 
 namespace TypesProject.model
 {
-    public class Exttriple : IExtTriple
+    public class Exttriple : IExttriple
     {
-        public Exttriple() { }
-
         public decimal value { get; set; }
-
-        public int id { get; set; }
-
-        public DateTime datetime { get; set; }
+        public string id { get; set ; }
+        public DateTime datetime { get ; set; }
     }
 }

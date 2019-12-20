@@ -11,7 +11,7 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class DailyRegMapper : IDailyRegMapper
+   public  class DailyRegMapper : IDailyRegMapper
     {
         MapperHelper<IDailyReg, KeyValuePair<string, DateTime>, List<IDailyReg>> mapperHelper;
         public DailyRegMapper(IContext ctx)
@@ -85,10 +85,10 @@ namespace TypesProject.concrete
         public IDailyReg Map(IDataRecord record)
         {
             DailyReg dr = new DailyReg();
-            dr.maxval = record.GetDouble(0);
-            dr.minval = record.GetDouble(1);
-            dr.openingval = record.GetDouble(2);
-            dr.closingval = record.GetDouble(3);
+            dr.maxval = record.GetDecimal(0);
+            dr.minval = record.GetDecimal(1);
+            dr.openingval = record.GetDecimal(2);
+            dr.closingval = record.GetDecimal(3);
             dr.dailydate = record.GetDateTime(4);
             dr.isin = record.GetString(5);
 

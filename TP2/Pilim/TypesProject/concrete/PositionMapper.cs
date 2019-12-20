@@ -11,7 +11,7 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class PositionMapper : IPositionMapper
+    public class PositionMapper : IPositionMapper
     {
         MapperHelper<IPosition, KeyValuePair<string, string>,List<IPosition>> mapperHelper;
         public PositionMapper(IContext ctx)

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using TypesProject.dal;
 using TypesProject.model;
 
-namespace EF_TP2_52D_14_1920i
+namespace EF_TP2_52D_14_1920i.repositories
 {
     public class ClientRepository : IClientRepository
     {

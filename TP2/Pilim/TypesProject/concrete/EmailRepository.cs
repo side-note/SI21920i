@@ -9,9 +9,9 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class EmailRepository : IEmailRepository
+    public class EmailRepository : IEmailRepository
     {
-        private IContext context;
+        private readonly IContext context;
         private EmailMapper mapper;
         public EmailRepository(IContext ctx)
         {
@@ -21,19 +21,12 @@ namespace TypesProject.concrete
 
         public bool Delete(IEmail value)
         {
-            if (criteria(value))
-                return mapper.Delete(value);
-            return false;
+            return mapper.Delete(value);
         }
 
-        public IEnumerable<IEmail> Find(System.Func<IEmail, bool> criteria)
+        public IEmail Find(params object[] keys)
         {
-            return FindAll().Where(criteria);
-        }
-
-        public IEnumerable<IEmail> FindAll()
-        {
-            return mapper.ReadAll();
+            return mapper.Read((int)keys[0]);
         }
 
         public IEmail Insert(IEmail value)
@@ -42,10 +35,8 @@ namespace TypesProject.concrete
         }
 
         public bool Update(IEmail value)
-        {
-          
-                return mapper.Update(value);
-            return false;
+        {          
+            return mapper.Update(value);
         }
     }
 }

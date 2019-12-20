@@ -92,9 +92,11 @@
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
     <Compile Include="partials\Client.cs" />
+    <Compile Include="partials\Context.cs" />
     <Compile Include="partials\DailyMarket.cs" />
     <Compile Include="partials\DailyReg.cs" />
     <Compile Include="partials\Email.cs" />
+    <Compile Include="partials\Exttriple.cs" />
     <Compile Include="partials\Instrument.cs" />
     <Compile Include="partials\Market.cs" />
     <Compile Include="partials\Phone.cs" />
@@ -123,7 +125,7 @@
     <Compile Include="repositories\EmailRepository.cs" />
     <Compile Include="repositories\ExttripleRepository.cs" />
     <Compile Include="repositories\InstrumentRepository.cs" />
-    <Compile Include="repositories\MarketInstrument.cs" />
+    <Compile Include="repositories\MarketRepository.cs" />
     <Compile Include="repositories\PhoneRepository.cs" />
     <Compile Include="repositories\PortfolioRepository.cs" />
     <Compile Include="repositories\PositionRepository.cs" />
@@ -143,10 +145,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\App\App.csproj">
-      <Project>{e487ccca-f0d5-4cb1-a6ea-35ea32a9318b}</Project>
-      <Name>App</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TypesProject\TypesProject.csproj">
       <Project>{2e1eea0d-73b5-491c-92e9-41cd8c07348c}</Project>
       <Name>TypesProject</Name>

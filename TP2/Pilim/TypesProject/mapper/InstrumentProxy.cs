@@ -8,10 +8,10 @@ using TypesProject.model;
 
 namespace TypesProject.mapper
 {
-    class InstrumentProxy: Instrument
+    public class InstrumentProxy: Instrument
     {
         IContext context;
-        public InstrumentProxy(Instrument i, IContext ctx) : base()
+        public InstrumentProxy(IInstrument i, IContext ctx) : base()
         {
             base.description = i.description;
             base.isin = i.isin;
@@ -33,6 +33,12 @@ namespace TypesProject.mapper
             }
             set => base.dailyRegs = value; 
         }
+        public decimal dailyvar { get; set; }
+        public decimal currval { get; set; }
+        public decimal avg6m { get; set; }
+        public decimal var6m { get; set; }
+        public decimal dailyvarperc { get; set; }
+        public decimal var6mperc { get; set; }
         public override IMarket instrumentMarket {
             get
             {

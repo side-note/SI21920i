@@ -7,7 +7,7 @@ using TypesProject.model;
 
 namespace TypesProject.dal
 {
-    interface IPortfolioRepository : IRepository<IPortfolio>
+    public interface IPortfolioRepository : IRepository<IPortfolio>
     {
     }
 }

@@ -11,7 +11,7 @@ using TypesProject.model;
 
 namespace TypesProject.concrete
 {
-    class PhoneMapper : IPhoneMapper
+    public class PhoneMapper : IPhoneMapper
     {
         MapperHelper<IPhone, int, List<IPhone>> mapperHelper;
         public PhoneMapper(IContext ctx) 

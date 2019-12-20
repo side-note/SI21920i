@@ -8,10 +8,10 @@ using TypesProject.model;
 
 namespace TypesProject.mapper
 {
-    class EmailProxy: Email
+   public  class EmailProxy: Email
     {
         IContext context;
-        public EmailProxy(Email e, IContext ctx): base()
+        public EmailProxy(IEmail e, IContext ctx): base()
         {
             base.addr=e.addr;
             base.code = e.code;
