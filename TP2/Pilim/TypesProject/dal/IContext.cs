@@ -30,7 +30,7 @@ namespace TypesProject.mapper
         IInstrument FundamentalDataTable(string isin, DateTime date);
         void createPortfolio(decimal nif);
         void UpdateTotalVal(string name, int quantity, string isin);
-        IPosition Portfolio_List(string name);
+        IEnumerable<IPosition> Portfolio_List(string name);
 
 
     }

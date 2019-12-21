@@ -15,17 +15,16 @@ namespace EF_TP2_52D_14_1920i
 {
     public partial class TL52D_14Entities9 : IContext
     {
-       
-        ClientRepository clientRepository ;
-        DailyMarketRepository dailyMarketRepository;
-        DailyRegRepository dailyRegRepository;
-        EmailRepository emailRepository;
-        ExttripleRepository exttripleRepository;
-        InstrumentRepository instrumentRepository;
-        MarketRepository marketRepository;
-        PhoneRepository phoneRepository;
-        PortfolioRepository portfolioRepository;
-        PositionRepository positionRepository;
+        readonly ClientRepository clientRepository ;
+        readonly DailyMarketRepository dailyMarketRepository;
+        readonly DailyRegRepository dailyRegRepository;
+        readonly EmailRepository emailRepository;
+        readonly ExttripleRepository exttripleRepository;
+        readonly InstrumentRepository instrumentRepository;
+        readonly MarketRepository marketRepository;
+        readonly PhoneRepository phoneRepository;
+        readonly PortfolioRepository portfolioRepository;
+        readonly PositionRepository positionRepository;
 
        
         private IDbConnection con = null;
@@ -50,11 +49,11 @@ namespace EF_TP2_52D_14_1920i
 
         public IPositionRepository Positions => positionRepository ?? new PositionRepository(this, Position);
 
-        public decimal Average(int days, string isin)
+        decimal IContext.Average(int days, string isin)
         {
             using (IDbCommand cmd = createCommand())
             {
-                cmd.CommandText = "select from dbo.Average(@days, @isin)";
+                cmd.CommandText = "select dbo.Average(@days, @isin)";
                 cmd.CommandType = CommandType.Text;
 
                 SqlParameter p1 = new SqlParameter("@days", days);
@@ -65,8 +64,11 @@ namespace EF_TP2_52D_14_1920i
 
                 using (IDataReader r = cmd.ExecuteReader())
                 {
+                    if(!r.Read()) return default;
                     IDataRecord rcrd = r;
-                    return rcrd.GetDecimal(0);
+
+
+                    return (decimal)rcrd.GetValue(0);                    
                 }
             }
         }
@@ -92,13 +94,15 @@ namespace EF_TP2_52D_14_1920i
         {
             IList<FundamentalDataTable_Result> result = FundamentalDataTable(isin, date).ToList();
             IInstrument instrument = Instruments.Find(isin);
-            InstrumentProxy iproxy = new InstrumentProxy(instrument, this);
-            iproxy.avg6m = (decimal)result.ElementAt(0).avg6m;
-            iproxy.currval = (decimal)result.ElementAt(0).currval;
-            iproxy.dailyvar = (decimal)result.ElementAt(0).dailyvar;
-            iproxy.dailyvarperc = (decimal)result.ElementAt(0).dailyvarperc;
-            iproxy.var6m = (decimal)result.ElementAt(0).var6m;
-            iproxy.var6mperc = (decimal)result.ElementAt(0).var6mperc;
+            InstrumentProxy iproxy = new InstrumentProxy(instrument, this)
+            {
+                avg6m = (decimal)result.ElementAt(0).avg6m,
+                currval = (decimal)result.ElementAt(0).currval,
+                dailyvar = (decimal)result.ElementAt(0).dailyvar,
+                dailyvarperc = (decimal)result.ElementAt(0).dailyvarperc,
+                var6m = (decimal)result.ElementAt(0).var6m,
+                var6mperc = (decimal)result.ElementAt(0).var6mperc
+            };
             return iproxy;            
 
         }
@@ -131,15 +135,17 @@ namespace EF_TP2_52D_14_1920i
             UpdateTotalVal(name, quantity, isin);
         }
 
-        IPosition IContext.Portfolio_List(string name)
+        IEnumerable<IPosition> IContext.Portfolio_List(string name)
         {
             IList<Portfolio_List_Result> result = Portfolio_List(name).ToList();
             IPosition pos = Positions.Find(name);
-            PositionProxy posproxy = new PositionProxy(pos, this);
-            posproxy.CurrVal = (decimal)result.ElementAt(0).CurrVal;
-            posproxy.Dailyvarperc = (decimal)result.ElementAt(0).Dailyvarperc;
-            posproxy.quantity = (int)result.ElementAt(0).quantity;
-            posproxy.isin = (string)result.ElementAt(0).isin;
+            PositionProxy posproxy = new PositionProxy(pos, this)
+            {
+                CurrVal = (decimal)result.ElementAt(0).CurrVal,
+                Dailyvarperc = (decimal)result.ElementAt(0).Dailyvarperc,
+                quantity = (int)result.ElementAt(0).quantity,
+                isin = (string)result.ElementAt(0).isin
+            };
             return posproxy;
         }
 

@@ -6,22 +6,16 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TypesProject.concrete;
 using TypesProject.mapper;
-
 namespace App
 {
     class App
     {
-        public string ctx = null;
-        private enum Option1
-        {
-            Unknown = -1,
-            Exit,
-            EntityFramework,
-            ADO
-        }
+        public static string ctx = null;
+        IContext context = null;
 
-        private enum Option2
+        private enum Option
         {
             Unknown = -1,
             Exit,
@@ -35,11 +29,15 @@ namespace App
         private static App __instance;
         private App()
         {
-            __dbOption = new Dictionary<Option1, DBMethod>();
-            __dbOption.Add(Option1.EntityFramework, EFMenu);
-            __dbOption.Add(Option1.ADO, ADOMenu);
+            __dbMethods = new Dictionary<Option, DBMethod>();
+            __dbMethods.Add(Option.UpdateDailyValue, p_actualizaValorDiario);
+            __dbMethods.Add(Option.CalculateAverage, Average);
+            __dbMethods.Add(Option.FundamentalDataTable, FundamentalDataTable);
+            __dbMethods.Add(Option.CreatePortfolio, CreatePortfolio);
+            __dbMethods.Add(Option.UpdateTotalValue, UpdateTotalVal);
+            __dbMethods.Add(Option.PortfolioList, Portfolio_List);
 
-        }      
+        }
 
         public static App Instance
         {
@@ -51,39 +49,10 @@ namespace App
             }
             private set { }
         }
-
-        private void Menu()
+        private Option DisplayMenu()
         {
-            __dbMethods = new Dictionary<Option2, DBMethod>();
-            __dbMethods.Add(Option2.UpdateDailyValue, p_actualizaValorDiario);
-            __dbMethods.Add(Option2.CalculateAverage, Average);
-            __dbMethods.Add(Option2.FundamentalDataTable, FundamentalDataTable);
-            __dbMethods.Add(Option2.CreatePortfolio, CreatePortfolio);
-            __dbMethods.Add(Option2.UpdateTotalValue, UpdateTotalVal);
-            __dbMethods.Add(Option2.PortfolioList, Portfolio_List);
-        }
-            private Option1 DisplayMenu()
-            {
-                Option1 option = Option1.Unknown;
-                try
-                {
-                    Console.WriteLine("Which one do you want to test:");               
-                    Console.WriteLine();
-                    Console.WriteLine("1. Entity Framework");
-                    Console.WriteLine("2. ADO.NET");
-                    Console.WriteLine("0. Exit");
-                    var result = Console.ReadLine();
-                    option = (Option1)Enum.Parse(typeof(Option1), result);
-                }
-                catch (ArgumentException ex)
-                {
-                    Console.WriteLine("Insert valid value." + ex);
-                    return DisplayMenu();
-                }
-                return option;
-            }
-
-            private void DisplayOptions()
+            Option option = Option.Unknown;
+            try
             {
                 Console.WriteLine("Select your option:");
                 Console.WriteLine();
@@ -94,72 +63,38 @@ namespace App
                 Console.WriteLine("5. Update Total Value");
                 Console.WriteLine("6. Portfolio List");
                 Console.WriteLine("0. Exit");
+                var result = Console.ReadLine();
+                option = (Option)Enum.Parse(typeof(Option), result);
             }
-
-            private Option2 DisplayMenuEF()
+            catch (ArgumentException ex)
             {
-                Option2 option = Option2.Unknown;
-                try
-                {
-                    DisplayOptions();
-                    var result = Console.ReadLine();
-                    option = (Option2)Enum.Parse(typeof(Option2), result);
-                }
-                catch (ArgumentException ex)
-                {
-                    Console.WriteLine("Insert valid value." + ex);
-                    return DisplayMenuEF();
-                }
-                return option;
+                Console.WriteLine("Insert valid value." + ex);
+                return DisplayMenu();
             }
+            return option;
+        }
 
-            private Option2 DisplayMenuADO()
-            {
-                Option2 option = Option2.Unknown;
-                try
-                {
-                    DisplayOptions();
-                    var result = Console.ReadLine();
-                    option = (Option2)Enum.Parse(typeof(Option2), result);
-                }
-                catch (ArgumentException ex)
-                {
-                    Console.WriteLine("Insert valid value." + ex);
-                    return DisplayMenuEF();
-                }
-                return option;
-            }
+        private delegate void DBMethod();
+        private System.Collections.Generic.Dictionary<Option, DBMethod> __dbMethods;
+        public string ConnectionString
+        {
+            get;
+            set;
+        }
 
-
-
-            private void Login()
-            {
-                using (SqlConnection con = new SqlConnection(ConnectionString))
-                {
-                    con.Open();
-                }
-
-            }
-            private delegate void DBMethod();
-            private System.Collections.Generic.Dictionary<Option1, DBMethod> __dbOption;
-            private System.Collections.Generic.Dictionary<Option2, DBMethod> __dbMethods;
-            public string ConnectionString
-            {
-                get;
-                set;
-            }
-
-            public void Run()
-            {
-                IContext context = null;
+        public void Run()
+        {
 
             if (ctx.Equals("1")) context = new TL52D_14Entities9();
             else
             {
                 SqlConnectionStringBuilder con = new SqlConnectionStringBuilder();
                 con.ConnectionString = "server=10.62.73.95;initial catalog=TL52D_14; User Id=TL52D_14; Password=CJN1920i;MultipleActiveResultSets=True";
+                context = new Context(con.ConnectionString);
             }
-                Option1 userInput = Option1.Unknown;
+            using (context)
+            {
+                Option userInput = Option.Unknown;
                 do
                 {
                     Console.Clear();
@@ -167,108 +102,117 @@ namespace App
                     Console.Clear();
                     try
                     {
-                        __dbOption[userInput]();
+                        __dbMethods[userInput]();
                         Console.ReadKey();
-                        Option2 option = DisplayMenuADO();
-                    do
-                    {
-                        Console.Clear();
-
-                        try
-                        {
-                            __dbMethods[option]();
-                            //Console.Clear();
-                        }
-                        catch (KeyNotFoundException ex)
-                        {
-
-                        }
-                    } while (option != Option2.Exit);
                     }
                     catch (KeyNotFoundException ex)
                     {
                         //Nothing to do. The option was not a valid one. Read another.
                     }
 
-                } while (userInput != Option1.Exit);
-            }
-            #endregion
-            private void p_actualizaValorDiario(IContext ctx)
-            {
-                //TODO: Implement
-                Console.WriteLine("p_actualizaValorDiario()");
-                
-            }
-            private void AverageADO()
-            {
-                //TODO: Implement
-                Console.WriteLine(" Average()");
-            }
-            private void FundamentalDataTable(IContext ctx)
-            {
-                //TODO: Implement
-                Console.WriteLine("FundamentalDataTable()");
-            }
-            private void CreatePortfolio(IContext ctx)
-            {
-                //TODO: Implement
-                Console.WriteLine("CreatePortfolio()");
-            }
-            private void UpdateTotalVal(IContext ctx)
-            {
-                //TODO: Implement
-                Console.WriteLine("UpdateTotalVal()");
-            }
-            private void Portfolio_List(IContext ctx)
-            {
-                //TODO: Implement
-                Console.WriteLine("Portfolio_List()");
-            }            
-    }
-        class MainClass
-        {
-            #region DO_NOT_CHANGE_NOTHING_IN_THIS_REGION__				
-            public static Credentials getCredentials()
-            {
-                Console.Write("Enter your username: ");
-                string username = Console.ReadLine();
-                string password = "";
-                Console.Write("Enter your password: ");
-
-                ConsoleKeyInfo key;
-
-                do
-                {
-                    key = Console.ReadKey(true);
-
-                    // Backspace Should Not Work
-                    if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
-                    {
-                        password += key.KeyChar;
-                        Console.Write("*");
-                    }
-                    else
-                    {
-                        if (key.Key == ConsoleKey.Backspace && password.Length > 0)
-                        {
-                            password = password.Substring(0, (password.Length - 1));
-                            Console.Write("\b \b");
-                        }
-                    }
-                }
-                while (key.Key != ConsoleKey.Enter);
-
-                return new Credentials(username, password);
-            }
-            #endregion
-            public static void Main(string[] args)
-            {
-                Credentials cr = getCredentials();
-                //TODO: Pass credentials to App
-                App.Instance.Run();
+                } while (userInput != Option.Exit);
             }
 
         }
+
+        private void p_actualizaValorDiario()
+        {
+            Console.WriteLine("p_actualizaValorDiario()");
+            Console.WriteLine();
+            Console.WriteLine("Insert an ISIN and a date(yyyy/mm/dd):");
+            string str = Console.ReadLine();
+            string[] param = str.Split(' ');
+            DateTime date = new DateTime();
+            try
+            {
+                date = DateTime.Parse(param[1]);
+            }
+            catch
+            {
+                Console.WriteLine("Invalid date");
+                return;
+            }
+            context.p_actualizaValorDiario(param[0], date);
+        }
+        private void Average()
+        {
+            Console.WriteLine("Average()");
+            Console.WriteLine();
+            Console.WriteLine("Insert a number of days and a ISIN:");
+            string str = Console.ReadLine();
+            string[] param = str.Split(' ');
+            decimal avg = context.Average(Int32.Parse(param[0]), param[1]);
+            Console.WriteLine(avg);
+        }
+        private void FundamentalDataTable()
+        {
+            Console.WriteLine("FundamentalDataTable()");
+            Console.WriteLine();
+            Console.WriteLine("Insert an ISIN and a date(yyyy/mm/dd):");
+            string str = Console.ReadLine();
+            string[] param = str.Split(' ');
+            DateTime date = new DateTime();
+            try
+            {
+                date = DateTime.Parse(param[1]);
+            }
+            catch
+            {
+                Console.WriteLine("Invalid date");
+                return;
+            }
+            InstrumentProxy ip = (InstrumentProxy)context.FundamentalDataTable(param[0], date);
+
+            Console.WriteLine("dailyvar: " + ip.dailyvar);
+            Console.WriteLine("currval: " + ip.currval);           
+            Console.WriteLine("avg6m: " + ip.avg6m);           
+            Console.WriteLine("var6m: " + ip.var6m);           
+            Console.WriteLine("dailyvarperc: " + ip.dailyvarperc);           
+            Console.WriteLine("var6mperc: " + ip.var6mperc);           
+
+        }
+        private void CreatePortfolio()
+        {
+            Console.WriteLine("CreatePortfolio()");
+            Console.WriteLine();
+            Console.WriteLine("Insert a nif:");
+            context.createPortfolio(Int32.Parse(Console.ReadLine()));
+            Console.WriteLine("Potfolio created");
+        }
+        private void UpdateTotalVal()
+        {
+            Console.WriteLine("UpdateTotalVal()");
+            Console.WriteLine();
+            Console.WriteLine("Insert a name, quantity and an ISIN:");
+            string str = Console.ReadLine();
+            string[] param = str.Split(' ');
+            context.UpdateTotalVal(param[0], Int32.Parse(param[1]), param[2]);           
+
+        }
+        private void Portfolio_List()
+        {
+            Console.WriteLine("Portfolio_List()");
+            Console.WriteLine();
+            Console.WriteLine("Insert a name:");
+            context.Portfolio_List(Console.ReadLine());
+
+        }
+
+    }
+
+    class MainClass
+    {
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("Which one do you want to test:");
+            Console.WriteLine();
+            Console.WriteLine("1. Entity Framework");
+            Console.WriteLine("2. ADO.NET");
+            string result = Console.ReadLine();
+            App.ctx = result;
+            App.Instance.Run();
+        }
+
     }
 
 }

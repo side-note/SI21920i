@@ -16,6 +16,7 @@ namespace TypesProject.concrete
         public MarketRepository(IContext ctx)
         {
             context = ctx;
+            mapper = new MarketMapper(ctx);
         }
 
         public bool Delete(IMarket value)

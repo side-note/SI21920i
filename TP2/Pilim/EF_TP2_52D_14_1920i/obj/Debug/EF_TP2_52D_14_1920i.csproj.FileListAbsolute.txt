@@ -1,0 +1,14 @@
+C:\Users\carol\Documents\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\bin\Debug\EF_TP2_52D_14_1920i.dll.config
+C:\Users\carol\Documents\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\bin\Debug\EF_TP2_52D_14_1920i.dll
+C:\Users\carol\Documents\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\bin\Debug\EF_TP2_52D_14_1920i.pdb
+C:\Users\carol\Documents\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\bin\Debug\EntityFramework.dll
+C:\Users\carol\Documents\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\carol\Documents\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\bin\Debug\TypesProject.dll
+C:\Users\carol\Documents\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\bin\Debug\TypesProject.pdb
+C:\Users\carol\Documents\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\bin\Debug\EntityFramework.xml
+C:\Users\carol\Documents\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\carol\Documents\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\obj\Debug\EF_TP2_52D_14_1920i.csprojAssemblyReference.cache
+C:\Users\carol\Documents\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\obj\Debug\EF_TP2_52D_14_1920i.csproj.CoreCompileInputs.cache
+C:\Users\carol\Documents\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\obj\Debug\EF_TP2_52D_14_1920i.csproj.CopyComplete
+C:\Users\carol\Documents\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\obj\Debug\EF_TP2_52D_14_1920i.dll
+C:\Users\carol\Documents\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\obj\Debug\EF_TP2_52D_14_1920i.pdb

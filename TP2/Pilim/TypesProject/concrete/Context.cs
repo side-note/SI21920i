@@ -201,12 +201,12 @@ namespace TypesProject.concrete
 
      
 
-        IPosition IContext.Portfolio_List(string name)
+        IEnumerable<IPosition> IContext.Portfolio_List(string name)
         {
-            IPosition position = Positions.Find(name);
+            IEnumerable<IPosition> position = ((PortfolioProxy)Portfolios.Find(name)).positionInstruments;
             if (position == null) return null;
             
-            PositionProxy pos = new PositionProxy(position, this);
+            
             using (IDbCommand cmd = createCommand())
             {
                 cmd.CommandText = "select dailyvar, currval, isin,  quantity from dbo.Portfolio_List(@name)";
@@ -218,13 +218,22 @@ namespace TypesProject.concrete
 
                 using (IDataReader reader = cmd.ExecuteReader())
                 {
-                    IDataRecord record = reader;
+                    if (!reader.Read()) return position;
+                    List<IPosition> positions = new List<IPosition>();
+                    IEnumerator<IPosition> posEnumerator = position.GetEnumerator();
+                    posEnumerator.MoveNext();
+                    while (posEnumerator.MoveNext() && reader.Read())
+                    {
+                        IDataRecord record = reader;
+                        PositionProxy pos = new PositionProxy(posEnumerator.Current, this);
+                        pos.isin = record.GetString(0);
+                        pos.quantity = record.GetInt32(1);
+                        pos.CurrVal = record.GetDecimal(2);
+                        pos.Dailyvarperc = record.GetDecimal(3);
+                        positions.Add(pos);
 
-                    pos.isin = record.GetString(0);
-                    pos.quantity = record.GetInt32(1);
-                    pos.CurrVal = record.GetDecimal(2);
-                    pos.Dailyvarperc = record.GetDecimal(3);
-                    return pos;
+                    }              
+                    return positions;
                 }
             }
             

@@ -9,6 +9,7 @@ insert into Client values (111111111, 1111111, 'Client1');
 insert into Client values (222222222, 2222222, 'Client2');
 insert into Client values (444444444, 4444444, 'Client4');
 insert into Client values (555555555, 5555555, 'Client5');
+insert into Client values (666666666,6666666, 'Client6');
 
 insert into Portfolio values ('111111111_portfolio', 10000);
 insert into Portfolio values ('444444444_portfolio', 40000);

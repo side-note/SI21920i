@@ -1,0 +1,304 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TL52D_14Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <ComplexType Name="FundamentalDataTable_Result">
+    <Property Name="dailyvar" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="currval" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="avg6m" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="var6m" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="dailyvarperc" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="var6mperc" Type="Decimal" Precision="5" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="Portfolio_List_Result">
+    <Property Name="isin" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="quantity" Type="Int32" />
+    <Property Name="CurrVal" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Dailyvarperc" Type="Decimal" Precision="5" Scale="2" />
+  </ComplexType>
+  <EntityType Name="Client">
+    <Key>
+      <PropertyRef Name="nif" />
+    </Key>
+    <Property Name="nif" Type="Decimal" Precision="9" Scale="0" Nullable="false" />
+    <Property Name="ncc" Type="Decimal" Precision="7" Scale="0" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Email" Relationship="Self.fkclient_email" FromRole="Client" ToRole="Email" />
+    <NavigationProperty Name="Phone" Relationship="Self.fkclient_phone" FromRole="Client" ToRole="Phone" />
+    <NavigationProperty Name="Portfolio" Relationship="Self.Client_Portfolio" FromRole="Client" ToRole="Portfolio" />
+  </EntityType>
+  <EntityType Name="DailyMarket">
+    <Key>
+      <PropertyRef Name="code" />
+      <PropertyRef Name="date" />
+    </Key>
+    <Property Name="idxmrkt" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="dailyvar" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="idxopeningval" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="code" Type="Int32" Nullable="false" />
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Market" Relationship="Self.fkdailymrkt" FromRole="DailyMarket" ToRole="Market" />
+  </EntityType>
+  <EntityType Name="DailyReg">
+    <Key>
+      <PropertyRef Name="isin" />
+      <PropertyRef Name="dailydate" />
+    </Key>
+    <Property Name="isin" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="minval" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="openingval" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="maxval" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="closingval" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="dailydate" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Instrument" Relationship="Self.fkinstrument_reg" FromRole="DailyReg" ToRole="Instrument" />
+  </EntityType>
+  <EntityType Name="Email">
+    <Key>
+      <PropertyRef Name="code" />
+    </Key>
+    <Property Name="code" Type="Int32" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="addr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="nif" Type="Decimal" Precision="9" Scale="0" />
+    <NavigationProperty Name="Client" Relationship="Self.fkclient_email" FromRole="Email" ToRole="Client" />
+  </EntityType>
+  <EntityType Name="Exttriple">
+    <Key>
+      <PropertyRef Name="datetime" />
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="value" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="id" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Instrument">
+    <Key>
+      <PropertyRef Name="isin" />
+    </Key>
+    <Property Name="isin" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="mrktcode" Type="Int32" />
+    <NavigationProperty Name="DailyReg" Relationship="Self.fkinstrument_reg" FromRole="Instrument" ToRole="DailyReg" />
+    <NavigationProperty Name="Market" Relationship="Self.fkinstrument" FromRole="Instrument" ToRole="Market" />
+    <NavigationProperty Name="Position" Relationship="Self.fkinstrument_pos" FromRole="Instrument" ToRole="Position" />
+  </EntityType>
+  <EntityType Name="Market">
+    <Key>
+      <PropertyRef Name="code" />
+    </Key>
+    <Property Name="code" Type="Int32" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="DailyMarket" Relationship="Self.fkdailymrkt" FromRole="Market" ToRole="DailyMarket" />
+    <NavigationProperty Name="Instrument" Relationship="Self.fkinstrument" FromRole="Market" ToRole="Instrument" />
+  </EntityType>
+  <EntityType Name="Phone">
+    <Key>
+      <PropertyRef Name="code" />
+    </Key>
+    <Property Name="code" Type="Int32" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="areacode" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="number" Type="Decimal" Precision="9" Scale="0" />
+    <Property Name="nif" Type="Decimal" Precision="9" Scale="0" />
+    <NavigationProperty Name="Client" Relationship="Self.fkclient_phone" FromRole="Phone" ToRole="Client" />
+  </EntityType>
+  <EntityType Name="Portfolio">
+    <Key>
+      <PropertyRef Name="name" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="totalval" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="Position" Relationship="Self.fkportfolio_pos" FromRole="Portfolio" ToRole="Position" />
+    <NavigationProperty Name="Client" Relationship="Self.Client_Portfolio" FromRole="Portfolio" ToRole="Client" />
+  </EntityType>
+  <EntityType Name="Position">
+    <Key>
+      <PropertyRef Name="name" />
+      <PropertyRef Name="isin" />
+    </Key>
+    <Property Name="quantity" Type="Int32" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="isin" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Instrument" Relationship="Self.fkinstrument_pos" FromRole="Position" ToRole="Instrument" />
+    <NavigationProperty Name="Portfolio" Relationship="Self.fkportfolio_pos" FromRole="Position" ToRole="Portfolio" />
+  </EntityType>
+  <EntityType Name="Portfolio_Summary">
+    <Key>
+      <PropertyRef Name="name" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NoInstruments" Type="Int32" />
+    <Property Name="totalval" Type="Decimal" Precision="19" Scale="4" />
+  </EntityType>
+  <Association Name="fkclient_email">
+    <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+    <End Role="Email" Type="Self.Email" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="nif" />
+      </Principal>
+      <Dependent Role="Email">
+        <PropertyRef Name="nif" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fkclient_phone">
+    <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+    <End Role="Phone" Type="Self.Phone" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="nif" />
+      </Principal>
+      <Dependent Role="Phone">
+        <PropertyRef Name="nif" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fkdailymrkt">
+    <End Role="Market" Type="Self.Market" Multiplicity="1" />
+    <End Role="DailyMarket" Type="Self.DailyMarket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Market">
+        <PropertyRef Name="code" />
+      </Principal>
+      <Dependent Role="DailyMarket">
+        <PropertyRef Name="code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fkinstrument_reg">
+    <End Role="Instrument" Type="Self.Instrument" Multiplicity="1" />
+    <End Role="DailyReg" Type="Self.DailyReg" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Instrument">
+        <PropertyRef Name="isin" />
+      </Principal>
+      <Dependent Role="DailyReg">
+        <PropertyRef Name="isin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fkinstrument">
+    <End Role="Market" Type="Self.Market" Multiplicity="0..1" />
+    <End Role="Instrument" Type="Self.Instrument" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Market">
+        <PropertyRef Name="code" />
+      </Principal>
+      <Dependent Role="Instrument">
+        <PropertyRef Name="mrktcode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fkinstrument_pos">
+    <End Role="Instrument" Type="Self.Instrument" Multiplicity="1" />
+    <End Role="Position" Type="Self.Position" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Instrument">
+        <PropertyRef Name="isin" />
+      </Principal>
+      <Dependent Role="Position">
+        <PropertyRef Name="isin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fkportfolio_pos">
+    <End Role="Portfolio" Type="Self.Portfolio" Multiplicity="1" />
+    <End Role="Position" Type="Self.Position" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Portfolio">
+        <PropertyRef Name="name" />
+      </Principal>
+      <Dependent Role="Position">
+        <PropertyRef Name="name" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Client_Portfolio">
+    <End Role="Client" Type="Self.Client" Multiplicity="*" />
+    <End Role="Portfolio" Type="Self.Portfolio" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="TL52D_14Entities9" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Client" EntityType="Self.Client" />
+    <EntitySet Name="DailyMarket" EntityType="Self.DailyMarket" />
+    <EntitySet Name="DailyReg" EntityType="Self.DailyReg" />
+    <EntitySet Name="Email" EntityType="Self.Email" />
+    <EntitySet Name="Exttriple" EntityType="Self.Exttriple" />
+    <EntitySet Name="Instrument" EntityType="Self.Instrument" />
+    <EntitySet Name="Market" EntityType="Self.Market" />
+    <EntitySet Name="Phone" EntityType="Self.Phone" />
+    <EntitySet Name="Portfolio" EntityType="Self.Portfolio" />
+    <EntitySet Name="Position" EntityType="Self.Position" />
+    <EntitySet Name="Portfolio_Summary" EntityType="Self.Portfolio_Summary" />
+    <AssociationSet Name="fkclient_email" Association="Self.fkclient_email">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="Email" EntitySet="Email" />
+    </AssociationSet>
+    <AssociationSet Name="fkclient_phone" Association="Self.fkclient_phone">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="Phone" EntitySet="Phone" />
+    </AssociationSet>
+    <AssociationSet Name="fkdailymrkt" Association="Self.fkdailymrkt">
+      <End Role="Market" EntitySet="Market" />
+      <End Role="DailyMarket" EntitySet="DailyMarket" />
+    </AssociationSet>
+    <AssociationSet Name="fkinstrument_reg" Association="Self.fkinstrument_reg">
+      <End Role="Instrument" EntitySet="Instrument" />
+      <End Role="DailyReg" EntitySet="DailyReg" />
+    </AssociationSet>
+    <AssociationSet Name="fkinstrument" Association="Self.fkinstrument">
+      <End Role="Market" EntitySet="Market" />
+      <End Role="Instrument" EntitySet="Instrument" />
+    </AssociationSet>
+    <AssociationSet Name="fkinstrument_pos" Association="Self.fkinstrument_pos">
+      <End Role="Instrument" EntitySet="Instrument" />
+      <End Role="Position" EntitySet="Position" />
+    </AssociationSet>
+    <AssociationSet Name="fkportfolio_pos" Association="Self.fkportfolio_pos">
+      <End Role="Portfolio" EntitySet="Portfolio" />
+      <End Role="Position" EntitySet="Position" />
+    </AssociationSet>
+    <AssociationSet Name="Client_Portfolio" Association="Self.Client_Portfolio">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="Portfolio" EntitySet="Portfolio" />
+    </AssociationSet>
+    <FunctionImport Name="FundamentalDataTable" IsComposable="true" ReturnType="Collection(TL52D_14Model.FundamentalDataTable_Result)">
+      <Parameter Name="isin" Mode="In" Type="String" />
+      <Parameter Name="date" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="Portfolio_List" IsComposable="true" ReturnType="Collection(TL52D_14Model.Portfolio_List_Result)">
+      <Parameter Name="name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="createPortfolio">
+      <Parameter Name="nif" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="DailyMarketUpdate">
+      <Parameter Name="code" Mode="In" Type="Int32" />
+      <Parameter Name="date" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="p_actualizaValorDiario">
+      <Parameter Name="id" Mode="In" Type="String" />
+      <Parameter Name="date" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="remove_client">
+      <Parameter Name="nif" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="remove_market">
+      <Parameter Name="code" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="update_client">
+      <Parameter Name="ncc" Mode="In" Type="Decimal" />
+      <Parameter Name="nif" Mode="In" Type="Decimal" />
+      <Parameter Name="name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="update_market">
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="name" Mode="In" Type="String" />
+      <Parameter Name="code" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateTotalVal">
+      <Parameter Name="name" Mode="In" Type="String" />
+      <Parameter Name="quantity" Mode="In" Type="Int32" />
+      <Parameter Name="isin" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>

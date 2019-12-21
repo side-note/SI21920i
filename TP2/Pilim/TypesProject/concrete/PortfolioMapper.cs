@@ -41,15 +41,22 @@ namespace TypesProject.concrete
         {
             List<IPosition> lst = new List<IPosition>();
 
-            PositionMapper im = new PositionMapper(mapperHelper.context);
+            InstrumentMapper im = new InstrumentMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
             parameters.Add(new SqlParameter("@id", p.name));
-            using (IDataReader rd = mapperHelper.ExecuteReader("select instrumentid from marketinstrument where marketId=@id", parameters))
+            using (IDataReader rd = mapperHelper.ExecuteReader("select isin, name, quantity from Position where name = @id", parameters))
             {
                 while (rd.Read())
                 {
-                    KeyValuePair<string, string> key = new KeyValuePair<string, string>(rd.GetString(0),rd.GetString(1));
-                    lst.Add(im.Read(key));
+                    Position pos = new Position();
+                    pos.quantity = rd.GetInt32(0);
+                    pos.name = rd.GetString(1);
+                    pos.isin = rd.GetString(2);
+                    KeyValuePair<string, string> key = new KeyValuePair<string, string>(rd.GetString(1),rd.GetString(2));
+                    pos.Instrument = im.Read(rd.GetString(2));
+                    pos.Portfolio = p;
+
+                    lst.Add(pos);
                 }
             }
             return lst;

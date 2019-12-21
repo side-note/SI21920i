@@ -12,7 +12,7 @@ namespace TypesProject.model
         public string name { get; set; }
         public string isin { get; set; }
 
-        public ICollection<IPortfolio> portfolios { get; set; }
-        public ICollection<IInstrument> instruments { get; set; }
+        public IPortfolio Portfolio { get; set; }
+        public IInstrument Instrument { get; set; }
     }
 }
