@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using TypesProject.concrete;
 using TypesProject.mapper;
+using TypesProject.model;
+
 namespace App
 {
     class App
@@ -24,7 +26,11 @@ namespace App
             FundamentalDataTable,
             CreatePortfolio,
             UpdateTotalValue,
-            PortfolioList
+            PortfolioList,
+            InsertMarket,
+            UpdateMarket,
+            DeleteMarket,
+            DeletePortfolio
         }
         private static App __instance;
         private App()
@@ -36,6 +42,10 @@ namespace App
             __dbMethods.Add(Option.CreatePortfolio, CreatePortfolio);
             __dbMethods.Add(Option.UpdateTotalValue, UpdateTotalVal);
             __dbMethods.Add(Option.PortfolioList, Portfolio_List);
+            __dbMethods.Add(Option.InsertMarket, InsertMarket);
+            __dbMethods.Add(Option.UpdateMarket, UpdateMarket);
+            __dbMethods.Add(Option.DeleteMarket, DeleteMarket);
+            __dbMethods.Add(Option.DeletePortfolio, DeletePortfolio);
 
         }
 
@@ -62,6 +72,10 @@ namespace App
                 Console.WriteLine("4. Create Portfolio");
                 Console.WriteLine("5. Update Total Value");
                 Console.WriteLine("6. Portfolio List");
+                Console.WriteLine("7. Insert Market");
+                Console.WriteLine("8. Update Market");
+                Console.WriteLine("9. Delete Market");
+                Console.WriteLine("10. Delete Portfolio");
                 Console.WriteLine("0. Exit");
                 var result = Console.ReadLine();
                 option = (Option)Enum.Parse(typeof(Option), result);
@@ -194,8 +208,108 @@ namespace App
             Console.WriteLine("Portfolio_List()");
             Console.WriteLine();
             Console.WriteLine("Insert a name:");
-            context.Portfolio_List(Console.ReadLine());
+           
 
+            IEnumerator<IPosition> pf =  context.Portfolio_List(Console.ReadLine()).GetEnumerator();
+
+            while (pf.MoveNext())
+            {
+                PositionProxy pos = (PositionProxy)pf.Current;
+                Console.WriteLine("ISIN " + pos.isin);
+                Console.WriteLine("Quantity " + pos.quantity);
+                Console.WriteLine("Currval " + pos.CurrVal);
+                Console.WriteLine("DailyVarPerc " + pos.Dailyvarperc);                    
+            }
+
+        }
+
+        private void InsertMarket()
+        {
+            Console.WriteLine("InsertMarket()");
+            Console.WriteLine();
+            Console.WriteLine("Insert a code, description and name:");
+            string str = Console.ReadLine();
+            string[] param = str.Split(' ');
+            IMarket market;
+            if (ctx.Equals("1"))
+            {
+                market = new TypesProject.model.Market();
+            }
+            else
+            {
+                market = new EF_TP2_52D_14_1920i.Market();
+            }
+
+            market.code = Int32.Parse(param[0]);
+            market.description = param[1];
+            market.name = param[2];
+
+            context.CreateMarket(market);
+            context.SaveChanges();
+            Console.WriteLine("Market created successfully");
+        }
+
+        private void UpdateMarket()
+        {
+            Console.WriteLine("UpdateMarket()");
+            Console.WriteLine();
+            Console.WriteLine("Insert a code, description and name:");
+            string str = Console.ReadLine();
+            string[] param = str.Split(' ');
+            IMarket market;
+            if (ctx.Equals("1"))
+            {
+                market = new TypesProject.model.Market();
+            }
+            else
+            {
+                market = new EF_TP2_52D_14_1920i.Market();
+            }
+            market.code = Int32.Parse(param[0]);
+            market.description = param[1];
+            market.name = param[2];
+            context.UpdateMarket(market);
+            context.SaveChanges();
+            Console.WriteLine("Market updated sucessfuly");
+        }
+
+        private void DeleteMarket()
+        {
+            Console.WriteLine("DeleteMarket()");
+            Console.WriteLine();
+            Console.WriteLine("Insert a code:");
+            IMarket market;
+            if (ctx.Equals("1"))
+            {
+                market = new TypesProject.model.Market();
+            }
+            else
+            {
+                market = new EF_TP2_52D_14_1920i.Market();
+            }
+            market.code = Int32.Parse(Console.ReadLine());
+            context.DeleteMarket(market);
+            Console.WriteLine("Market deleted sucessfully");
+        }
+
+        private void DeletePortfolio()
+        {
+            Console.WriteLine("DeletePortfolio()");
+            Console.WriteLine();
+            Console.WriteLine("Please insert a name:");
+            IPortfolio portfolio;
+            if (ctx.Equals("1"))
+            {
+                portfolio = new TypesProject.model.Portfolio();
+            }
+            else
+            {
+                portfolio = new EF_TP2_52D_14_1920i.Portfolio();
+            }
+
+            portfolio.name = Console.ReadLine();
+            context.DeletePortfolio(portfolio);
+            Console.WriteLine("Portfolio deleted successfully");
         }
 
     }

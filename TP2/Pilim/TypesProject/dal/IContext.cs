@@ -31,6 +31,10 @@ namespace TypesProject.mapper
         void createPortfolio(decimal nif);
         void UpdateTotalVal(string name, int quantity, string isin);
         IEnumerable<IPosition> Portfolio_List(string name);
+        bool DeletePortfolio(IPortfolio value);
+        bool DeleteMarket(IMarket value);
+        bool UpdateMarket(IMarket value);
+        IMarket CreateMarket(IMarket value);
 
 
     }

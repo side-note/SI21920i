@@ -157,6 +157,16 @@ namespace EF_TP2_52D_14_1920i
 
         public bool DeletePortfolio(IPortfolio value)
         {
+            IEnumerable<IPosition> positions = ((PortfolioProxy)Portfolios.Find(value.name)).Positions;
+            if (positions != null)
+            {
+                IEnumerator<IPosition> pEnumerator = positions.GetEnumerator();
+                pEnumerator.MoveNext();
+                do
+                {
+                    Positions.Delete(pEnumerator.Current);
+                } while (pEnumerator.MoveNext());
+            }
             return Portfolios.Delete(value);
         }
 

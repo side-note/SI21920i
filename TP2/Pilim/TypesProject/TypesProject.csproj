@@ -122,7 +122,6 @@
     <Compile Include="model\Phone.cs" />
     <Compile Include="model\Portfolio.cs" />
     <Compile Include="model\Position.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

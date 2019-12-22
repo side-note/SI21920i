@@ -247,6 +247,16 @@ namespace TypesProject.concrete
         }
         public bool DeletePortfolio(IPortfolio value)
         {
+            IEnumerable<IPosition> positions = ((PortfolioProxy)Portfolios.Find(value.name)).Positions;
+            if (positions != null)
+            {
+                IEnumerator<IPosition> pEnumerator = positions.GetEnumerator();
+                pEnumerator.MoveNext();
+                do
+                {
+                    Positions.Delete(pEnumerator.Current);
+                } while (pEnumerator.MoveNext());
+            }
             bool b = Portfolios.Delete(value);
             SaveChanges();
             return b;
