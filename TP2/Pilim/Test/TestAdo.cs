@@ -45,7 +45,7 @@ namespace Test
         public void AverageTest()
         {
             decimal d = ctx().Average(180, "111111111111");
-            Assert.AreEqual(d, 222);
+            Assert.AreEqual(d, 1296);
         }
 
         [TestMethod]
@@ -57,12 +57,12 @@ namespace Test
                 DateTime d = new DateTime(2019, 11, 1);
                 InstrumentProxy i = (InstrumentProxy)ctx().FundamentalDataTable("111111111111", d);
                 ts.Complete();
-                Assert.AreEqual(i.avg6m, 222);
-                Assert.AreEqual(i.currval, 111);
-                Assert.AreEqual(i.dailyvar, 1100);
-                Assert.AreEqual(i.dailyvarperc, 100);
-                Assert.AreEqual(i.var6m, 4433);
-                Assert.AreEqual(i.var6mperc, 403);
+                Assert.AreEqual(i.avg6m, 1296);
+                Assert.AreEqual(i.currval, 3333);
+                Assert.AreEqual(i.dailyvar, 2222);
+                Assert.AreEqual(i.dailyvarperc, 2);
+                Assert.AreEqual(i.var6m, 6644);
+                Assert.AreEqual(i.var6mperc, 302);
                 
             }
 

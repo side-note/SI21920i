@@ -10,3 +10,6 @@ C:\Users\ASUS\Documents\GitHub\SI21920i\TP2\Pilim\Test\bin\Debug\Microsoft.Visua
 C:\Users\ASUS\Documents\GitHub\SI21920i\TP2\Pilim\Test\obj\Debug\Test.csproj.CopyComplete
 C:\Users\ASUS\Documents\GitHub\SI21920i\TP2\Pilim\Test\obj\Debug\Test.dll
 C:\Users\ASUS\Documents\GitHub\SI21920i\TP2\Pilim\Test\obj\Debug\Test.pdb
+C:\Users\ASUS\Documents\GitHub\SI21920i\TP2\Pilim\Test\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\ASUS\Documents\GitHub\SI21920i\TP2\Pilim\Test\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\ASUS\Documents\GitHub\SI21920i\TP2\Pilim\Test\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll

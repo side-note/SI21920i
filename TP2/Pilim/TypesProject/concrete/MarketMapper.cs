@@ -76,7 +76,7 @@ namespace TypesProject.concrete
 
         protected void InsertParameters(IDbCommand cmd, IMarket m)
         {
-            SqlParameter n = new SqlParameter("@Name", m.name);
+            SqlParameter n = new SqlParameter("@name", m.name);
             SqlParameter id = new SqlParameter("@id", m.code);
             SqlParameter d = new SqlParameter("@desc", m.description);
 
@@ -111,7 +111,7 @@ namespace TypesProject.concrete
             {
                 mapperHelper.Create(market,
                     (cmd, market) => InsertParameters(cmd, market),
-                    "INSERT INTO Market (code, description, name) VALUES(@id,@desc,@name); select @id=code"
+                    "INSERT INTO Market (code, description, name) VALUES(@id,@desc,@name)"
                     );
                 ts.Complete();
                 return market;
