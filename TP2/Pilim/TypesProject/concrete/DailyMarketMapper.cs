@@ -19,26 +19,6 @@ namespace TypesProject.concrete
             mapperHelper = new MapperHelper<IDailyMarket, KeyValuePair<int, DateTime>, List<IDailyMarket>>(ctx, this);
         }
 
-        internal IMarket LoadMarket(DailyMarket dm)
-        {
-            MarketMapper mm = new MarketMapper(mapperHelper.context);
-            List<IDataParameter> parameters = new List<IDataParameter>();
-            parameters.Add(new SqlParameter("@id", dm.code));
-            parameters.Add(new SqlParameter("@datetime", dm.date));
-
-            using (IDataReader rd = mapperHelper.ExecuteReader("select market from dailymarket where dailymarketId=@id and dailymarketdt=@datetime ", parameters))
-            {
-                if (rd.Read())
-                {
-                    int key = rd.GetInt32(0);
-                    return mm.Read(key);
-                }
-            }
-            return null;
-
-        }
-
-
         protected void DeleteParameters(IDbCommand cmd, IDailyMarket dm)
         {
 
@@ -89,7 +69,7 @@ namespace TypesProject.concrete
             {
                 mapperHelper.Create(idm,
                     (cmd, idailymarket) => InsertParameters(cmd, idailymarket),
-                    "INSERT INTO DailyMarket (idxMrkt,dailyvar,idxopeningval, code, date) VALUES(@idxmrkt, @dailyvar, @idxopv, @id, @datetime); select @id=code, @datetime=date"
+                    "INSERT INTO DailyMarket (idxmrkt,dailyvar,idxopeningval, code, date) VALUES(@idxmrkt, @dailyvar, @idxopv, @id, @datetime); select @id=code, @datetime=date"
                     );
                 ts.Complete();
                 return idm;
@@ -100,7 +80,7 @@ namespace TypesProject.concrete
         {
         return mapperHelper.Read(id,
            (cmd, i) => SelectParameters(cmd, i),
-           "select idxMrkt,dailyvar,idxopeningval, code, date from DailyMarket where dailyMarketId=@id and dailymarketdt=@datetime"
+           "select idxmrkt,dailyvar,idxopeningval, code, date from DailyMarket where code=@id and date=@datetime"
            );
     }
 
@@ -108,7 +88,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.ReadAll(
             cmd => { },
-            "select idxMrkt,dailyvar,idxopeningval, code, date from DailyMarket"
+            "select idxmrkt,dailyvar,idxopeningval, code, date from DailyMarket"
             );
         }
 
@@ -116,7 +96,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.Update(idm,
                     (cmd, idailymarket) => UpdateParameters(cmd, idailymarket),
-                    "update DailyMarket set idxMrkt=@idxmrkt, dailyvar=@dailyvar, idxopeningval=@idxopv where dailyMarketId=@id and dailymarketdt=@datetime"
+                    "update DailyMarket set idxmrkt=@idxmrkt, dailyvar=@dailyvar, idxopeningval=@idxopv where code=@id and date=@datetime"
                     );
         }
 
@@ -124,18 +104,18 @@ namespace TypesProject.concrete
         {
             return mapperHelper.Delete(idm,
                (cmd, idailymarket) => DeleteParameters(cmd,idailymarket),
-               "delete from DailyMarket where dailyMarketId=@id and dailymarketdt = @datetime"
+               "delete from DailyMarket where code=@id and date = @datetime"
                );
         }
 
         public IDailyMarket Map(IDataRecord record)
         {
             DailyMarket dm = new DailyMarket();
-            dm.dailyvar = record.GetDecimal(0);
-            dm.idxmrkt = record.GetDecimal(1);
+            dm.idxmrkt = record.GetDecimal(0);
+            dm.dailyvar = record.GetDecimal(1);
             dm.idxopeningval = record.GetDecimal(2);
-            dm.date = record.GetDateTime(3);
-            dm.code = record.GetInt32(4);
+            dm.code = record.GetInt32(3);
+            dm.date = record.GetDateTime(4);
             return dm;
         }
 

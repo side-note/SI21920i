@@ -18,19 +18,17 @@ namespace TypesProject.concrete
         {
             mapperHelper = new MapperHelper<IEmail, int, List<IEmail>>(ctx, this);
         }
-        internal IClient LoadClient(Email e)
+        internal IClient LoadClient(IEmail e)
         {
             ClientMapper cm = new ClientMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
             parameters.Add(new SqlParameter("@id", e.code));
 
-            using (IDataReader rd = mapperHelper.ExecuteReader("select client from email where emailId=@id", parameters))
+            using (IDataReader rd = mapperHelper.ExecuteReader("select nif from Email where code=@id", parameters))
             {
                 if (rd.Read())
-                {
-                    int key = rd.GetInt32(0);
-                    return cm.Read(key);
-                }
+                    return cm.Read(rd.GetInt32(0));
+
             }
             return null;
 
@@ -71,8 +69,8 @@ namespace TypesProject.concrete
         {
             Email e = new Email();
             e.code = record.GetInt32(0);
-            e.addr = record.GetString(1);
-            e.description = record.GetString(2);
+            e.description = record.GetString(1);
+            e.nif = record.GetDecimal(3);
             return new EmailProxy(e, mapperHelper.context);
         }
         public IEmail Create(IEmail entity)
@@ -81,7 +79,7 @@ namespace TypesProject.concrete
             {
                 mapperHelper.Create(entity,
                     (cmd, email) => InsertParameters(cmd, email),
-                     "INSERT INTO Email (code, addr, description) VALUES(@id, @addr, @desc); select @id=code"
+                     "INSERT INTO Email (code, addr, description, nif) VALUES(@id, @addr, @desc,@nif); select @id=code"
                     );
                 ts.Complete();
                 return entity;
@@ -92,7 +90,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.ReadAll(
             cmd => { },
-            "select code, addr, description from Email"
+            "select code, addr, description, nif from Email"
             );
         }
 
@@ -100,7 +98,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.Read(id,
               (cmd, i) => SelectParameters(cmd, i),
-             "select code, addr, description from Email where emailId=@id"
+             "select code, addr, description, nif from Email where code=@id"
               );
         }
 
@@ -108,15 +106,15 @@ namespace TypesProject.concrete
         {
             return mapperHelper.Update(entity,
                 (cmd, email) => UpdateParameters(cmd, email),
-                "update Email set addr=@addr, description=@desc where emailId=@id"
+                "update Email set addr=@addr, description=@desc, nif=@nif where code=@id"
                 );
         }
 
         public bool Delete(IEmail entity)
         {
             return mapperHelper.Delete(entity,
-                (cmd, dailyreg) => DeleteParameters(cmd, dailyreg),
-                "delete from Email where emailId = @id"
+                (cmd, email) => DeleteParameters(cmd, email),
+                "delete from Email where code = @id"
                 );
         }
 

@@ -12,6 +12,6 @@ namespace EF_TP2_52D_14_1920i
     {
       
         public IClient client { get; set ; }
-        public ICollection<IPosition> positionInstruments { get; set; }
+        public IList<IPosition> Positions { get; set; }
     }
 }

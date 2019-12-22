@@ -85,7 +85,7 @@ namespace App
         public void Run()
         {
 
-            if (ctx.Equals("1")) context = new TL52D_14Entities9();
+            if (ctx.Equals("1")) context = new TL52D_14Entities();
             else
             {
                 SqlConnectionStringBuilder con = new SqlConnectionStringBuilder();

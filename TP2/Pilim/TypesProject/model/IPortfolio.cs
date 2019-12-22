@@ -7,10 +7,10 @@ namespace TypesProject.model
     {
         string name { get; set; }
 
-        decimal? totalval { get; set; }
+        decimal totalval { get; set; }
 
          IClient client { get; set; }
 
-        ICollection<IPosition> positionInstruments { get; set; }
+        IList<IPosition> Positions { get; set; }
     }
 }

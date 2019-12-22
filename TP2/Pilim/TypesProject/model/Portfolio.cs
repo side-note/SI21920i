@@ -11,10 +11,10 @@ namespace TypesProject.model
         public Portfolio() { }
         public string name { get; set; }
 
-        public decimal? totalval { get; set; }
+        public decimal totalval { get; set; }
 
         public virtual IClient client { get; set; }
 
-        public virtual ICollection<IPosition> positionInstruments { get; set; }
+        public virtual IList<IPosition> Positions { get; set; }
     }
 }

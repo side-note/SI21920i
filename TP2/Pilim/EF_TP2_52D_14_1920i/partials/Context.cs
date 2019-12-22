@@ -13,7 +13,7 @@ using TypesProject.model;
 
 namespace EF_TP2_52D_14_1920i
 {
-    public partial class TL52D_14Entities9 : IContext
+    public partial class TL52D_14Entities : IContext
     {
         readonly ClientRepository clientRepository ;
         readonly DailyMarketRepository dailyMarketRepository;
@@ -137,16 +137,22 @@ namespace EF_TP2_52D_14_1920i
 
         IEnumerable<IPosition> IContext.Portfolio_List(string name)
         {
-            IList<Portfolio_List_Result> result = Portfolio_List(name).ToList();
-            IPosition pos = Positions.Find(name);
-            PositionProxy posproxy = new PositionProxy(pos, this)
-            {
-                CurrVal = (decimal)result.ElementAt(0).CurrVal,
-                Dailyvarperc = (decimal)result.ElementAt(0).Dailyvarperc,
-                quantity = (int)result.ElementAt(0).quantity,
-                isin = (string)result.ElementAt(0).isin
-            };
-            return posproxy;
+
+            ICollection<Portfolio_List_Result> result = Portfolio_List(name).ToList();
+            IPortfolio por = Portfolios.Find(name);
+            ICollection<IPosition> positions = por.Positions;
+            List<IPosition> pos = new List<IPosition>();
+            for (int i = 0; i < result.Count; ++i) {
+                PositionProxy posproxy = new PositionProxy(positions.ElementAt(i), this)
+                {
+                    CurrVal = (decimal)result.ElementAt(0).CurrVal,
+                    Dailyvarperc = (decimal)result.ElementAt(0).Dailyvarperc,
+                    quantity = (int)result.ElementAt(0).quantity,
+                    isin = result.ElementAt(0).isin
+                };
+                pos.Add(posproxy);
+            }
+            return pos;
         }
 
         public bool DeletePortfolio(IPortfolio value)

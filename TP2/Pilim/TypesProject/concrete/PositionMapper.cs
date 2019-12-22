@@ -19,42 +19,30 @@ namespace TypesProject.concrete
             mapperHelper = new MapperHelper<IPosition, KeyValuePair<string, string>, List<IPosition>>(ctx, this);
         }
 
-        internal ICollection<IPortfolio> LoadPortfolios(Position p)
+        internal IPortfolio LoadPortfolios(IPosition p)
         {
-            List<IPortfolio> lst = new List<IPortfolio>();
-
             PortfolioMapper pm = new PortfolioMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
-            parameters.Add(new SqlParameter("@id1", p.isin));
-            parameters.Add(new SqlParameter("@id2", p.name));
-            using (IDataReader rd = mapperHelper.ExecuteReader("select portfolioid from portfolioinstrument where instrumentId=@id", parameters))
+            parameters.Add(new SqlParameter("@id", p.name));
+            using (IDataReader rd = mapperHelper.ExecuteReader("select name, totalval from Portfolio where name=@id", parameters))
             {
-                while (rd.Read())
-                {
-                    String key = rd.GetString(0);
-                    lst.Add(pm.Read(key));
-                }
+                if (rd.Read())
+                    return pm.Read(rd.GetString(0));
             }
-            return lst;
+            return null;
         }
 
-        internal ICollection<IInstrument> LoadInstruments(Position p)
-        {
-            List<IInstrument> lst = new List<IInstrument>();
-
+        internal IInstrument LoadInstruments(Position p)
+        { 
             InstrumentMapper im = new InstrumentMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
-            parameters.Add(new SqlParameter("@id1", p.isin));
-            parameters.Add(new SqlParameter("@id2", p.name));
-            using (IDataReader rd = mapperHelper.ExecuteReader("select instrumentid from marketinstrument where marketId=@id", parameters))
+            parameters.Add(new SqlParameter("@id", p.isin));
+            using (IDataReader rd = mapperHelper.ExecuteReader("select isin from Instrument where isin=@id", parameters))
             {
-                while (rd.Read())
-                {
-                    string key = rd.GetString(0);
-                    lst.Add(im.Read(key));
-                }
+               if (rd.Read())
+                    return im.Read(rd.GetString(0));
             }
-            return lst;
+            return null;
         }
 
         public IPosition Create(IPosition entity)
@@ -87,7 +75,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.Delete(entity,
                (cmd, position) => DeleteParameters(cmd, position),
-               "delete from Position where positionId1=@id1 and positionId2=@id2"
+               "delete from Position where isin=@id1 and name=@id2"
                );
         }
 
@@ -102,9 +90,9 @@ namespace TypesProject.concrete
         public IPosition Map(IDataRecord record)
         {
             Position p = new Position();
-            p.isin = record.GetString(0);
-            p.name = record.GetString(1);
-            p.quantity = record.GetInt32(2);
+            p.quantity = record.GetInt32(0);
+            p.isin = record.GetString(1);
+            p.name = record.GetString(2);
             return p;
         }
 

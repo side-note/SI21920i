@@ -13,6 +13,7 @@ namespace TypesProject.mapper
         IContext context;
         public InstrumentProxy(IInstrument i, IContext ctx) : base()
         {
+            context = ctx;
             base.description = i.description;
             base.isin = i.isin;
             base.mrktcode = i.mrktcode;

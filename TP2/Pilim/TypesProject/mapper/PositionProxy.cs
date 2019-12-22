@@ -15,36 +15,37 @@ namespace TypesProject.mapper
         public PositionProxy(IPosition p, IContext ctx): base()
         {
             context = ctx;
-            base.instruments = null;
+            base.Instrument = null;
             base.isin = p.isin;
             base.name = p.name;
-            base.portfolios = null;
+            base.Portfolio = null;
             base.quantity = p.quantity;
         }
 
         public decimal CurrVal { get; set; }
         public decimal Dailyvarperc { get; set; }
-        public override ICollection<IInstrument> instruments {
+        public override IInstrument Instrument {
             get
             {
-                if (base.instruments == null)
+                if (base.Instrument == null)
                 {
                     PositionMapper pm = new PositionMapper(context);
-                    base.instruments = pm.LoadInstruments(this);
+                    base.Instrument = pm.LoadInstruments(this);
                 }
-                return base.instruments;
+                return base.Instrument;
             }
-            set => base.instruments = value;
+            set => base.Instrument = value;
         }
-        public override ICollection<IPortfolio> portfolios {
+        public override IPortfolio Portfolio {
             get {
-                if (base.portfolios == null)
+                if (base.Portfolio == null)
                 {
                     PositionMapper pm = new PositionMapper(context);
-                    base.portfolios = pm.LoadPortfolios(this);
+                    base.Portfolio = pm.LoadPortfolios(this);
                 }
-                return base.portfolios; 
+                return base.Portfolio; 
             }
-            set => base.portfolios = value; }
+            set => base.Portfolio = value; 
+        }
     }
 }

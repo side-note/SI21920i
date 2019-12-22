@@ -106,19 +106,21 @@ namespace TypesProject.concrete
         {
             using (IDbCommand cmd = createCommand())
             {
-                cmd.CommandText = "select from dbo.Average(@days, @isin)";
+                cmd.CommandText = "select dbo.Average(@days, @isin)";
                 cmd.CommandType = CommandType.Text;
 
-                SqlParameter p1 = new SqlParameter("@days", days);
-                SqlParameter p2 = new SqlParameter("@isin", isin);
-                cmd.Parameters.Add(p1);
-                cmd.Parameters.Add(p2);
+                SqlParameter d = new SqlParameter("@days", days);
+                SqlParameter i = new SqlParameter("@isin", isin);
+                cmd.Parameters.Add(d);
+                cmd.Parameters.Add(i);
                 cmd.ExecuteNonQuery();
 
                 using (IDataReader r = cmd.ExecuteReader())
                 {
+                    if (!r.Read()) return default;
                     IDataRecord rcrd = r;
-                    return rcrd.GetDecimal(0);
+                    decimal a =rcrd.GetDecimal(0);
+                    return a;
                 }
             }
         }
@@ -136,8 +138,10 @@ namespace TypesProject.concrete
         {
             ProcedureExecutor("p_actualizaValorDiario", cmd =>
             {
-                cmd.Parameters.Add(str);
-                cmd.Parameters.Add(date);
+                SqlParameter s = new SqlParameter("@id", str);
+                SqlParameter d = new SqlParameter("@date", date);
+                cmd.Parameters.Add(s);
+                cmd.Parameters.Add(d);
             });
         }
 
@@ -145,9 +149,12 @@ namespace TypesProject.concrete
         {
             ProcedureExecutor("UpdateTotalVal", cmd =>
             {
-                cmd.Parameters.Add(name);
-                cmd.Parameters.Add(quantity);
-                cmd.Parameters.Add(isin);
+                SqlParameter n = new SqlParameter("@name", name);
+                SqlParameter q = new SqlParameter("@quantity", quantity);
+                SqlParameter i = new SqlParameter("@isin", isin);
+                cmd.Parameters.Add(n);
+                cmd.Parameters.Add(q);
+                cmd.Parameters.Add(i);
             });
         }
 
@@ -155,7 +162,8 @@ namespace TypesProject.concrete
         {
             ProcedureExecutor("createPortfolio", cmd =>
             {
-                cmd.Parameters.Add(nif);
+                SqlParameter n = new SqlParameter("@nif", nif);
+                cmd.Parameters.Add(n);
             });
         }
 
@@ -185,10 +193,11 @@ namespace TypesProject.concrete
 
                     using (IDataReader reader = cmd.ExecuteReader())
                     {
+                        if (!reader.Read()) return instrument;
                         IDataRecord record = reader;
-                        ins.avg6m = record.GetDecimal(0);
+                        ins.avg6m = record.GetDecimal(2);
                         ins.currval = record.GetDecimal(1);
-                        ins.dailyvar = record.GetDecimal(2);
+                        ins.dailyvar = record.GetDecimal(0);
                         ins.dailyvarperc = record.GetDecimal(3);
                         ins.var6m = record.GetDecimal(4);
                         ins.var6mperc = record.GetDecimal(5);
@@ -201,15 +210,14 @@ namespace TypesProject.concrete
 
      
 
-        IEnumerable<IPosition> IContext.Portfolio_List(string name)
+        public IEnumerable<IPosition> Portfolio_List(string name)
         {
-            IEnumerable<IPosition> position = ((PortfolioProxy)Portfolios.Find(name)).positionInstruments;
+            IEnumerable<IPosition> position = ((PortfolioProxy) Portfolios.Find(name)).Positions;
             if (position == null) return null;
-            
             
             using (IDbCommand cmd = createCommand())
             {
-                cmd.CommandText = "select dailyvar, currval, isin,  quantity from dbo.Portfolio_List(@name)";
+                cmd.CommandText = "select dailyvarperc, currval, isin,  quantity from dbo.Portfolio_List(@name)";
                 cmd.CommandType = CommandType.Text;
 
                 SqlParameter n = new SqlParameter("@name", name); 
@@ -222,17 +230,16 @@ namespace TypesProject.concrete
                     List<IPosition> positions = new List<IPosition>();
                     IEnumerator<IPosition> posEnumerator = position.GetEnumerator();
                     posEnumerator.MoveNext();
-                    while (posEnumerator.MoveNext() && reader.Read())
+                    do
                     {
                         IDataRecord record = reader;
                         PositionProxy pos = new PositionProxy(posEnumerator.Current, this);
-                        pos.isin = record.GetString(0);
-                        pos.quantity = record.GetInt32(1);
-                        pos.CurrVal = record.GetDecimal(2);
-                        pos.Dailyvarperc = record.GetDecimal(3);
+                        pos.isin = record.GetString(2);
+                        pos.quantity = record.GetInt32(3);
+                        pos.CurrVal = record.GetDecimal(1);
+                        pos.Dailyvarperc = record.GetDecimal(0);
                         positions.Add(pos);
-
-                    }              
+                    } while (posEnumerator.MoveNext() && reader.Read());
                     return positions;
                 }
             }
@@ -240,14 +247,16 @@ namespace TypesProject.concrete
         }
         public bool DeletePortfolio(IPortfolio value)
         {
-            return Portfolios.Delete(value);
+            bool b = Portfolios.Delete(value);
+            SaveChanges();
+            return b;
         }
-
-
 
         public bool DeleteMarket(IMarket value)
         {
-            return Markets.Delete(value);
+            bool b = Markets.Delete(value);
+            SaveChanges();
+            return b;
         }
 
         public bool UpdateMarket(IMarket value)

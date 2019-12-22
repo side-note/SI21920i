@@ -41,7 +41,7 @@ namespace EF_TP2_52D_14_1920i.repositories
             IPortfolio newPortfolio = Find(value.name);
             newPortfolio.client = value.client;
             newPortfolio.totalval = value.totalval;
-            newPortfolio.positionInstruments = value.positionInstruments;
+            newPortfolio.Positions = value.Positions;
             
             return true;
         }

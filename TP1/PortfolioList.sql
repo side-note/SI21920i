@@ -12,3 +12,5 @@ create function dbo.Portfolio_List(@name varchar(50))
         )
 go
 
+select * from Instrument
+select * from DailyReg where isin=333333333333

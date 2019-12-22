@@ -19,43 +19,40 @@ namespace TypesProject.concrete
             mapperHelper = new MapperHelper<IPortfolio, string, List<IPortfolio>>(ctx, this);
         }
 
-        internal IClient LoadClient(Portfolio p)
+        internal IClient LoadClient(IPortfolio p)
         {
             ClientMapper cm = new ClientMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
             parameters.Add(new SqlParameter("@id", p.name));
 
-            using (IDataReader rd = mapperHelper.ExecuteReader("select client from email where emailId=@id", parameters))
+            using (IDataReader rd = mapperHelper.ExecuteReader("select nif, ncc, name from Client where name=@id", parameters))
             {
                 if (rd.Read())
-                {
-                    int key = rd.GetInt32(0);
-                    return cm.Read(key);
-                }
+                    return cm.Read(rd.GetInt32(0));
             }
             return null;
 
         }
 
-        internal ICollection<IPosition> LoadPositions(Portfolio p)
+        internal IList<IPosition> LoadPositions(IPortfolio p)
         {
             List<IPosition> lst = new List<IPosition>();
 
             InstrumentMapper im = new InstrumentMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
             parameters.Add(new SqlParameter("@id", p.name));
-            using (IDataReader rd = mapperHelper.ExecuteReader("select isin, name, quantity from Position where name = @id", parameters))
+            using (IDataReader rd = mapperHelper.ExecuteReader("select isin, name, quantity from Position where name=@id", parameters))
             {
                 while (rd.Read())
                 {
-                    Position pos = new Position();
-                    pos.quantity = rd.GetInt32(0);
-                    pos.name = rd.GetString(1);
-                    pos.isin = rd.GetString(2);
-                    KeyValuePair<string, string> key = new KeyValuePair<string, string>(rd.GetString(1),rd.GetString(2));
-                    pos.Instrument = im.Read(rd.GetString(2));
-                    pos.Portfolio = p;
-
+                    Position pos = new Position
+                    {
+                        quantity = rd.GetInt32(2),
+                        name = rd.GetString(1),
+                        isin = rd.GetString(0),
+                        Instrument = im.Read(rd.GetString(0)),
+                        Portfolio = p
+                    };
                     lst.Add(pos);
                 }
             }
@@ -94,8 +91,8 @@ namespace TypesProject.concrete
         public  IPortfolio Map(IDataRecord record)
         {
             Portfolio p = new Portfolio();
-            p.totalval = record.GetDecimal(0);
-            p.name = record.GetString(1);
+            p.name = record.GetString(0);
+            p.totalval = record.GetDecimal(1);
             return new PortfolioProxy( p, mapperHelper.context);
 
         }
@@ -118,7 +115,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.Read(id,
                 (cmd, i) => SelectParameters(cmd, i),
-                "select name,totalval from Portfolio  where portfolioId=@id"
+                "select name,totalval from Portfolio  where name=@id"
                 );
         }
 
@@ -134,7 +131,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.Update(entity,
                 (cmd, portfolio) => UpdateParameters(cmd, portfolio),
-                 "update Portfolio set totalval=@total where portfolioId=@id"
+                 "update Portfolio set totalval=@total where name=@id"
                 );
         }
 
@@ -142,7 +139,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.Delete(entity,
                 (cmd, portfolio) => DeleteParameters(cmd, portfolio),
-                "delete from Portfolio where potfolioId=@id"
+                "delete from Portfolio where name=@id"
                 );
         }
 

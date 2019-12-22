@@ -18,56 +18,75 @@ namespace TypesProject.concrete
         {
             mapperHelper = new MapperHelper<IInstrument, string, List<IInstrument>>(ctx, this);
         }
-        internal ICollection<IDailyReg> LoadDailyRegs(Instrument i)
+        internal ICollection<IDailyReg> LoadDailyRegs(IInstrument i)
         {
             List<IDailyReg> lst = new List<IDailyReg>();
 
             DailyRegMapper drm = new DailyRegMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
             parameters.Add(new SqlParameter("@id", i.isin));
-            using (IDataReader rd = mapperHelper.ExecuteReader("select dailyregid, dailyregdt from instrumentdailyreg where instrumentId=@id", parameters))
+            using (IDataReader rd = mapperHelper.ExecuteReader("select isin,minval ,openingval, maxval,closingval, dailydate from DailyReg where isin=@id", parameters))
             {
                 while (rd.Read())
                 {
-                    KeyValuePair<string, DateTime> pair = new KeyValuePair<string, DateTime>(rd.GetString(0), rd.GetDateTime(1));
-               
-                    lst.Add(drm.Read(pair));
+                    DailyReg dr = new DailyReg
+                    {
+                        isin = rd.GetString(0),
+                        minval = rd.GetDecimal(1),
+                        openingval = rd.GetDecimal(2),
+                        maxval = rd.GetDecimal(3),
+                        closingval = rd.GetDecimal(4),
+                        dailydate = rd.GetDateTime(5),
+                        instrument = i
+                    };
+
+                    lst.Add(dr);
                 }
             }
             return lst;
         }
-        internal ICollection<IPosition> LoadPosition(Instrument i)
+        internal ICollection<IPosition> LoadPosition(IInstrument i)
         {
             List<IPosition> lst = new List<IPosition>();
 
-            PositionMapper pm = new PositionMapper(mapperHelper.context);
+            PortfolioMapper pm = new PortfolioMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
             parameters.Add(new SqlParameter("@id", i.isin));
-            using (IDataReader rd = mapperHelper.ExecuteReader("select portfolioid from portfolioinstrument where instrumentId=@id", parameters))
+            using (IDataReader rd = mapperHelper.ExecuteReader("select isin, name, quantity from Position where isin=@id ", parameters))
             {
                 while (rd.Read())
                 {
-                    KeyValuePair<string, string> pair = new KeyValuePair<string, string>(rd.GetString(0), rd.GetString(1));
-                    lst.Add(pm.Read(pair));
+                    Position pos = new Position {
+                        Instrument = i,
+                        Portfolio = pm.Read(rd.GetString(0)),
+                        isin=rd.GetString(0),
+                        name=rd.GetString(1),
+                        quantity= rd.GetInt32(2)
+                    };
+                    lst.Add(pos);
                 }
             }
             return lst;
         }
-        internal IMarket LoadMarket(Instrument i)
+        internal IMarket LoadMarket(IInstrument i)
         {
             MarketMapper mm = new MarketMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
-            parameters.Add(new SqlParameter("@id", i.isin));
-            using (IDataReader rd = mapperHelper.ExecuteReader("select market from instrument where instrumentId=@id", parameters))
+            parameters.Add(new SqlParameter("@id", i.mrktcode));
+            using (IDataReader rd = mapperHelper.ExecuteReader("select code, name, description from Market where mrktcode=@id", parameters))
             {
                 if (rd.Read())
                 {
-                    int key = rd.GetInt32(0);
-                    return mm.Read(key);
+                    Market m = new Market
+                    {
+                        code = rd.GetInt32(0),
+                        name = rd.GetString(1),
+                        description = rd.GetString(2)
+                    };
+                    return new MarketProxy(m,mapperHelper.context);
                 }
             }
             return null;
-
         }
 
         protected void DeleteParameters(IDbCommand cmd, IInstrument i)
@@ -118,7 +137,7 @@ namespace TypesProject.concrete
             {
                 mapperHelper.Create(instrument,
                     (cmd, ins) => InsertParameters(cmd, ins),
-                     "INSERT INTO Instrument (isin, mrktcode, description) VALUES(@id, @code, @desc); select @id=isin"
+                     "INSERT INTO Instrument (isin, description, mrktcode) VALUES(@id, @desc, @code); select @id=isin"
                     );
                 ts.Complete();
                 return instrument;
@@ -130,7 +149,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.Read(id,
                 (cmd, i) => SelectParameters(cmd, i),
-                "select isin, mrktcode, description from Instrument where instrumentId=@id"
+                "select isin, description, mrktcode from Instrument where isin=@id"
                 );
         }
 
@@ -138,7 +157,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.ReadAll(
                 cmd => { },
-                "select isin, mrktcode, description from Instrument"
+                "select isin, description, mrktcode from Instrument"
                 );
         }
 
@@ -146,7 +165,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.Update(entity,
                 (cmd, ins) => UpdateParameters(cmd,ins),
-                "update Instrument set mrktcode = @code, description = @desc where instrumentId = @id"
+                "update Instrument set description = @desc, mrktcode = @code where isin=@id"
                 );
             
         }
@@ -155,7 +174,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.Delete(entity,
                 (cmd, ins) => DeleteParameters(cmd, ins),
-                "delete from Instrument where instrumentId=@id"
+                "delete from Instrument where isin=@id"
                 );
         }
 

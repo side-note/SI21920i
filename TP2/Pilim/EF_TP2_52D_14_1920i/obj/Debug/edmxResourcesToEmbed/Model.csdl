@@ -106,7 +106,7 @@
       <PropertyRef Name="name" />
     </Key>
     <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="totalval" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="totalval" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
     <NavigationProperty Name="Position" Relationship="Self.fkportfolio_pos" FromRole="Portfolio" ToRole="Position" />
     <NavigationProperty Name="Client" Relationship="Self.Client_Portfolio" FromRole="Portfolio" ToRole="Client" />
   </EntityType>
@@ -217,7 +217,7 @@
     <End Role="Client" Type="Self.Client" Multiplicity="*" />
     <End Role="Portfolio" Type="Self.Portfolio" Multiplicity="*" />
   </Association>
-  <EntityContainer Name="TL52D_14Entities9" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="TL52D_14Entities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Client" EntityType="Self.Client" />
     <EntitySet Name="DailyMarket" EntityType="Self.DailyMarket" />
     <EntitySet Name="DailyReg" EntityType="Self.DailyReg" />

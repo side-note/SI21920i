@@ -13,6 +13,7 @@ namespace TypesProject.mapper
         IContext context;
         public EmailProxy(IEmail e, IContext ctx): base()
         {
+            context = ctx;
             base.addr=e.addr;
             base.code = e.code;
             base.description = e.description;

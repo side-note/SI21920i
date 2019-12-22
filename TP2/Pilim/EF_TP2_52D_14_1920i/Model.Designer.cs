@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\carol\Documents\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\Model.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\ASUS\Documents\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\Model.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

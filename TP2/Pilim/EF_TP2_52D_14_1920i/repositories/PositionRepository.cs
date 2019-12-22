@@ -41,8 +41,8 @@ namespace EF_TP2_52D_14_1920i.repositories
             ctx.Entry((Position)value).State = EntityState.Modified;
             IPosition newPosition = Find(value.isin, value.name);
             newPosition.quantity = value.quantity;
-            newPosition.portfolios = value.portfolios;
-            newPosition.instruments = value.instruments;
+            newPosition.Portfolio = value.Portfolio;
+            newPosition.Instrument= value.Instrument;
 
             return true;
         }

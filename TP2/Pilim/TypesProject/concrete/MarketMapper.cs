@@ -21,16 +21,22 @@ namespace TypesProject.concrete
         internal ICollection<IDailyMarket> LoadDailyMarkets(Market m)
         {
             List<IDailyMarket> lst = new List<IDailyMarket>();
-
-            DailyMarketMapper dmm = new DailyMarketMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
             parameters.Add(new SqlParameter("@id", m.code));
-            using (IDataReader rd = mapperHelper.ExecuteReader("select dailymarketid, dailymarketdt from marketdailymarket where marketId=@id", parameters))
+            using (IDataReader rd = mapperHelper.ExecuteReader("select idxmrkt, dailyvar, idxopeningval, code, date from dailymarket where code=@id", parameters))
             {
                 while (rd.Read())
                 {
-                    KeyValuePair<int, DateTime> pair = new KeyValuePair<int, DateTime>(rd.GetInt32(0), rd.GetDateTime(1));
-                    lst.Add(dmm.Read(pair));
+                    DailyMarket dm = new DailyMarket
+                    {
+                        code = rd.GetInt32(3),
+                        dailyvar = rd.GetDecimal(1),
+                        date = rd.GetDateTime(4),
+                        idxmrkt = rd.GetDecimal(0),
+                        idxopeningval = rd.GetDecimal(2),
+                        market = m
+                    };
+                    lst.Add(dm);
                 }
             }
             return lst;
@@ -42,12 +48,19 @@ namespace TypesProject.concrete
             InstrumentMapper im = new InstrumentMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
             parameters.Add(new SqlParameter("@id", m.code));
-            using (IDataReader rd = mapperHelper.ExecuteReader("select instrumentid from marketinstrument where marketId=@id", parameters))
+            using (IDataReader rd = mapperHelper.ExecuteReader("select isin, mrktcode, description from Instrument where mrktcode=@id", parameters))
             {
                 while (rd.Read())
                 {
-                    string key = rd.GetString(0);
-                    lst.Add(im.Read(key));
+                    Instrument i = new Instrument
+                    {
+                        isin = rd.GetString(0),
+                        mrktcode = rd.GetInt32(1),
+                        description = rd.GetString(2),
+                        instrumentMarket = m
+                    };
+
+                    lst.Add(new InstrumentProxy(i,mapperHelper.context));
                 }
             }
             return lst;
@@ -66,7 +79,6 @@ namespace TypesProject.concrete
             SqlParameter n = new SqlParameter("@Name", m.name);
             SqlParameter id = new SqlParameter("@id", m.code);
             SqlParameter d = new SqlParameter("@desc", m.description);
-            id.Direction = ParameterDirection.InputOutput;
 
             cmd.Parameters.Add(n);
             cmd.Parameters.Add(id);
@@ -89,8 +101,8 @@ namespace TypesProject.concrete
         {
             Market m = new Market();
             m.code = record.GetInt32(0);
-            m.name = record.GetString(1);
-            m.description = record.GetString(2);
+            m.description = record.GetString(1);
+            m.name = record.GetString(2);
             return new MarketProxy(m, mapperHelper.context);
         }
         public IMarket Create(IMarket market)
@@ -111,7 +123,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.Update(market,
                  (cmd, market) => UpdateParameters(cmd, market),
-                 "update Market set description=@desc, name=@name where mrktId=@id"
+                 "update Market set description=@desc, name=@name where code=@id"
                  );
         }
 
@@ -119,7 +131,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.Read(id,
               (cmd, i) => SelectParameters(cmd, i),
-             "select code, description,name from Market where mrktId=@id"
+             "select code, description,name from Market where code=@id"
               );
         }
 
@@ -135,7 +147,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.Delete(entity,
                  (cmd, dailyreg) => DeleteParameters(cmd, dailyreg),
-                 "delete from Market where mrktId=@id"
+                 "delete from Market where code=@id"
                  );
         }
 

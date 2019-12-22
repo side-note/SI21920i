@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="TL52D_14ModelStoreContainer" CdmEntityContainer="TL52D_14Entities9">
+  <EntityContainerMapping StorageEntityContainer="TL52D_14ModelStoreContainer" CdmEntityContainer="TL52D_14Entities">
     <EntitySetMapping Name="Client">
       <EntityTypeMapping TypeName="TL52D_14Model.Client">
         <MappingFragment StoreEntitySet="Client">

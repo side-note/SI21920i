@@ -6,8 +6,9 @@ begin
     if not exists(select nif from dbo.Client_Portfolio where nif = @nif) and
        exists(select nif from dbo.Client where nif = @nif)
         begin
-            insert into dbo.Portfolio(name)
-            values (@name)
+            insert into dbo.Portfolio(name,totalval)
+            values (@name,0)
         end
 end
 GO
+drop procedure createPortfolio

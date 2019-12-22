@@ -49,5 +49,7 @@ insert into DailyReg values (111111111111, 11, 11111, 1111, 111, '2019-11-01');
 insert into DailyReg values (111111111111, 22, 22222, 2222, 222, '2019-08-02');
 insert into DailyReg values (111111111111, 33, 33333, 3333, 333, '2019-08-03');
 insert into DailyReg values (222222222222, 44, 44444, 4444, 444, '2019-09-04');
+insert into DailyReg values (333333333333, 55, 5555, 5555, 555, '2019-09-04');
+insert into DailyReg values (333333333333, 66, 6666, 6666, 666, '2019-09-05');
 
 

@@ -18,24 +18,6 @@ namespace TypesProject.concrete
         {
             mapperHelper = new MapperHelper<IDailyReg, KeyValuePair<string, DateTime>, List<IDailyReg>>(ctx, this);
         }
-        internal IInstrument LoadInstrument(DailyReg dr)
-        {
-            InstrumentMapper im = new InstrumentMapper(mapperHelper.context);
-            List<IDataParameter> parameters = new List<IDataParameter>();
-            parameters.Add(new SqlParameter("@id",dr.isin));
-            parameters.Add(new SqlParameter("@datetime", dr.dailydate));
-
-            using (IDataReader rd = mapperHelper.ExecuteReader("select instrument from dailyreg where dailyregId=@id and dailyregdt=@datetime ", parameters))
-            {
-                if (rd.Read())
-                {
-                    string key = rd.GetString(0);
-                    return im.Read(key);
-                }
-            }
-            return null;
-        }
-
         protected void DeleteParameters(IDbCommand cmd, IDailyReg dr)
         {
 
@@ -85,12 +67,12 @@ namespace TypesProject.concrete
         public IDailyReg Map(IDataRecord record)
         {
             DailyReg dr = new DailyReg();
-            dr.maxval = record.GetDecimal(0);
+            dr.isin = record.GetString(0);
             dr.minval = record.GetDecimal(1);
             dr.openingval = record.GetDecimal(2);
-            dr.closingval = record.GetDecimal(3);
-            dr.dailydate = record.GetDateTime(4);
-            dr.isin = record.GetString(5);
+            dr.maxval = record.GetDecimal(3);
+            dr.closingval = record.GetDecimal(4);
+            dr.dailydate = record.GetDateTime(5);
 
             return dr;
         }
@@ -112,7 +94,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.Read(id,
                (cmd, i) => SelectParameters(cmd, i),
-               "select isin, minval, openingval,  maxval, closingval, dailydate from DailyReg where dailyregId=@id and dailyregdt=@datetime"
+               "select isin, minval, openingval,  maxval, closingval, dailydate from DailyReg where isin=@id and dailydate=@datetime"
                );            
         }
 
@@ -128,7 +110,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.Update(entity,
                    (cmd, dailyReg) => UpdateParameters(cmd, dailyReg),
-                    "update DailyReg set minval=@minval, openingval=@openingval, maxval=@maxval, closingval=@closingval where dailyregId=@id and dailyregdt0@datetime"
+                    "update DailyReg set minval=@minval, openingval=@openingval, maxval=@maxval, closingval=@closingval where isin=@id and dailydate=@datetime"
                    );
         }
 
@@ -136,7 +118,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.Delete(entity,
                 (cmd, dailyreg) => DeleteParameters(cmd, dailyreg),
-                "delete from DailyReg where dailyregId=@id and dailyregdt=@datetime"
+                "delete from DailyReg where isin=@id and dailydate=@datetime"
                 );            
         }
 

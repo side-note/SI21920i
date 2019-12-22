@@ -93,7 +93,7 @@
             <PropertyRef Name="name" />
           </Key>
           <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="totalval" Type="money" />
+          <Property Name="totalval" Type="money" Nullable="false" />
         </EntityType>
         <EntityType Name="Position">
           <Key>
@@ -460,7 +460,7 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
             <PropertyRef Name="name" />
           </Key>
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="totalval" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="totalval" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <NavigationProperty Name="Position" Relationship="Self.fkportfolio_pos" FromRole="Portfolio" ToRole="Position" />
           <NavigationProperty Name="Client" Relationship="Self.Client_Portfolio" FromRole="Portfolio" ToRole="Client" />
         </EntityType>
@@ -571,7 +571,7 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
           <End Role="Client" Type="Self.Client" Multiplicity="*" />
           <End Role="Portfolio" Type="Self.Portfolio" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="TL52D_14Entities9" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="TL52D_14Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Client" EntityType="Self.Client" />
           <EntitySet Name="DailyMarket" EntityType="Self.DailyMarket" />
           <EntitySet Name="DailyReg" EntityType="Self.DailyReg" />
@@ -660,7 +660,7 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="TL52D_14ModelStoreContainer" CdmEntityContainer="TL52D_14Entities9">
+        <EntityContainerMapping StorageEntityContainer="TL52D_14ModelStoreContainer" CdmEntityContainer="TL52D_14Entities">
           <EntitySetMapping Name="Client">
             <EntityTypeMapping TypeName="TL52D_14Model.Client">
               <MappingFragment StoreEntitySet="Client">

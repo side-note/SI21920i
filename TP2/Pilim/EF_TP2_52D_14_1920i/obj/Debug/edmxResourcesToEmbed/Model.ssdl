@@ -88,7 +88,7 @@
       <PropertyRef Name="name" />
     </Key>
     <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="totalval" Type="money" />
+    <Property Name="totalval" Type="money" Nullable="false" />
   </EntityType>
   <EntityType Name="Position">
     <Key>

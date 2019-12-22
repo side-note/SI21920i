@@ -24,7 +24,7 @@ create table Client(
 
 create table Portfolio(
 	name		varchar(50),
-	totalval	money,
+	totalval	money not null,
 	constraint pkportfolio primary key(name)
 );
 

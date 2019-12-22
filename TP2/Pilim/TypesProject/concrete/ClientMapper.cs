@@ -16,51 +16,50 @@ namespace TypesProject.concrete
             mapperHelper = new MapperHelper<IClient, decimal, List<IClient>>(ctx,this);
         }
 
-        internal ICollection<IEmail> LoadEmails(Client c)
+        internal ICollection<IEmail> LoadEmails(IClient c)
         {
             List<IEmail> lst = new List<IEmail>();
 
             EmailMapper em = new EmailMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
-            parameters.Add(new SqlParameter("@id", c.nif));
-            using (IDataReader rd = mapperHelper.ExecuteReader("select emailid from clientemail where clientId=@id", parameters))
+            parameters.Add(new SqlParameter("@nif", c.nif));
+            using (IDataReader rd = mapperHelper.ExecuteReader("select code from Client_Email where nif=@nif", parameters))
             {
                 while (rd.Read())
-                {
-                    int key = rd.GetInt32(0);
-                    lst.Add(em.Read(key));
-                }
+                    lst.Add(em.Read(rd.GetInt32(0)));
+
             }
             return lst;
         }
-        internal ICollection<IPhone> LoadPhones(Client c)
+        internal ICollection<IPhone> LoadPhones(IClient c)
         {
             List<IPhone> lst = new List<IPhone>();
 
             PhoneMapper pm = new PhoneMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
-            parameters.Add(new SqlParameter("@id", c.nif));
-            using (IDataReader rd = mapperHelper.ExecuteReader("select phoneid from phoneclient where clientId=@id", parameters))
+            parameters.Add(new SqlParameter("@nif", c.nif));
+            using (IDataReader rd = mapperHelper.ExecuteReader("select phoneid from phoneclient where nif=@nif", parameters))
             {
                 while (rd.Read())
-                {
-                    int key = rd.GetInt32(0);
-                    lst.Add(pm.Read(key));
-                }
+                    lst.Add(pm.Read(rd.GetInt32(0)));
             }
             return lst;
         }
-        internal IPortfolio LoadPortfolio(Client c)
+        internal IPortfolio LoadPortfolio(IClient c)
         {
-            PortfolioMapper pm = new PortfolioMapper(mapperHelper.context);
+       
             List<IDataParameter> parameters = new List<IDataParameter>();
-            parameters.Add(new SqlParameter("@id", c.nif));
-            using (IDataReader rd = mapperHelper.ExecuteReader("select portfolio from client where clientId=@id", parameters))
+            parameters.Add(new SqlParameter("@nif", c.nif));
+            using (IDataReader rd = mapperHelper.ExecuteReader("select name,nif from Client_Portfolio where nif=@nif", parameters))
             {
                 if (rd.Read())
                 {
-                    String key = rd.GetString(0);
-                    return pm.Read(key);
+                    Portfolio p = new Portfolio
+                    {
+                        name = rd.GetString(0),
+                        totalval = rd.GetDecimal(1)
+                    };
+                    return new PortfolioProxy(p, mapperHelper.context);
                 }
             }
             return null;
@@ -75,7 +74,7 @@ namespace TypesProject.concrete
             {
                 mapperHelper.Create(iclient,
                     (cmd, client) => InsertParameters(cmd,client),
-                     "INSERT INTO Client (Name, ncc, nif) VALUES(@Name, @ncc, @id); select @id=   nif"
+                     "INSERT INTO Client (Name, ncc, nif) VALUES(@Name, @ncc, @id); select @id=nif"
                     );
                 ts.Complete();
                 return iclient;
@@ -86,7 +85,7 @@ namespace TypesProject.concrete
         public bool Update(IClient iclient) {
              return mapperHelper.Update(iclient,
                     (cmd, client) => UpdateParameters(cmd, client),
-                    "update Client set name=@name, ncc = @ncc where clientId=@id"
+                    "update Client set name=@name, ncc = @ncc where nif=@nif"
                     );
 
 
@@ -106,7 +105,7 @@ namespace TypesProject.concrete
     {
             return mapperHelper.Delete(iclient,
                 (cmd,client) => DeleteParameters(cmd,client),
-                "delete from Client where clientId=@id"
+                "delete from Client where nif=@nif"
                 );
     }
 
@@ -123,14 +122,14 @@ namespace TypesProject.concrete
         protected  void DeleteParameters(IDbCommand cmd, IClient c)
         {
 
-            SqlParameter id = new SqlParameter("@id", c.nif);
+            SqlParameter id = new SqlParameter("@nif", c.nif);
             cmd.Parameters.Add(id);
         }
 
         protected  void InsertParameters(IDbCommand cmd, IClient c)
         {
             SqlParameter name = new SqlParameter("@Name", c.name);
-            SqlParameter id = new SqlParameter("@id", c.nif);
+            SqlParameter id = new SqlParameter("@nif", c.nif);
             SqlParameter ncc = new SqlParameter("@ncc", c.ncc);
             id.Direction = ParameterDirection.InputOutput;
 
@@ -143,7 +142,7 @@ namespace TypesProject.concrete
 
         protected void SelectParameters(IDbCommand cmd, decimal k)
         {
-            SqlParameter id = new SqlParameter("@id", k);
+            SqlParameter id = new SqlParameter("@nif", k);
             cmd.Parameters.Add(id);
         }
 
@@ -166,7 +165,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.Read(id,
                 (cmd, i) => SelectParameters(cmd, i),
-                "select clientId, name, ncc from Client where clientId=@id"
+                "select clientId, name, ncc from Client where nif=@nif"
                 );
         }
     }

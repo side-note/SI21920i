@@ -22,7 +22,7 @@ namespace EF_TP2_52D_14_1920i
         }
     
         public string name { get; set; }
-        public Nullable<decimal> totalval { get; set; }
+        public decimal totalval { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Position> Position { get; set; }

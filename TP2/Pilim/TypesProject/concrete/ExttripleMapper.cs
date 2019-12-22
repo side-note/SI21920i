@@ -57,9 +57,9 @@ namespace TypesProject.concrete
         public  IExttriple Map(IDataRecord record)
         {
             Exttriple e= new Exttriple();
-            e.id = record.GetString(0);
+            e.value = record.GetDecimal(0);
             e.datetime = record.GetDateTime(1);
-            e.value = record.GetDecimal(2);
+            e.id = record.GetString(2);
             return e;
         }
 
@@ -69,7 +69,7 @@ namespace TypesProject.concrete
             {
                 mapperHelper.Create(entity,
                     (cmd, exttriple) => InsertParameters(cmd, exttriple),
-                     "INSERT INTO EXttriple(exttripleId, exttripleDatetime, exttripleValue) values(@id, @datetime, @value); select @id=exttripleId, @datetime= exttripleDatetime from Exttriple;"
+                     "INSERT INTO EXttriple(id, datetime, value) values(@id, @datetime, @value); select @id=id, @datetime=datetime from Exttriple;"
                     );
                 ts.Complete();
                 return entity;
@@ -80,7 +80,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.Read(id,
                 (cmd,i) => SelectParameters(cmd,i),
-                "select exttripleId, exttripleDatetime, exttripleValue from Exttriple where exttripleId=@id and exttripleDatetime = @datetime"
+                "select id,datetime, value from Exttriple where id=@id and datetime=@datetime"
                 );
         }
 
@@ -88,7 +88,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.ReadAll(
                 cmd => { },
-                "select exttripleId, exttripleDatetime, exttripleValue from Exttriple"
+                "select id, datetime, value from Exttriple"
                 );
         }
 
@@ -96,7 +96,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.Update(entity,
                 (cmd, exttriple) => UpdateParameters(cmd, exttriple),
-                "update Exttriple set exttripleValue=@value where exttripleId=@id and exttripleDatetime = @datetime"
+                "update Exttriple set value=@value where id=@id and datetime=@datetime"
                );
         }
 
@@ -104,7 +104,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.Delete(entity,
                 (cmd, exttriple) => DeleteParameters(cmd, exttriple),
-                 "delete from Exttriple where exttripleId=@id and exttripleDatetime = @datetime"
+                 "delete from Exttriple where id=@id and datetime=@datetime"
                 );
         }
 

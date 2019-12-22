@@ -18,19 +18,16 @@ namespace TypesProject.concrete
         {
             mapperHelper = new MapperHelper<IPhone, int, List<IPhone>>(ctx, this);
         }
-        internal IClient LoadClient(Phone p)
+        internal IClient LoadClient(IPhone p)
         {
             ClientMapper cm = new ClientMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
             parameters.Add(new SqlParameter("@id", p.code));
 
-            using (IDataReader rd = mapperHelper.ExecuteReader("select client from phone where phoneId=@id", parameters))
+            using (IDataReader rd = mapperHelper.ExecuteReader("select nif from Phone where code=@id", parameters))
             {
                 if (rd.Read())
-                {
-                    int key = rd.GetInt32(0);
-                    return cm.Read(key);
-                }
+                    return cm.Read(rd.GetInt32(0));
             }
             return null;
 
@@ -78,6 +75,7 @@ namespace TypesProject.concrete
             p.description = record.GetString(1);
             p.areacode = record.GetString(2);
             p.number = record.GetInt32(3);
+            p.nif = record.GetDecimal(4);
             return new PhoneProxy(p, mapperHelper.context);
         }
         public IPhone Create(IPhone phone)
@@ -86,7 +84,7 @@ namespace TypesProject.concrete
             {
                 mapperHelper.Create(phone,
                     (cmd, phone) => InsertParameters(cmd, phone),
-                    "INSERT INTO Phone (code, areacode, number, description) VALUES(@id, @area, @numb, @desc); select @id=code"
+                    "INSERT INTO Phone (code, areacode, number, description, nif) VALUES(@id, @area, @numb, @desc, @nif); select @id=code"
                     );
                 ts.Complete();
                 return phone;
@@ -99,7 +97,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.Update(phone,
                 (cmd, phone) => UpdateParameters(cmd, phone),
-               "update Phone set number=@numb, areacode=@area, description=@desc where phoneId=@id"
+               "update Phone set number=@numb, areacode=@area, description=@desc, nif=@nif where code=@id"
                 );
         }
 
@@ -107,7 +105,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.Read(id,
               (cmd, i) => SelectParameters(cmd, i),
-             "select code, areacode, number, description from Phone  where phoneId = @id"
+             "select code, areacode, number, description, nif from Phone  where code = @id"
               );
            
         }
@@ -116,7 +114,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.ReadAll(
             cmd => { },
-            "select code, areacode, number, description from Phone"
+            "select code, areacode, number, description, nif from Phone"
             );
         }
 
@@ -124,7 +122,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.Delete(entity,
                 (cmd, phone) => DeleteParameters(cmd, phone),
-                 "delete from Phone where phoneId=@id"
+                 "delete from Phone where code=@id"
                 );
         }
 
