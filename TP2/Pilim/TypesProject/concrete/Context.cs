@@ -212,7 +212,7 @@ namespace TypesProject.concrete
 
         public IEnumerable<IPosition> Portfolio_List(string name)
         {
-            IEnumerable<IPosition> position = ((PortfolioProxy) Portfolios.Find(name)).Positions;
+            IEnumerable<IPosition> position = ((PortfolioProxy) Portfolios.Find(name)).Position;
             if (position == null) return null;
             
             using (IDbCommand cmd = createCommand())
@@ -247,7 +247,7 @@ namespace TypesProject.concrete
         }
         public bool DeletePortfolio(IPortfolio value)
         {
-            IEnumerable<IPosition> positions = ((PortfolioProxy)Portfolios.Find(value.name)).Positions;
+            IEnumerable<IPosition> positions = ((PortfolioProxy)Portfolios.Find(value.name)).Position;
             if (positions != null)
             {
                 IEnumerator<IPosition> pEnumerator = positions.GetEnumerator();

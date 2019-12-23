@@ -9,7 +9,7 @@ namespace EF_TP2_52D_14_1920i
 {
     public partial class Position : IPosition
     {
-        IPortfolio IPosition.Portfolio { get; set; }
-        IInstrument IPosition.Instrument { get; set; }
+        IPortfolio IPosition.Portfolio { get => Portfolio; set =>Portfolio = (Portfolio) value; }
+        IInstrument IPosition.Instrument { get => Instrument; set=> Instrument = (Instrument) value; }
     }
 }

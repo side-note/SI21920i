@@ -29,7 +29,7 @@ exec createPortfolio @nif = 555555555
 --j)
 exec UpdateTotalVal @name = '555555555_portfolio', @quantity = 50000, @isin = 111111111111
 select * from Portfolio
-
+select * from Position
 delete from Portfolio where name ='555555555_portfolio'
 delete from position where name ='555555555_portfolio'
 

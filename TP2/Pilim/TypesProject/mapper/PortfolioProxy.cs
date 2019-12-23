@@ -16,7 +16,7 @@ namespace TypesProject.mapper
             context = ctx;
             base.client = null;
             base.name = p.name;
-            base.Positions = null;
+            base.Position = null;
             base.totalval = p.totalval;
         }
         public override IClient client 
@@ -33,17 +33,17 @@ namespace TypesProject.mapper
                 set => base.client = value;
             }
 
-        public override IList<IPosition> Positions {
+        public override IEnumerable<IPosition> Position {
             get
             {
-                if (base.Positions==null) 
+                if (base.Position==null) 
                 {
                     PortfolioMapper pm = new PortfolioMapper(context);
-                    base.Positions=pm.LoadPositions(this);
+                    base.Position=pm.LoadPositions(this);
                 }
-               return base.Positions;
+               return base.Position;
             }
-            set => base.Positions = value; }
+            set => base.Position = value; }
 
     }
 }

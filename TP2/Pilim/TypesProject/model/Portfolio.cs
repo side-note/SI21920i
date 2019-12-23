@@ -15,6 +15,6 @@ namespace TypesProject.model
 
         public virtual IClient client { get; set; }
 
-        public virtual IList<IPosition> Positions { get; set; }
+        public virtual IEnumerable<IPosition> Position { get; set; }
     }
 }

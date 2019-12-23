@@ -137,10 +137,11 @@ namespace EF_TP2_52D_14_1920i
 
         IEnumerable<IPosition> IContext.Portfolio_List(string name)
         {
+            IPortfolio por = Portfolios.Find(name);
 
             ICollection<Portfolio_List_Result> result = Portfolio_List(name).ToList();
-            IPortfolio por = Portfolios.Find(name);
-            ICollection<IPosition> positions = por.Positions;
+            
+            IEnumerable<IPosition> positions = por.Position;
             List<IPosition> pos = new List<IPosition>();
             for (int i = 0; i < result.Count; ++i) {
                 PositionProxy posproxy = new PositionProxy(positions.ElementAt(i), this)
@@ -157,7 +158,7 @@ namespace EF_TP2_52D_14_1920i
 
         public bool DeletePortfolio(IPortfolio value)
         {
-            IEnumerable<IPosition> positions = ((PortfolioProxy)Portfolios.Find(value.name)).Positions;
+            IEnumerable<IPosition> positions = ((PortfolioProxy)Portfolios.Find(value.name)).Position;
             if (positions != null)
             {
                 IEnumerator<IPosition> pEnumerator = positions.GetEnumerator();

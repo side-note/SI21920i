@@ -11,7 +11,7 @@ namespace EF_TP2_52D_14_1920i
     public partial class Portfolio : IPortfolio
     {
       
-        public IClient client { get; set ; }
-        public IList<IPosition> Positions { get; set; }
+        public IClient client { get =>  Client.ElementAt(0); set=> client = value ; }
+        IEnumerable<IPosition> IPortfolio.Position { get => Position; set => Position = (ICollection<Position>) value; }
     }
 }

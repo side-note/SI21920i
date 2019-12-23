@@ -11,6 +11,6 @@ namespace TypesProject.model
 
          IClient client { get; set; }
 
-        IList<IPosition> Positions { get; set; }
+        IEnumerable<IPosition> Position { get; set; }
     }
 }
