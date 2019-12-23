@@ -146,10 +146,10 @@ namespace EF_TP2_52D_14_1920i
             for (int i = 0; i < result.Count; ++i) {
                 PositionProxy posproxy = new PositionProxy(positions.ElementAt(i), this)
                 {
-                    CurrVal = (decimal)result.ElementAt(0).CurrVal,
-                    Dailyvarperc = (decimal)result.ElementAt(0).Dailyvarperc,
-                    quantity = (int)result.ElementAt(0).quantity,
-                    isin = result.ElementAt(0).isin
+                    CurrVal = (decimal)result.ElementAt(i).CurrVal,
+                    Dailyvarperc = (decimal)result.ElementAt(i).Dailyvarperc,
+                    quantity = (int)result.ElementAt(i).quantity,
+                    isin = result.ElementAt(i).isin
                 };
                 pos.Add(posproxy);
             }
@@ -158,7 +158,7 @@ namespace EF_TP2_52D_14_1920i
 
         public bool DeletePortfolio(IPortfolio value)
         {
-            IEnumerable<IPosition> positions = ((PortfolioProxy)Portfolios.Find(value.name)).Position;
+            IEnumerable<IPosition> positions = value.Position;
             if (positions != null)
             {
                 IEnumerator<IPosition> pEnumerator = positions.GetEnumerator();
@@ -166,24 +166,37 @@ namespace EF_TP2_52D_14_1920i
                 do
                 {
                     Positions.Delete(pEnumerator.Current);
+                    pEnumerator = positions.GetEnumerator();
                 } while (pEnumerator.MoveNext());
             }
-            return Portfolios.Delete(value);
+            IClient c = value.client;
+            c = Clients.Find(c.nif);
+            c.portfolio = null;
+            Clients.Update(c);
+            bool b = Portfolios.Delete(value);
+            SaveChanges();
+            return b;
         }
 
         public bool DeleteMarket(IMarket value)
         {
-            return Markets.Delete(value);
+            bool b = Markets.Delete(value);
+            SaveChanges();
+            return b;
         }
 
         public bool UpdateMarket(IMarket value)
         {
-            return Markets.Update(value);
+            bool b = Markets.Update(value);
+            SaveChanges();
+            return b;
         }
 
         public IMarket CreateMarket(IMarket value)
         {
-            return Markets.Insert(value);
+            IMarket m = Markets.Insert(value);
+            SaveChanges();
+            return m;
         }
     }
 }

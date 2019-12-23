@@ -247,7 +247,7 @@ namespace TypesProject.concrete
         }
         public bool DeletePortfolio(IPortfolio value)
         {
-            IEnumerable<IPosition> positions = ((PortfolioProxy)Portfolios.Find(value.name)).Position;
+            IEnumerable<IPosition> positions = value.Position;
             if (positions != null)
             {
                 IEnumerator<IPosition> pEnumerator = positions.GetEnumerator();
@@ -255,11 +255,14 @@ namespace TypesProject.concrete
                 do
                 {
                     Positions.Delete(pEnumerator.Current);
+                    pEnumerator = positions.GetEnumerator();
                 } while (pEnumerator.MoveNext());
             }
-            bool b = Portfolios.Delete(value);
-            SaveChanges();
-            return b;
+            IClient c = value.client;
+            c = Clients.Find(c.nif);
+            c.portfolio = null;
+            Clients.Update(c);
+            return Portfolios.Delete(value);
         }
 
         public bool DeleteMarket(IMarket value)

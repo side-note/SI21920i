@@ -233,19 +233,16 @@ namespace App
             IMarket market;
             if (ctx.Equals("1"))
             {
-                market = new TypesProject.model.Market();
+                market = new EF_TP2_52D_14_1920i.Market();
             }
             else
             {
-                market = new EF_TP2_52D_14_1920i.Market();
+                market = new TypesProject.model.Market();
             }
-
             market.code = Int32.Parse(param[0]);
             market.description = param[1];
             market.name = param[2];
-
             context.CreateMarket(market);
-            context.SaveChanges();
             Console.WriteLine("Market created successfully");
         }
 
@@ -256,20 +253,10 @@ namespace App
             Console.WriteLine("Insert a code, description and name:");
             string str = Console.ReadLine();
             string[] param = str.Split(' ');
-            IMarket market;
-            if (ctx.Equals("1"))
-            {
-                market = new TypesProject.model.Market();
-            }
-            else
-            {
-                market = new EF_TP2_52D_14_1920i.Market();
-            }
-            market.code = Int32.Parse(param[0]);
+            IMarket market = context.Markets.Find(Int32.Parse(param[0]));
             market.description = param[1];
             market.name = param[2];
             context.UpdateMarket(market);
-            context.SaveChanges();
             Console.WriteLine("Market updated sucessfuly");
         }
 
@@ -278,16 +265,7 @@ namespace App
             Console.WriteLine("DeleteMarket()");
             Console.WriteLine();
             Console.WriteLine("Insert a code:");
-            IMarket market;
-            if (ctx.Equals("1"))
-            {
-                market = new TypesProject.model.Market();
-            }
-            else
-            {
-                market = new EF_TP2_52D_14_1920i.Market();
-            }
-            market.code = Int32.Parse(Console.ReadLine());
+            IMarket market = context.Markets.Find(Int32.Parse(Console.ReadLine()));
             context.DeleteMarket(market);
             Console.WriteLine("Market deleted sucessfully");
         }
@@ -297,17 +275,7 @@ namespace App
             Console.WriteLine("DeletePortfolio()");
             Console.WriteLine();
             Console.WriteLine("Please insert a name:");
-            IPortfolio portfolio;
-            if (ctx.Equals("1"))
-            {
-                portfolio = new TypesProject.model.Portfolio();
-            }
-            else
-            {
-                portfolio = new EF_TP2_52D_14_1920i.Portfolio();
-            }
-
-            portfolio.name = Console.ReadLine();
+            IPortfolio portfolio = context.Portfolios.Find(Console.ReadLine());
             context.DeletePortfolio(portfolio);
             Console.WriteLine("Portfolio deleted successfully");
         }

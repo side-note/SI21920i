@@ -9,3 +9,14 @@ C:\Users\ASUS\Documents\GitHub\SI21920i\TP2\Pilim\TypesProject\bin\Debug\Microso
 C:\Users\ASUS\Documents\GitHub\SI21920i\TP2\Pilim\TypesProject\obj\Debug\TypesProject.csproj.CopyComplete
 C:\Users\ASUS\Documents\GitHub\SI21920i\TP2\Pilim\TypesProject\obj\Debug\TypesProject.dll
 C:\Users\ASUS\Documents\GitHub\SI21920i\TP2\Pilim\TypesProject\obj\Debug\TypesProject.pdb
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\TypesProject\bin\Debug\TypesProject.dll
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\TypesProject\bin\Debug\TypesProject.pdb
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\TypesProject\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\TypesProject\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\TypesProject\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\TypesProject\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\TypesProject\obj\Debug\TypesProject.csprojAssemblyReference.cache
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\TypesProject\obj\Debug\TypesProject.csproj.CoreCompileInputs.cache
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\TypesProject\obj\Debug\TypesProject.csproj.CopyComplete
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\TypesProject\obj\Debug\TypesProject.dll
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\TypesProject\obj\Debug\TypesProject.pdb
