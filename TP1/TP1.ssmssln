@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# SQL Server Management Studio Solution File, Format Version 18.00
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DDD174A3-E60C-426E-A5D0-537C0280A664}"
+	ProjectSection(SolutionItems) = preProject
+		Average.sql = Average.sql
+		CreatePortfolio.sql = CreatePortfolio.sql
+		CreateTables.sql = CreateTables.sql
+		CurrentValue.sql = CurrentValue.sql
+		DailyVarPerc.sql = DailyVarPerc.sql
+		DeleteTable.sql = DeleteTable.sql
+		DropTables.sql = DropTables.sql
+		FundamentalData.sql = FundamentalData.sql
+		InsertTables.sql = InsertTables.sql
+		PORTFOLIO_SUMMARY_VIEW.sql = PORTFOLIO_SUMMARY_VIEW.sql
+		PortfolioList.sql = PortfolioList.sql
+		RemoveClient.sql = RemoveClient.sql
+		RemoveMarket.sql = RemoveMarket.sql
+		Tests.sql = Tests.sql
+		TripleTrigger.sql = TripleTrigger.sql
+		UpdateClient.sql = UpdateClient.sql
+		UpdateCM.sql = UpdateCM.sql
+		UpdateDailyMarket.sql = UpdateDailyMarket.sql
+		UpdateDailyValue.sql = UpdateDailyValue.sql
+		UpdateMarket.sql = UpdateMarket.sql
+		UpdateTotalValue.sql = UpdateTotalValue.sql
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Default|Default = Default|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3FAD99B2-532A-46A1-AAEB-F9BC53AFB868}.Default|Default.ActiveCfg = Default
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D6E1B70D-BFBD-40B2-A890-8039A0CC4971}
+	EndGlobalSection
+EndGlobal

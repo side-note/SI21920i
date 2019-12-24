@@ -11,7 +11,7 @@ create table DailyMarket(
 	idxopeningval	money,
 	code            int,
 	date            date,
-	constraint fkdailymrkt foreign key (code) references MARKET(code),
+	constraint fkdailymrkt foreign key (code) references MARKET(code) on delete cascade,
 	constraint pkdailymrkt primary key(date, code)
 );
 
@@ -32,8 +32,8 @@ create table Client_Portfolio(
 	name varchar(50),
 	nif decimal(9),
 	constraint pkCLIENT_PORTFOLIO primary key(name, nif),
-	constraint fkCLIENT foreign key(nif) references CLIENT(nif),
-	constraint fkPORTFOLIO foreign key(name) references PORTFOLIO(name) 
+	constraint fkCLIENT foreign key(nif) references CLIENT(nif) on delete cascade,
+	constraint fkPORTFOLIO foreign key(name) references PORTFOLIO(name) on delete cascade 
 );
 
 create table Instrument(
@@ -41,7 +41,7 @@ create table Instrument(
 	description		varchar(300),
 	mrktcode        int,
 	constraint pkinstrument primary key(isin),
-	constraint fkinstrument foreign key (mrktcode) references MARKET(code)
+	constraint fkinstrument foreign key (mrktcode) references MARKET(code) on delete cascade
 );
 
 create table Position(
@@ -49,8 +49,8 @@ create table Position(
 	name			varchar(50),
 	isin			char(12),
 	constraint pkpositions primary key(isin, name),
-	constraint fkportfolio_pos foreign key(name) references PORTFOLIO(name),
-	constraint fkinstrument_pos foreign key(isin) references INSTRUMENT(isin)
+	constraint fkportfolio_pos foreign key(name) references PORTFOLIO(name) on delete cascade,
+	constraint fkinstrument_pos foreign key(isin) references INSTRUMENT(isin) on delete cascade
 );
 
 create table Email(
@@ -59,7 +59,7 @@ create table Email(
 	addr		varchar(50),
 	nif		decimal(9),
 	constraint pkemail primary key(code),
-	constraint fkclient_email foreign key(nif) references CLIENT(nif)
+	constraint fkclient_email foreign key(nif) references CLIENT(nif) on delete cascade
 );
 
 create table Phone(
@@ -69,7 +69,7 @@ create table Phone(
 	number		decimal(9),
 	nif		decimal(9),
 	constraint pkphone primary key(code),
-	constraint fkclient_phone foreign key(nif) references CLIENT(nif)
+	constraint fkclient_phone foreign key(nif) references CLIENT(nif) on delete cascade
 );
 create table Exttriple(
 	value		money not null,
@@ -86,7 +86,7 @@ create table DailyReg(
 	maxval				money,
 	closingval			money,
 	dailydate			date,
-	constraint fkinstrument_reg foreign key(isin) references INSTRUMENT(isin),
+	constraint fkinstrument_reg foreign key(isin) references INSTRUMENT(isin) on delete cascade,
     constraint pkdailyreg primary key(isin, dailydate)
 
 );

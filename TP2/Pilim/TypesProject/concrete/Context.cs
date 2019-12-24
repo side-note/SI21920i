@@ -165,6 +165,9 @@ namespace TypesProject.concrete
                 SqlParameter n = new SqlParameter("@nif", nif);
                 cmd.Parameters.Add(n);
             });
+            IPortfolio p = Portfolios.Find(nif + "_portfolio");
+            p.client = Clients.Find(nif);
+            Portfolios.Update(p);
         }
 
         public int SaveChanges()
@@ -247,21 +250,6 @@ namespace TypesProject.concrete
         }
         public bool DeletePortfolio(IPortfolio value)
         {
-            IEnumerable<IPosition> positions = value.Position;
-            if (positions != null)
-            {
-                IEnumerator<IPosition> pEnumerator = positions.GetEnumerator();
-                pEnumerator.MoveNext();
-                do
-                {
-                    Positions.Delete(pEnumerator.Current);
-                    pEnumerator = positions.GetEnumerator();
-                } while (pEnumerator.MoveNext());
-            }
-            IClient c = value.client;
-            c = Clients.Find(c.nif);
-            c.portfolio = null;
-            Clients.Update(c);
             return Portfolios.Delete(value);
         }
 

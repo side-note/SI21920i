@@ -35,17 +35,17 @@ namespace Test
             DateTime d = new DateTime(2019, 11, 1, 13, 13, 13);
             ctx().p_actualizaValorDiario("11111111111", d);
             IDailyReg dr = ctx().DailyRegs.Find("111111111111", d.Date);
-            Assert.AreEqual(dr.minval, 1111);
-            Assert.AreEqual(dr.maxval, 3333);
-            Assert.AreEqual(dr.openingval, 1111);
-            Assert.AreEqual(dr.closingval, 3333);
+            Assert.AreEqual(dr.minval, 11);
+            Assert.AreEqual(dr.maxval, 1111);
+            Assert.AreEqual(dr.openingval, 11111);
+            Assert.AreEqual(dr.closingval, 111);
         }
 
         [TestMethod]
         public void AverageTest()
         {
             decimal d = ctx().Average(180, "111111111111");
-            Assert.AreEqual(d, 1296);
+            Assert.AreEqual(d, 222);
         }
 
         [TestMethod]
@@ -57,12 +57,12 @@ namespace Test
                 DateTime d = new DateTime(2019, 11, 1);
                 InstrumentProxy i = (InstrumentProxy)ctx().FundamentalDataTable("111111111111", d);
                 ts.Complete();
-                Assert.AreEqual(i.avg6m, 1296);
-                Assert.AreEqual(i.currval, 3333);
-                Assert.AreEqual(i.dailyvar, 2222);
-                Assert.AreEqual(i.dailyvarperc, 2);
-                Assert.AreEqual(i.var6m, 6644);
-                Assert.AreEqual(i.var6mperc, 302);
+                Assert.AreEqual(i.avg6m, 222);
+                Assert.AreEqual(i.currval, 111);
+                Assert.AreEqual(i.dailyvar, 1100);
+                Assert.AreEqual(i.dailyvarperc, 100);
+                Assert.AreEqual(i.var6m, 4433);
+                Assert.AreEqual(i.var6mperc, 403);
                 
             }
 
@@ -84,7 +84,6 @@ namespace Test
             p = (PositionProxy)plEnumerator.Current;
             Assert.AreEqual(p.isin, "333333333333");
             Assert.AreEqual(p.CurrVal, 666);
-       
             Assert.AreEqual(p.Dailyvarperc, (decimal)16.66);
             Assert.AreEqual(p.quantity, 3);
         }
@@ -93,7 +92,7 @@ namespace Test
         {
             ctx().UpdateTotalVal("555555555_portfolio", 50000, "111111111111");
             Portfolio p = (Portfolio)ctx().Portfolios.Find("555555555_portfolio");
-            Assert.AreEqual(p.totalval, 166650000);
+            Assert.AreEqual(p.totalval, 5550000);
         }
 
         [TestMethod]
@@ -128,15 +127,14 @@ namespace Test
         [TestMethod]
         public void removeMarketTest()
         {
-            Market m = (Market)ctx().Markets.Find(444);
+            Market m = (Market)ctx().Markets.Find(222);
             ctx().DeleteMarket(m);
-            m= (Market)ctx().Markets.Find(444);
+            m = (Market)ctx().Markets.Find(222);
             Assert.AreEqual(m, null);
         }
         [TestMethod]
         public void removePortfolioTest()
         {
-
             IPortfolio p = ctx().Portfolios.Find("555555555_portfolio");
             ctx().DeletePortfolio(p);
             p = ctx().Portfolios.Find("555555555_portfolio");

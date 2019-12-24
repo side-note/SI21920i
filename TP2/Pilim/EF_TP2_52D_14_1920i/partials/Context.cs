@@ -158,21 +158,6 @@ namespace EF_TP2_52D_14_1920i
 
         public bool DeletePortfolio(IPortfolio value)
         {
-            IEnumerable<IPosition> positions = value.Position;
-            if (positions != null)
-            {
-                IEnumerator<IPosition> pEnumerator = positions.GetEnumerator();
-                pEnumerator.MoveNext();
-                do
-                {
-                    Positions.Delete(pEnumerator.Current);
-                    pEnumerator = positions.GetEnumerator();
-                } while (pEnumerator.MoveNext());
-            }
-            IClient c = value.client;
-            c = Clients.Find(c.nif);
-            c.portfolio = null;
-            Clients.Update(c);
             bool b = Portfolios.Delete(value);
             SaveChanges();
             return b;

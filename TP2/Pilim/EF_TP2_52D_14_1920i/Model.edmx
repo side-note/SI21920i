@@ -115,7 +115,9 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
           <Property Name="totalval" Type="money" />
         </EntityType>
         <Association Name="fkCLIENT">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Client_Portfolio" Type="Self.Client_Portfolio" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
@@ -127,7 +129,9 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
           </ReferentialConstraint>
         </Association>
         <Association Name="fkclient_email">
-          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Email" Type="Self.Email" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
@@ -139,7 +143,9 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
           </ReferentialConstraint>
         </Association>
         <Association Name="fkclient_phone">
-          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Phone" Type="Self.Phone" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
@@ -151,7 +157,9 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
           </ReferentialConstraint>
         </Association>
         <Association Name="fkdailymrkt">
-          <End Role="Market" Type="Self.Market" Multiplicity="1" />
+          <End Role="Market" Type="Self.Market" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="DailyMarket" Type="Self.DailyMarket" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Market">
@@ -163,7 +171,9 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
           </ReferentialConstraint>
         </Association>
         <Association Name="fkinstrument">
-          <End Role="Market" Type="Self.Market" Multiplicity="0..1" />
+          <End Role="Market" Type="Self.Market" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Instrument" Type="Self.Instrument" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Market">
@@ -175,7 +185,9 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
           </ReferentialConstraint>
         </Association>
         <Association Name="fkinstrument_pos">
-          <End Role="Instrument" Type="Self.Instrument" Multiplicity="1" />
+          <End Role="Instrument" Type="Self.Instrument" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Position" Type="Self.Position" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Instrument">
@@ -187,7 +199,9 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
           </ReferentialConstraint>
         </Association>
         <Association Name="fkinstrument_reg">
-          <End Role="Instrument" Type="Self.Instrument" Multiplicity="1" />
+          <End Role="Instrument" Type="Self.Instrument" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="DailyReg" Type="Self.DailyReg" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Instrument">
@@ -199,7 +213,9 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
           </ReferentialConstraint>
         </Association>
         <Association Name="fkPORTFOLIO">
-          <End Role="Portfolio" Type="Self.Portfolio" Multiplicity="1" />
+          <End Role="Portfolio" Type="Self.Portfolio" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Client_Portfolio" Type="Self.Client_Portfolio" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Portfolio">
@@ -211,7 +227,9 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
           </ReferentialConstraint>
         </Association>
         <Association Name="fkportfolio_pos">
-          <End Role="Portfolio" Type="Self.Portfolio" Multiplicity="1" />
+          <End Role="Portfolio" Type="Self.Portfolio" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Position" Type="Self.Position" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Portfolio">
@@ -484,7 +502,9 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
           <Property Name="totalval" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <Association Name="fkclient_email">
-          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Email" Type="Self.Email" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
@@ -496,7 +516,9 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
           </ReferentialConstraint>
         </Association>
         <Association Name="fkclient_phone">
-          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Phone" Type="Self.Phone" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
@@ -508,7 +530,9 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
           </ReferentialConstraint>
         </Association>
         <Association Name="fkdailymrkt">
-          <End Role="Market" Type="Self.Market" Multiplicity="1" />
+          <End Role="Market" Type="Self.Market" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="DailyMarket" Type="Self.DailyMarket" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Market">
@@ -520,7 +544,9 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
           </ReferentialConstraint>
         </Association>
         <Association Name="fkinstrument_reg">
-          <End Role="Instrument" Type="Self.Instrument" Multiplicity="1" />
+          <End Role="Instrument" Type="Self.Instrument" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="DailyReg" Type="Self.DailyReg" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Instrument">
@@ -532,7 +558,9 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
           </ReferentialConstraint>
         </Association>
         <Association Name="fkinstrument">
-          <End Role="Market" Type="Self.Market" Multiplicity="0..1" />
+          <End Role="Market" Type="Self.Market" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Instrument" Type="Self.Instrument" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Market">
@@ -544,7 +572,9 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
           </ReferentialConstraint>
         </Association>
         <Association Name="fkinstrument_pos">
-          <End Role="Instrument" Type="Self.Instrument" Multiplicity="1" />
+          <End Role="Instrument" Type="Self.Instrument" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Position" Type="Self.Position" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Instrument">
@@ -556,7 +586,9 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
           </ReferentialConstraint>
         </Association>
         <Association Name="fkportfolio_pos">
-          <End Role="Portfolio" Type="Self.Portfolio" Multiplicity="1" />
+          <End Role="Portfolio" Type="Self.Portfolio" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Position" Type="Self.Position" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Portfolio">
@@ -571,7 +603,7 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
           <End Role="Client" Type="Self.Client" Multiplicity="*" />
           <End Role="Portfolio" Type="Self.Portfolio" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="TL52D_14Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="TL52D_14Entities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Client" EntityType="Self.Client" />
           <EntitySet Name="DailyMarket" EntityType="Self.DailyMarket" />
           <EntitySet Name="DailyReg" EntityType="Self.DailyReg" />
@@ -660,7 +692,7 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="TL52D_14ModelStoreContainer" CdmEntityContainer="TL52D_14Entities">
+        <EntityContainerMapping StorageEntityContainer="TL52D_14ModelStoreContainer" CdmEntityContainer="TL52D_14Entities1">
           <EntitySetMapping Name="Client">
             <EntityTypeMapping TypeName="TL52D_14Model.Client">
               <MappingFragment StoreEntitySet="Client">

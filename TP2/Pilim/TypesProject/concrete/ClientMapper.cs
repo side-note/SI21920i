@@ -97,7 +97,7 @@ namespace TypesProject.concrete
     {
         return mapperHelper.ReadAll(
             cmd=> { },
-            "select clientId, name, ncc from Client"
+            "select nif, name, ncc from Client"
             );
     }
 
@@ -155,9 +155,9 @@ namespace TypesProject.concrete
         public IClient Map(IDataRecord record)
         {
             Client c = new Client();
-            c.nif = record.GetInt32(0);
-            c.ncc = record.GetInt32(1);
-            c.name = record.GetString(2);
+            c.nif = record.GetDecimal(0);
+            c.name = record.GetString(1);
+            c.ncc = record.GetDecimal(2);
             return new ClientProxy(c, mapperHelper.context);
         }
 
@@ -165,7 +165,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.Read(id,
                 (cmd, i) => SelectParameters(cmd, i),
-                "select clientId, name, ncc from Client where nif=@nif"
+                "select nif, name, ncc from Client where nif=@nif"
                 );
         }
     }

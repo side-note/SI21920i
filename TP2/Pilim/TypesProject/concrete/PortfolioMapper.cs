@@ -23,12 +23,13 @@ namespace TypesProject.concrete
         {
             ClientMapper cm = new ClientMapper(mapperHelper.context);
             List<IDataParameter> parameters = new List<IDataParameter>();
-            parameters.Add(new SqlParameter("@id", p.name));
+            decimal nif = decimal.Parse(p.name.Split('_')[0]);
+            parameters.Add(new SqlParameter("@id", nif));
 
-            using (IDataReader rd = mapperHelper.ExecuteReader("select nif, ncc, name from Client where name=@id", parameters))
+            using (IDataReader rd = mapperHelper.ExecuteReader("select nif, ncc, name from Client where nif=@id", parameters))
             {
                 if (rd.Read())
-                    return cm.Read(rd.GetInt32(0));
+                    return cm.Read(rd.GetDecimal(0));
             }
             return null;
 
@@ -115,7 +116,7 @@ namespace TypesProject.concrete
         {
             return mapperHelper.Read(id,
                 (cmd, i) => SelectParameters(cmd, i),
-                "select name,totalval from Portfolio  where name=@id"
+                "select name, totalval from Portfolio  where name=@id"
                 );
         }
 

@@ -14,7 +14,7 @@ namespace TypesProject.mapper
         public PortfolioProxy(IPortfolio p, IContext ctx) : base()
         {
             context = ctx;
-            base.client = null;
+            base.client = p.client;
             base.name = p.name;
             base.Position = null;
             base.totalval = p.totalval;
@@ -23,15 +23,15 @@ namespace TypesProject.mapper
         {
             get
             {
-                if(base.client== null)
+                if(base.client == null)
                 {
                     PortfolioMapper pm = new PortfolioMapper(context);
                     base.client = pm.LoadClient(this);
                 }
                 return base.client;
             }
-                set => base.client = value;
-            }
+            set => base.client = value;
+        }
 
         public override IEnumerable<IPosition> Position {
             get
@@ -44,6 +44,5 @@ namespace TypesProject.mapper
                return base.Position;
             }
             set => base.Position = value; }
-
-    }
+        }
 }
