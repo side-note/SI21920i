@@ -29,7 +29,7 @@ namespace TypesProject.concrete
             using (IDataReader rd = mapperHelper.ExecuteReader("select nif, ncc, name from Client where nif=@id", parameters))
             {
                 if (rd.Read())
-                    return cm.Read(rd.GetDecimal(0));
+                    return cm.Read(rd.IsDBNull(0) ? default : rd.GetDecimal(0));
             }
             return null;
 
@@ -48,10 +48,10 @@ namespace TypesProject.concrete
                 {
                     Position pos = new Position
                     {
-                        quantity = rd.GetInt32(2),
-                        name = rd.GetString(1),
-                        isin = rd.GetString(0),
-                        Instrument = im.Read(rd.GetString(0)),
+                        quantity = rd.IsDBNull(2) ? default : rd.GetInt32(2),
+                        name = rd.IsDBNull(1) ? default : rd.GetString(1),
+                        isin = rd.IsDBNull(0) ? default : rd.GetString(0),
+                        Instrument = im.Read(rd.IsDBNull(0) ? default : rd.GetString(0)),
                         Portfolio = p
                     };
                     lst.Add(pos);
@@ -92,8 +92,8 @@ namespace TypesProject.concrete
         public  IPortfolio Map(IDataRecord record)
         {
             Portfolio p = new Portfolio();
-            p.name = record.GetString(0);
-            p.totalval = record.GetDecimal(1);
+            p.name = record.IsDBNull(0) ? default : record.GetString(0);
+            p.totalval = record.IsDBNull(1) ? default : record.GetDecimal(1);
             return new PortfolioProxy( p, mapperHelper.context);
 
         }

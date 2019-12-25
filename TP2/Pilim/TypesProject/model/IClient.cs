@@ -9,7 +9,7 @@ namespace TypesProject.model
     public interface IClient
     {
         public decimal nif { get; set; }
-        public decimal? ncc { get; set; }
+        public decimal ncc { get; set; }
         public String name { get; set; }
 
         public  IPortfolio portfolio { get; set; }

@@ -4,14 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TL52D_14Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TL52D_14Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="nif" />
           </Key>
           <Property Name="nif" Type="decimal" Precision="9" Scale="0" Nullable="false" />
-          <Property Name="ncc" Type="decimal" Precision="7" Scale="0" />
-          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="ncc" Type="decimal" Precision="7" Scale="0" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Client_Portfolio">
           <Key>
@@ -50,7 +50,7 @@
           </Key>
           <Property Name="code" Type="int" Nullable="false" />
           <Property Name="description" Type="varchar" MaxLength="300" />
-          <Property Name="addr" Type="varchar" MaxLength="50" />
+          <Property Name="addr" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="nif" Type="decimal" Precision="9" Scale="0" />
         </EntityType>
         <EntityType Name="Exttriple">
@@ -58,7 +58,7 @@
             <PropertyRef Name="datetime" />
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="value" Type="money" Nullable="false" />
+          <Property Name="value" Type="money" />
           <Property Name="datetime" Type="datetime" Nullable="false" />
           <Property Name="id" Type="char" MaxLength="12" Nullable="false" />
         </EntityType>
@@ -68,7 +68,7 @@
           </Key>
           <Property Name="isin" Type="char" MaxLength="12" Nullable="false" />
           <Property Name="description" Type="varchar" MaxLength="300" />
-          <Property Name="mrktcode" Type="int" />
+          <Property Name="mrktcode" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Market">
           <Key>
@@ -76,7 +76,7 @@
           </Key>
           <Property Name="code" Type="int" Nullable="false" />
           <Property Name="description" Type="varchar" MaxLength="300" />
-          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Phone">
           <Key>
@@ -85,7 +85,7 @@
           <Property Name="code" Type="int" Nullable="false" />
           <Property Name="description" Type="varchar" MaxLength="300" />
           <Property Name="areacode" Type="varchar" MaxLength="4" />
-          <Property Name="number" Type="decimal" Precision="9" Scale="0" />
+          <Property Name="number" Type="decimal" Precision="9" Scale="0" Nullable="false" />
           <Property Name="nif" Type="decimal" Precision="9" Scale="0" />
         </EntityType>
         <EntityType Name="Portfolio">
@@ -171,7 +171,7 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
           </ReferentialConstraint>
         </Association>
         <Association Name="fkinstrument">
-          <End Role="Market" Type="Self.Market" Multiplicity="0..1">
+          <End Role="Market" Type="Self.Market" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="Instrument" Type="Self.Instrument" Multiplicity="*" />
@@ -284,8 +284,8 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
               <RowType>
                 <Property Name="isin" Type="char" MaxLength="12" Nullable="false" />
                 <Property Name="quantity" Type="int" />
-                <Property Name="CurrVal" Type="money" />
-                <Property Name="Dailyvarperc" Type="decimal" Precision="5" Scale="2" />
+                <Property Name="CurrVal" Type="money" Nullable="false" />
+                <Property Name="Dailyvarperc" Type="decimal" Precision="5" Scale="2" Nullable="false" />
               </RowType>
             </CollectionType>
           </ReturnType>
@@ -367,8 +367,7 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
             <End Role="Position" EntitySet="Position" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TL52D_14Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -383,16 +382,16 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
         <ComplexType Name="Portfolio_List_Result">
           <Property Name="isin" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="quantity" Type="Int32" />
-          <Property Name="CurrVal" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Dailyvarperc" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="CurrVal" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Dailyvarperc" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
         </ComplexType>
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="nif" />
           </Key>
           <Property Name="nif" Type="Decimal" Precision="9" Scale="0" Nullable="false" />
-          <Property Name="ncc" Type="Decimal" Precision="7" Scale="0" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ncc" Type="Decimal" Precision="7" Scale="0" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Email" Relationship="Self.fkclient_email" FromRole="Client" ToRole="Email" />
           <NavigationProperty Name="Phone" Relationship="Self.fkclient_phone" FromRole="Client" ToRole="Phone" />
           <NavigationProperty Name="Portfolio" Relationship="Self.Client_Portfolio" FromRole="Client" ToRole="Portfolio" />
@@ -428,7 +427,7 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
           </Key>
           <Property Name="code" Type="Int32" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="addr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="addr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="nif" Type="Decimal" Precision="9" Scale="0" />
           <NavigationProperty Name="Client" Relationship="Self.fkclient_email" FromRole="Email" ToRole="Client" />
         </EntityType>
@@ -437,7 +436,7 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
             <PropertyRef Name="datetime" />
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="value" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="value" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="id" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
         </EntityType>
@@ -447,7 +446,7 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
           </Key>
           <Property Name="isin" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="mrktcode" Type="Int32" />
+          <Property Name="mrktcode" Type="Int32" Nullable="false" />
           <NavigationProperty Name="DailyReg" Relationship="Self.fkinstrument_reg" FromRole="Instrument" ToRole="DailyReg" />
           <NavigationProperty Name="Market" Relationship="Self.fkinstrument" FromRole="Instrument" ToRole="Market" />
           <NavigationProperty Name="Position" Relationship="Self.fkinstrument_pos" FromRole="Instrument" ToRole="Position" />
@@ -458,7 +457,7 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
           </Key>
           <Property Name="code" Type="Int32" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="DailyMarket" Relationship="Self.fkdailymrkt" FromRole="Market" ToRole="DailyMarket" />
           <NavigationProperty Name="Instrument" Relationship="Self.fkinstrument" FromRole="Market" ToRole="Instrument" />
         </EntityType>
@@ -469,7 +468,7 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
           <Property Name="code" Type="Int32" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="areacode" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="number" Type="Decimal" Precision="9" Scale="0" />
+          <Property Name="number" Type="Decimal" Precision="9" Scale="0" Nullable="false" />
           <Property Name="nif" Type="Decimal" Precision="9" Scale="0" />
           <NavigationProperty Name="Client" Relationship="Self.fkclient_phone" FromRole="Phone" ToRole="Client" />
         </EntityType>
@@ -558,7 +557,7 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
           </ReferentialConstraint>
         </Association>
         <Association Name="fkinstrument">
-          <End Role="Market" Type="Self.Market" Multiplicity="0..1">
+          <End Role="Market" Type="Self.Market" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="Instrument" Type="Self.Instrument" Multiplicity="*" />
@@ -603,7 +602,7 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
           <End Role="Client" Type="Self.Client" Multiplicity="*" />
           <End Role="Portfolio" Type="Self.Portfolio" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="TL52D_14Entities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="TL52D_14Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Client" EntityType="Self.Client" />
           <EntitySet Name="DailyMarket" EntityType="Self.DailyMarket" />
           <EntitySet Name="DailyReg" EntityType="Self.DailyReg" />
@@ -652,10 +651,10 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
             <Parameter Name="date" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="Portfolio_List" IsComposable="true" ReturnType="Collection(TL52D_14Model.Portfolio_List_Result)">
-            <Parameter Name="name" Mode="In" Type="String" />
+          <Parameter Name="name" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="createPortfolio">
-            <Parameter Name="nif" Mode="In" Type="Decimal" />
+          <Parameter Name="nif" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="DailyMarketUpdate">
             <Parameter Name="code" Mode="In" Type="Int32" />
@@ -666,10 +665,10 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
             <Parameter Name="date" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="remove_client">
-            <Parameter Name="nif" Mode="In" Type="Decimal" />
+          <Parameter Name="nif" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="remove_market">
-            <Parameter Name="code" Mode="In" Type="Int32" />
+          <Parameter Name="code" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="update_client">
             <Parameter Name="ncc" Mode="In" Type="Decimal" />
@@ -692,7 +691,7 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="TL52D_14ModelStoreContainer" CdmEntityContainer="TL52D_14Entities1">
+        <EntityContainerMapping StorageEntityContainer="TL52D_14ModelStoreContainer" CdmEntityContainer="TL52D_14Entities">
           <EntitySetMapping Name="Client">
             <EntityTypeMapping TypeName="TL52D_14Model.Client">
               <MappingFragment StoreEntitySet="Client">

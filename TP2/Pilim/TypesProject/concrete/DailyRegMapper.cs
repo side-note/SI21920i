@@ -67,12 +67,12 @@ namespace TypesProject.concrete
         public IDailyReg Map(IDataRecord record)
         {
             DailyReg dr = new DailyReg();
-            dr.isin = record.GetString(0);
-            dr.minval = record.GetDecimal(1);
-            dr.openingval = record.GetDecimal(2);
-            dr.maxval = record.GetDecimal(3);
-            dr.closingval = record.GetDecimal(4);
-            dr.dailydate = record.GetDateTime(5);
+            dr.isin = record.IsDBNull(0) ? default : record.GetString(0);
+            dr.minval = record.IsDBNull(1) ? default : record.GetDecimal(1);
+            dr.openingval = record.IsDBNull(2) ? default : record.GetDecimal(2);
+            dr.maxval = record.IsDBNull(3) ? default : record.GetDecimal(3);
+            dr.closingval = record.IsDBNull(4) ? default : record.GetDecimal(4);
+            dr.dailydate = record.IsDBNull(5) ? default : record.GetDateTime(5);
 
             return dr;
         }

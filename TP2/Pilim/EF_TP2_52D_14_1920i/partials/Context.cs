@@ -68,7 +68,7 @@ namespace EF_TP2_52D_14_1920i
                     IDataRecord rcrd = r;
 
 
-                    return (decimal)rcrd.GetValue(0);                    
+                    return rcrd.IsDBNull(0) ? default : rcrd.GetDecimal(0);                    
                 }
             }
         }
@@ -96,12 +96,12 @@ namespace EF_TP2_52D_14_1920i
             IInstrument instrument = Instruments.Find(isin);
             InstrumentProxy iproxy = new InstrumentProxy(instrument, this)
             {
-                avg6m = (decimal)result.ElementAt(0).avg6m,
-                currval = (decimal)result.ElementAt(0).currval,
-                dailyvar = (decimal)result.ElementAt(0).dailyvar,
-                dailyvarperc = (decimal)result.ElementAt(0).dailyvarperc,
-                var6m = (decimal)result.ElementAt(0).var6m,
-                var6mperc = (decimal)result.ElementAt(0).var6mperc
+                avg6m = result.ElementAt(0).avg6m == null ? default : (decimal)result.ElementAt(0).avg6m,
+                currval = result.ElementAt(0).currval == null ? default : (decimal)result.ElementAt(0).currval,
+                dailyvar = result.ElementAt(0).dailyvar == null ? default : (decimal)result.ElementAt(0).dailyvar,
+                dailyvarperc = result.ElementAt(0).dailyvarperc == null ? default : (decimal)result.ElementAt(0).dailyvarperc,
+                var6m = result.ElementAt(0).var6m == null ? default : (decimal)result.ElementAt(0).var6m,
+                var6mperc = result.ElementAt(0).var6mperc == null ? default : (decimal)result.ElementAt(0).var6mperc
             };
             return iproxy;            
 

@@ -8,7 +8,7 @@ namespace TypesProject.model
 {
     public class Exttriple : IExttriple
     {
-        public decimal value { get; set; }
+        public decimal? value { get; set; }
         public string id { get; set ; }
         public DateTime datetime { get ; set; }
     }

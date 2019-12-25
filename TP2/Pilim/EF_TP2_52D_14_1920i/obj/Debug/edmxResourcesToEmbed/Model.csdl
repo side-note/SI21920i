@@ -11,16 +11,16 @@
   <ComplexType Name="Portfolio_List_Result">
     <Property Name="isin" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
     <Property Name="quantity" Type="Int32" />
-    <Property Name="CurrVal" Type="Decimal" Precision="19" Scale="4" />
-    <Property Name="Dailyvarperc" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="CurrVal" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="Dailyvarperc" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
   </ComplexType>
   <EntityType Name="Client">
     <Key>
       <PropertyRef Name="nif" />
     </Key>
     <Property Name="nif" Type="Decimal" Precision="9" Scale="0" Nullable="false" />
-    <Property Name="ncc" Type="Decimal" Precision="7" Scale="0" />
-    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ncc" Type="Decimal" Precision="7" Scale="0" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="Email" Relationship="Self.fkclient_email" FromRole="Client" ToRole="Email" />
     <NavigationProperty Name="Phone" Relationship="Self.fkclient_phone" FromRole="Client" ToRole="Phone" />
     <NavigationProperty Name="Portfolio" Relationship="Self.Client_Portfolio" FromRole="Client" ToRole="Portfolio" />
@@ -56,7 +56,7 @@
     </Key>
     <Property Name="code" Type="Int32" Nullable="false" />
     <Property Name="description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-    <Property Name="addr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="addr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="nif" Type="Decimal" Precision="9" Scale="0" />
     <NavigationProperty Name="Client" Relationship="Self.fkclient_email" FromRole="Email" ToRole="Client" />
   </EntityType>
@@ -65,7 +65,7 @@
       <PropertyRef Name="datetime" />
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="value" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="value" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="id" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
   </EntityType>
@@ -75,7 +75,7 @@
     </Key>
     <Property Name="isin" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
     <Property Name="description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-    <Property Name="mrktcode" Type="Int32" />
+    <Property Name="mrktcode" Type="Int32" Nullable="false" />
     <NavigationProperty Name="DailyReg" Relationship="Self.fkinstrument_reg" FromRole="Instrument" ToRole="DailyReg" />
     <NavigationProperty Name="Market" Relationship="Self.fkinstrument" FromRole="Instrument" ToRole="Market" />
     <NavigationProperty Name="Position" Relationship="Self.fkinstrument_pos" FromRole="Instrument" ToRole="Position" />
@@ -86,7 +86,7 @@
     </Key>
     <Property Name="code" Type="Int32" Nullable="false" />
     <Property Name="description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="DailyMarket" Relationship="Self.fkdailymrkt" FromRole="Market" ToRole="DailyMarket" />
     <NavigationProperty Name="Instrument" Relationship="Self.fkinstrument" FromRole="Market" ToRole="Instrument" />
   </EntityType>
@@ -97,7 +97,7 @@
     <Property Name="code" Type="Int32" Nullable="false" />
     <Property Name="description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
     <Property Name="areacode" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
-    <Property Name="number" Type="Decimal" Precision="9" Scale="0" />
+    <Property Name="number" Type="Decimal" Precision="9" Scale="0" Nullable="false" />
     <Property Name="nif" Type="Decimal" Precision="9" Scale="0" />
     <NavigationProperty Name="Client" Relationship="Self.fkclient_phone" FromRole="Phone" ToRole="Client" />
   </EntityType>
@@ -186,7 +186,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="fkinstrument">
-    <End Role="Market" Type="Self.Market" Multiplicity="0..1">
+    <End Role="Market" Type="Self.Market" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
     <End Role="Instrument" Type="Self.Instrument" Multiplicity="*" />
@@ -231,7 +231,7 @@
     <End Role="Client" Type="Self.Client" Multiplicity="*" />
     <End Role="Portfolio" Type="Self.Portfolio" Multiplicity="*" />
   </Association>
-  <EntityContainer Name="TL52D_14Entities1" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="TL52D_14Entities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Client" EntityType="Self.Client" />
     <EntitySet Name="DailyMarket" EntityType="Self.DailyMarket" />
     <EntitySet Name="DailyReg" EntityType="Self.DailyReg" />

@@ -14,7 +14,7 @@ namespace TypesProject.model
 
         public string description { get; set; }
 
-        public int? mrktcode { get; set; }
+        public int mrktcode { get; set; }
 
         public virtual ICollection<IPosition> instrumentposition { get; set; }
         public virtual ICollection <IDailyReg> dailyRegs { get; set; }

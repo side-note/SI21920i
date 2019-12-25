@@ -29,11 +29,11 @@ namespace TypesProject.concrete
                 {
                     DailyMarket dm = new DailyMarket
                     {
-                        code = rd.GetInt32(3),
-                        dailyvar = rd.GetDecimal(1),
-                        date = rd.GetDateTime(4),
-                        idxmrkt = rd.GetDecimal(0),
-                        idxopeningval = rd.GetDecimal(2),
+                        code = rd.IsDBNull(3) ? default : rd.GetInt32(3),
+                        dailyvar = rd.IsDBNull(1) ? default : rd.GetDecimal(1),
+                        date = rd.IsDBNull(4) ? default : rd.GetDateTime(4),
+                        idxmrkt = rd.IsDBNull(0) ? default : rd.GetDecimal(0),
+                        idxopeningval = rd.IsDBNull(2) ? default : rd.GetDecimal(2),
                         market = m
                     };
                     lst.Add(dm);
@@ -54,9 +54,9 @@ namespace TypesProject.concrete
                 {
                     Instrument i = new Instrument
                     {
-                        isin = rd.GetString(0),
-                        mrktcode = rd.GetInt32(1),
-                        description = rd.GetString(2),
+                        isin = rd.IsDBNull(0) ? default : rd.GetString(0),
+                        mrktcode = rd.IsDBNull(1) ? default : rd.GetInt32(1),
+                        description = rd.IsDBNull(2) ? default : rd.GetString(2),
                         instrumentMarket = m
                     };
 
@@ -100,9 +100,9 @@ namespace TypesProject.concrete
         public IMarket Map(IDataRecord record)
         {
             Market m = new Market();
-            m.code = record.GetInt32(0);
-            m.description = record.GetString(1);
-            m.name = record.GetString(2);
+            m.code = record.IsDBNull(0) ? default : record.GetInt32(0);
+            m.description = record.IsDBNull(1) ? default : record.GetString(1);
+            m.name = record.IsDBNull(2) ? default : record.GetString(2);
             return new MarketProxy(m, mapperHelper.context);
         }
         public IMarket Create(IMarket market)

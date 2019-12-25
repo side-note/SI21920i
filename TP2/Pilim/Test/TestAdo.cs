@@ -28,7 +28,6 @@ namespace Test
             Assert.AreEqual(P.name, "555555555_portfolio");
            
         }
-
         [TestMethod]
         public void p_actualizavalordiarioTest()
         {
@@ -40,16 +39,13 @@ namespace Test
             Assert.AreEqual(dr.openingval, 11111);
             Assert.AreEqual(dr.closingval, 111);
         }
-
         [TestMethod]
         public void AverageTest()
         {
             decimal d = ctx().Average(180, "111111111111");
             Assert.AreEqual(d, 222);
         }
-
         [TestMethod]
-
         public void FundamentalDataTableTest()
         {
             using (TransactionScope ts = new TransactionScope(TransactionScopeOption.Required))
@@ -67,9 +63,7 @@ namespace Test
             }
 
         }
-
         [TestMethod]
-
         public void portfolio_listTest()
         {
             IEnumerable<IPosition> portfolioList = ctx().Portfolio_List("111111111_portfolio");
@@ -77,14 +71,14 @@ namespace Test
             plEnumerator.MoveNext();
             PositionProxy p = (PositionProxy)plEnumerator.Current;
             Assert.AreEqual(p.isin, "111111111111");
-            Assert.AreEqual(p.CurrVal, 3333);
-            Assert.AreEqual(p.Dailyvarperc, 90);
+            Assert.AreEqual(p.CurrVal, 111);
+            Assert.AreEqual(p.Dailyvarperc, (decimal)66.66);
             Assert.AreEqual(p.quantity, 1);
             plEnumerator.MoveNext();
             p = (PositionProxy)plEnumerator.Current;
             Assert.AreEqual(p.isin, "333333333333");
-            Assert.AreEqual(p.CurrVal, 666);
-            Assert.AreEqual(p.Dailyvarperc, (decimal)16.66);
+            Assert.AreEqual(p.CurrVal, 0);
+            Assert.AreEqual(p.Dailyvarperc, 0);
             Assert.AreEqual(p.quantity, 3);
         }
         [TestMethod]
@@ -94,9 +88,7 @@ namespace Test
             Portfolio p = (Portfolio)ctx().Portfolios.Find("555555555_portfolio");
             Assert.AreEqual(p.totalval, 5550000);
         }
-
         [TestMethod]
-
         public void CreateMarketTest()
         {
             Market newM = new Market();
@@ -110,9 +102,7 @@ namespace Test
             Assert.AreEqual(m.description, "Description 4");
             Assert.AreEqual(m.name, "Market 4");
         }
-
         [TestMethod]
-
         public void updateMarketTest()
         {
             Market M = (Market)ctx().Markets.Find(444);
@@ -123,13 +113,12 @@ namespace Test
             Assert.AreEqual(m1.description, "This is the new description");
             Assert.AreEqual(m1.name, "IphoneMarket");
         }
-
         [TestMethod]
         public void removeMarketTest()
         {
-            Market m = (Market)ctx().Markets.Find(222);
+            Market m = (Market)ctx().Markets.Find(444);
             ctx().DeleteMarket(m);
-            m = (Market)ctx().Markets.Find(222);
+            m = (Market)ctx().Markets.Find(444);
             Assert.AreEqual(m, null);
         }
         [TestMethod]

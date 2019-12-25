@@ -1,14 +1,14 @@
 create table Market(
 	code		int,
 	description	varchar(300),
-	name		varchar(50),
+	name		varchar(50)	not null,
 	constraint pkmarket primary key(code)
 );
 
 create table DailyMarket(
-	idxmrkt			money,
-	dailyvar		money,
-	idxopeningval	money,
+	idxmrkt			money	default 0,
+	dailyvar		money	default 0,
+	idxopeningval	money	default 0,
 	code            int,
 	date            date,
 	constraint fkdailymrkt foreign key (code) references MARKET(code) on delete cascade,
@@ -17,8 +17,8 @@ create table DailyMarket(
 
 create table Client(
 	nif		decimal(9),
-	ncc		decimal(7),
-	name	varchar(50),
+	ncc		decimal(7)	not null unique,
+	name	varchar(50)	not null,
 	constraint pkclient primary key(nif)
 );
 
@@ -39,13 +39,13 @@ create table Client_Portfolio(
 create table Instrument(
 	isin			char(12),
 	description		varchar(300),
-	mrktcode        int,
+	mrktcode        int not null,
 	constraint pkinstrument primary key(isin),
 	constraint fkinstrument foreign key (mrktcode) references MARKET(code) on delete cascade
 );
 
 create table Position(
-	quantity		int,
+	quantity		int	default 0,
 	name			varchar(50),
 	isin			char(12),
 	constraint pkpositions primary key(isin, name),
@@ -56,7 +56,7 @@ create table Position(
 create table Email(
 	code		int,
 	description	varchar(300),
-	addr		varchar(50),
+	addr		varchar(50)	not null unique,
 	nif		decimal(9),
 	constraint pkemail primary key(code),
 	constraint fkclient_email foreign key(nif) references CLIENT(nif) on delete cascade
@@ -66,27 +66,25 @@ create table Phone(
 	code		int,
 	description	varchar(300),
 	areacode	varchar(4),
-	number		decimal(9),
+	number		decimal(9) not null unique,
 	nif		decimal(9),
 	constraint pkphone primary key(code),
 	constraint fkclient_phone foreign key(nif) references CLIENT(nif) on delete cascade
 );
 create table Exttriple(
-	value		money not null,
+	value		money 	default 0,
 	datetime	datetime not null,
 	id			char(12) not null,
     constraint pkexttriple primary key(id, datetime)
-
 );
 
 create table DailyReg(
 	isin				char(12),
-	minval				money,
-	openingval			money,
-	maxval				money,
-	closingval			money,
+	minval				money	default 0,
+	openingval			money	default 0,
+	maxval				money	default 0,
+	closingval			money	default 0,
 	dailydate			date,
 	constraint fkinstrument_reg foreign key(isin) references INSTRUMENT(isin) on delete cascade,
     constraint pkdailyreg primary key(isin, dailydate)
-
 );

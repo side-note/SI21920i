@@ -12,7 +12,7 @@ namespace TypesProject.model
 
         public int code { get; set; }
 
-        public decimal? number { get; set; }
+        public decimal number { get; set; }
 
         public string description { get; set; }
 

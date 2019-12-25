@@ -26,7 +26,7 @@ namespace TypesProject.concrete
             using (IDataReader rd = mapperHelper.ExecuteReader("select code from Client_Email where nif=@nif", parameters))
             {
                 while (rd.Read())
-                    lst.Add(em.Read(rd.GetInt32(0)));
+                    lst.Add(em.Read(rd.IsDBNull(0) ? default : rd.GetInt32(0)));
 
             }
             return lst;
@@ -41,7 +41,7 @@ namespace TypesProject.concrete
             using (IDataReader rd = mapperHelper.ExecuteReader("select phoneid from phoneclient where nif=@nif", parameters))
             {
                 while (rd.Read())
-                    lst.Add(pm.Read(rd.GetInt32(0)));
+                    lst.Add(pm.Read(rd.IsDBNull(0) ? default : rd.GetInt32(0)));
             }
             return lst;
         }
@@ -56,8 +56,8 @@ namespace TypesProject.concrete
                 {
                     Portfolio p = new Portfolio
                     {
-                        name = rd.GetString(0),
-                        totalval = rd.GetDecimal(1)
+                        name = rd.IsDBNull(0) ? default : rd.GetString(0),
+                        totalval = rd.IsDBNull(1) ? default : rd.GetDecimal(1)
                     };
                     return new PortfolioProxy(p, mapperHelper.context);
                 }
@@ -155,9 +155,9 @@ namespace TypesProject.concrete
         public IClient Map(IDataRecord record)
         {
             Client c = new Client();
-            c.nif = record.GetDecimal(0);
-            c.name = record.GetString(1);
-            c.ncc = record.GetDecimal(2);
+            c.nif = record.IsDBNull(0) ? default : record.GetDecimal(0);
+            c.name = record.IsDBNull(1) ? default : record.GetString(1);
+            c.ncc = record.IsDBNull(2) ? default : record.GetDecimal(2);
             return new ClientProxy(c, mapperHelper.context);
         }
 

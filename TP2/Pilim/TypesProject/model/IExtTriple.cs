@@ -4,7 +4,7 @@ namespace TypesProject.model
 {
     public interface IExttriple
     {
-        public decimal value { get; set; }
+        public decimal? value { get; set; }
 
         public string id { get; set; }
 

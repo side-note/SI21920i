@@ -27,7 +27,7 @@ namespace TypesProject.concrete
             using (IDataReader rd = mapperHelper.ExecuteReader("select name, totalval from Portfolio where name=@id", parameters))
             {
                 if (rd.Read())
-                    return pm.Read(rd.GetString(0));
+                    return pm.Read(rd.IsDBNull(0) ? default : rd.GetString(0));
             }
             return null;
         }
@@ -40,7 +40,7 @@ namespace TypesProject.concrete
             using (IDataReader rd = mapperHelper.ExecuteReader("select isin from Instrument where isin=@id", parameters))
             {
                if (rd.Read())
-                    return im.Read(rd.GetString(0));
+                    return im.Read(rd.IsDBNull(0) ? default : rd.GetString(0));
             }
             return null;
         }
@@ -90,9 +90,9 @@ namespace TypesProject.concrete
         public IPosition Map(IDataRecord record)
         {
             Position p = new Position();
-            p.quantity = record.GetInt32(0);
-            p.isin = record.GetString(1);
-            p.name = record.GetString(2);
+            p.quantity = record.IsDBNull(0) ? default : record.GetInt32(0);
+            p.isin = record.IsDBNull(1) ? default : record.GetString(1);
+            p.name = record.IsDBNull(2) ? default : record.GetString(2);
             return p;
         }
 

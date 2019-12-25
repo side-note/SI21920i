@@ -23,7 +23,7 @@ namespace EF_TP2_52D_14_1920i
         }
     
         public decimal nif { get; set; }
-        public Nullable<decimal> ncc { get; set; }
+        public decimal ncc { get; set; }
         public string name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

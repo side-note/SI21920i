@@ -10,7 +10,7 @@ namespace TypesProject.model
     {
         public Client() { }
         public decimal nif { get; set; }
-        public decimal? ncc { get; set; }
+        public decimal ncc { get; set; }
         public String name { get; set; }
         public virtual IPortfolio portfolio { get; set; }
         public virtual ICollection<IEmail> email { get; set; }

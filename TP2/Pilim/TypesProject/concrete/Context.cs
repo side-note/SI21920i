@@ -119,7 +119,7 @@ namespace TypesProject.concrete
                 {
                     if (!r.Read()) return default;
                     IDataRecord rcrd = r;
-                    decimal a =rcrd.GetDecimal(0);
+                    decimal a = rcrd.IsDBNull(0) ? default : rcrd.GetDecimal(0);
                     return a;
                 }
             }
@@ -198,12 +198,12 @@ namespace TypesProject.concrete
                     {
                         if (!reader.Read()) return instrument;
                         IDataRecord record = reader;
-                        ins.avg6m = record.GetDecimal(2);
-                        ins.currval = record.GetDecimal(1);
-                        ins.dailyvar = record.GetDecimal(0);
-                        ins.dailyvarperc = record.GetDecimal(3);
-                        ins.var6m = record.GetDecimal(4);
-                        ins.var6mperc = record.GetDecimal(5);
+                        ins.avg6m = record.IsDBNull(2) ? default : record.GetDecimal(2);
+                        ins.currval = record.IsDBNull(1) ? default : record.GetDecimal(1);
+                        ins.dailyvar = record.IsDBNull(0) ? default : record.GetDecimal(0);
+                        ins.dailyvarperc = record.IsDBNull(3) ? default : record.GetDecimal(3);
+                        ins.var6m = record.IsDBNull(4) ? default : record.GetDecimal(4);
+                        ins.var6mperc = record.IsDBNull(5) ? default : record.GetDecimal(5);
                     }
                 }
                 ts.Complete();
@@ -237,10 +237,10 @@ namespace TypesProject.concrete
                     {
                         IDataRecord record = reader;
                         PositionProxy pos = new PositionProxy(posEnumerator.Current, this);
-                        pos.isin = record.GetString(2);
-                        pos.quantity = record.GetInt32(3);
-                        pos.CurrVal = record.GetDecimal(1);
-                        pos.Dailyvarperc = record.GetDecimal(0);
+                        pos.isin = record.IsDBNull(2) ? default : record.GetString(2);
+                        pos.quantity = record.IsDBNull(3) ? default : record.GetInt32(3);
+                        pos.CurrVal = record.IsDBNull(1) ? default : record.GetDecimal(1);
+                        pos.Dailyvarperc = record.IsDBNull(0) ? default : record.GetDecimal(0);
                         positions.Add(pos);
                     } while (posEnumerator.MoveNext() && reader.Read());
                     return positions;

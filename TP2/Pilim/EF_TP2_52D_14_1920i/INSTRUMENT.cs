@@ -23,7 +23,7 @@ namespace EF_TP2_52D_14_1920i
     
         public string isin { get; set; }
         public string description { get; set; }
-        public Nullable<int> mrktcode { get; set; }
+        public int mrktcode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DailyReg> DailyReg { get; set; }

@@ -5,8 +5,8 @@
       <PropertyRef Name="nif" />
     </Key>
     <Property Name="nif" Type="decimal" Precision="9" Scale="0" Nullable="false" />
-    <Property Name="ncc" Type="decimal" Precision="7" Scale="0" />
-    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="ncc" Type="decimal" Precision="7" Scale="0" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="Client_Portfolio">
     <Key>
@@ -45,7 +45,7 @@
     </Key>
     <Property Name="code" Type="int" Nullable="false" />
     <Property Name="description" Type="varchar" MaxLength="300" />
-    <Property Name="addr" Type="varchar" MaxLength="50" />
+    <Property Name="addr" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="nif" Type="decimal" Precision="9" Scale="0" />
   </EntityType>
   <EntityType Name="Exttriple">
@@ -53,7 +53,7 @@
       <PropertyRef Name="datetime" />
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="value" Type="money" Nullable="false" />
+    <Property Name="value" Type="money" />
     <Property Name="datetime" Type="datetime" Nullable="false" />
     <Property Name="id" Type="char" MaxLength="12" Nullable="false" />
   </EntityType>
@@ -63,7 +63,7 @@
     </Key>
     <Property Name="isin" Type="char" MaxLength="12" Nullable="false" />
     <Property Name="description" Type="varchar" MaxLength="300" />
-    <Property Name="mrktcode" Type="int" />
+    <Property Name="mrktcode" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Market">
     <Key>
@@ -71,7 +71,7 @@
     </Key>
     <Property Name="code" Type="int" Nullable="false" />
     <Property Name="description" Type="varchar" MaxLength="300" />
-    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="Phone">
     <Key>
@@ -80,7 +80,7 @@
     <Property Name="code" Type="int" Nullable="false" />
     <Property Name="description" Type="varchar" MaxLength="300" />
     <Property Name="areacode" Type="varchar" MaxLength="4" />
-    <Property Name="number" Type="decimal" Precision="9" Scale="0" />
+    <Property Name="number" Type="decimal" Precision="9" Scale="0" Nullable="false" />
     <Property Name="nif" Type="decimal" Precision="9" Scale="0" />
   </EntityType>
   <EntityType Name="Portfolio">
@@ -166,7 +166,7 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
     </ReferentialConstraint>
   </Association>
   <Association Name="fkinstrument">
-    <End Role="Market" Type="Self.Market" Multiplicity="0..1">
+    <End Role="Market" Type="Self.Market" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
     <End Role="Instrument" Type="Self.Instrument" Multiplicity="*" />
@@ -279,8 +279,8 @@ warning 6002: The table/view 'TL52D_14.dbo.Portfolio_Summary' does not have a pr
         <RowType>
           <Property Name="isin" Type="char" MaxLength="12" Nullable="false" />
           <Property Name="quantity" Type="int" />
-          <Property Name="CurrVal" Type="money" />
-          <Property Name="Dailyvarperc" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="CurrVal" Type="money" Nullable="false" />
+          <Property Name="Dailyvarperc" Type="decimal" Precision="5" Scale="2" Nullable="false" />
         </RowType>
       </CollectionType>
     </ReturnType>

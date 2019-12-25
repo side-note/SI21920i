@@ -8,7 +8,7 @@ begin
             @name,
             @isin)
     update dbo.Portfolio
-    set totalval = (select sum(quantity * closingval)
+    set totalval = isnull((select sum(quantity * closingval)
                     from dbo.Position
                              join dbo.DailyReg on Position.isin = dbo.DailyReg.isin
                     where name = @name
@@ -17,7 +17,8 @@ begin
                                        dailydate
                                        from dbo.DailyReg
                                        where isin = dbo.Position.isin
-                                       order by dailydate desc))
+                                       order by dailydate desc)),
+					0)
     where name = @name
 end
 go

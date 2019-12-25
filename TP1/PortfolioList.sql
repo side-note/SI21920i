@@ -5,8 +5,8 @@ create function dbo.Portfolio_List(@name varchar(50))
         (
         select isin,
                quantity,
-               (select dbo.get_Currval(isin))      as CurrVal,
-               (select dbo.get_dailypercvar(isin)) as Dailyvarperc
+               isnull((select dbo.get_Currval(isin)), 0)      as CurrVal,
+               isnull((select dbo.get_dailypercvar(isin)), 0) as Dailyvarperc
         from Position
         where name = @name
         )

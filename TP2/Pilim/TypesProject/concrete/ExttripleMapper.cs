@@ -56,10 +56,10 @@ namespace TypesProject.concrete
 
         public  IExttriple Map(IDataRecord record)
         {
-            Exttriple e= new Exttriple();
-            e.value = record.GetDecimal(0);
-            e.datetime = record.GetDateTime(1);
-            e.id = record.GetString(2);
+            Exttriple e = new Exttriple();
+            e.value = record.IsDBNull(0) ? default : record.GetDecimal(0);
+            e.datetime = record.IsDBNull(1) ? default : record.GetDateTime(1);
+            e.id = record.IsDBNull(2) ? default : record.GetString(2);
             return e;
         }
 

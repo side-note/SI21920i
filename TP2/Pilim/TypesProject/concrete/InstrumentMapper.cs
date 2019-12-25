@@ -31,12 +31,12 @@ namespace TypesProject.concrete
                 {
                     DailyReg dr = new DailyReg
                     {
-                        isin = rd.GetString(0),
-                        minval = rd.GetDecimal(1),
-                        openingval = rd.GetDecimal(2),
-                        maxval = rd.GetDecimal(3),
-                        closingval = rd.GetDecimal(4),
-                        dailydate = rd.GetDateTime(5),
+                        isin = rd.IsDBNull(0) ? default : rd.GetString(0),
+                        minval = rd.IsDBNull(1) ? default : rd.GetDecimal(1),
+                        openingval = rd.IsDBNull(2) ? default : rd.GetDecimal(2),
+                        maxval = rd.IsDBNull(3) ? default : rd.GetDecimal(3),
+                        closingval = rd.IsDBNull(4) ? default : rd.GetDecimal(4),
+                        dailydate = rd.IsDBNull(5) ? default : rd.GetDateTime(5),
                         instrument = i
                     };
 
@@ -58,10 +58,10 @@ namespace TypesProject.concrete
                 {
                     Position pos = new Position {
                         Instrument = i,
-                        Portfolio = pm.Read(rd.GetString(0)),
-                        isin=rd.GetString(0),
-                        name=rd.GetString(1),
-                        quantity= rd.GetInt32(2)
+                        Portfolio = pm.Read(rd.IsDBNull(0) ? default : rd.GetString(0)),
+                        isin= rd.IsDBNull(0) ? default : rd.GetString(0),
+                        name = rd.IsDBNull(1) ? default : rd.GetString(1),
+                        quantity= rd.IsDBNull(2) ? default : rd.GetInt32(2)
                     };
                     lst.Add(pos);
                 }
@@ -79,9 +79,9 @@ namespace TypesProject.concrete
                 {
                     Market m = new Market
                     {
-                        code = rd.GetInt32(0),
-                        name = rd.GetString(1),
-                        description = rd.GetString(2)
+                        code = rd.IsDBNull(0) ? default : rd.GetInt32(0),
+                        name = rd.IsDBNull(1) ? default : rd.GetString(1),
+                        description = rd.IsDBNull(2) ? default : rd.GetString(2)
                     };
                     return new MarketProxy(m,mapperHelper.context);
                 }
@@ -125,9 +125,9 @@ namespace TypesProject.concrete
         public IInstrument Map(IDataRecord record)
         {
             Instrument i = new Instrument();
-            i.isin = record.GetString(0);
-            i.description = record.GetString(1);
-            i.mrktcode = record.GetInt32(2);
+            i.isin = record.IsDBNull(0) ? default : record.GetString(0);
+            i.description = record.IsDBNull(1) ? default : record.GetString(1);
+            i.mrktcode = record.IsDBNull(2) ? default : record.GetInt32(2);
             return new InstrumentProxy(i, mapperHelper.context);
         }
         public  IInstrument Create(IInstrument instrument)

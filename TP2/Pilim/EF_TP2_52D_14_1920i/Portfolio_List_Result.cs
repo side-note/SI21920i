@@ -15,7 +15,7 @@ namespace EF_TP2_52D_14_1920i
     {
         public string isin { get; set; }
         public Nullable<int> quantity { get; set; }
-        public Nullable<decimal> CurrVal { get; set; }
-        public Nullable<decimal> Dailyvarperc { get; set; }
+        public decimal CurrVal { get; set; }
+        public decimal Dailyvarperc { get; set; }
     }
 }

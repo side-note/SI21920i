@@ -8,7 +8,7 @@ namespace TypesProject.model
 
         public string description { get; set; }
 
-        public int? mrktcode { get; set; }
+        public int mrktcode { get; set; }
 
         public ICollection<IPosition> instrumentposition { get; set; }
         public ICollection<IDailyReg> dailyRegs { get; set; }

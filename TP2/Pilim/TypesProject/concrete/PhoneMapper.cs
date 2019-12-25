@@ -27,7 +27,7 @@ namespace TypesProject.concrete
             using (IDataReader rd = mapperHelper.ExecuteReader("select nif from Phone where code=@id", parameters))
             {
                 if (rd.Read())
-                    return cm.Read(rd.GetInt32(0));
+                    return cm.Read(rd.IsDBNull(0) ? default : rd.GetInt32(0));
             }
             return null;
 
@@ -71,11 +71,11 @@ namespace TypesProject.concrete
         public IPhone Map(IDataRecord record)
         {
             Phone p = new Phone();
-            p.code = record.GetInt32(0);
-            p.description = record.GetString(1);
-            p.areacode = record.GetString(2);
-            p.number = record.GetInt32(3);
-            p.nif = record.GetDecimal(4);
+            p.code = record.IsDBNull(0) ? default : record.GetInt32(0);
+            p.description = record.IsDBNull(1) ? default : record.GetString(1);
+            p.areacode = record.IsDBNull(2) ? default : record.GetString(2);
+            p.number = record.IsDBNull(3) ? default : record.GetInt32(3);
+            p.nif = record.IsDBNull(4) ? default : record.GetDecimal(4);
             return new PhoneProxy(p, mapperHelper.context);
         }
         public IPhone Create(IPhone phone)

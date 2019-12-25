@@ -111,11 +111,11 @@ namespace TypesProject.concrete
         public IDailyMarket Map(IDataRecord record)
         {
             DailyMarket dm = new DailyMarket();
-            dm.idxmrkt = record.GetDecimal(0);
-            dm.dailyvar = record.GetDecimal(1);
-            dm.idxopeningval = record.GetDecimal(2);
-            dm.code = record.GetInt32(3);
-            dm.date = record.GetDateTime(4);
+            dm.idxmrkt = record.IsDBNull(0) ? default : record.GetDecimal(0);
+            dm.dailyvar = record.IsDBNull(1) ? default : record.GetDecimal(1);
+            dm.idxopeningval = record.IsDBNull(2) ? default : record.GetDecimal(2);
+            dm.code = record.IsDBNull(3) ? default : record.GetInt32(3);
+            dm.date = record.IsDBNull(4) ? default : record.GetDateTime(4);
             return dm;
         }
 

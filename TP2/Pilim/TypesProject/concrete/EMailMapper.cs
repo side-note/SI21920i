@@ -27,7 +27,7 @@ namespace TypesProject.concrete
             using (IDataReader rd = mapperHelper.ExecuteReader("select nif from Email where code=@id", parameters))
             {
                 if (rd.Read())
-                    return cm.Read(rd.GetInt32(0));
+                    return cm.Read(rd.IsDBNull(0) ? default : rd.GetInt32(0));
 
             }
             return null;
@@ -68,9 +68,9 @@ namespace TypesProject.concrete
         public IEmail Map(IDataRecord record)
         {
             Email e = new Email();
-            e.code = record.GetInt32(0);
-            e.description = record.GetString(1);
-            e.nif = record.GetDecimal(3);
+            e.code = record.IsDBNull(0) ? default : record.GetInt32(0);
+            e.description = record.IsDBNull(1) ? default : record.GetString(1);
+            e.nif = record.IsDBNull(3) ? default : record.GetDecimal(3);
             return new EmailProxy(e, mapperHelper.context);
         }
         public IEmail Create(IEmail entity)
