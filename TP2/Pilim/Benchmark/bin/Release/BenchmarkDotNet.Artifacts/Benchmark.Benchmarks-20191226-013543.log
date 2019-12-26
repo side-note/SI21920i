@@ -1,0 +1,205 @@
+// Validating benchmarks:
+// ***** BenchmarkRunner: Start   *****
+// ***** Found 2 benchmark(s) in total *****
+// ***** Building 1 exe(s) in Parallel: Start   *****
+// ***** Done, took 00:00:00 (0.15 sec)   *****
+// Found 2 benchmarks:
+//   Benchmarks.EFCreateUpdateAndRemovePortfolio: InProcess(Toolchain=InProcessEmitToolchain, IterationCount=15, LaunchCount=1, WarmupCount=10)
+//   Benchmarks.ADONETCreateUpdateAndRemovePortfolio: InProcess(Toolchain=InProcessEmitToolchain, IterationCount=15, LaunchCount=1, WarmupCount=10)
+
+// **************************
+// Benchmark: Benchmarks.EFCreateUpdateAndRemovePortfolio: InProcess(Toolchain=InProcessEmitToolchain, IterationCount=15, LaunchCount=1, WarmupCount=10)
+// *** Execute ***
+// Launch: 1 / 1
+
+// Benchmark Process Environment Information:
+// Runtime=.NET Framework 4.8 (4.8.4075.0), X86 LegacyJIT  [AttachedDebugger]
+// GC=Concurrent Workstation
+// Job: Job-KCTBOS(Toolchain=InProcessEmitToolchain, IterationCount=15, LaunchCount=1, WarmupCount=10)
+
+OverheadJitting  1: 1 op, 139000.00 ns, 139.0000 us/op
+WorkloadJitting  1: 1 op, 4055750800.00 ns, 4.0558 s/op
+
+WorkloadWarmup   1: 1 op, 660315100.00 ns, 660.3151 ms/op
+WorkloadWarmup   2: 1 op, 605384700.00 ns, 605.3847 ms/op
+WorkloadWarmup   3: 1 op, 383444400.00 ns, 383.4444 ms/op
+WorkloadWarmup   4: 1 op, 505424200.00 ns, 505.4242 ms/op
+WorkloadWarmup   5: 1 op, 457825300.00 ns, 457.8253 ms/op
+WorkloadWarmup   6: 1 op, 543529900.00 ns, 543.5299 ms/op
+WorkloadWarmup   7: 1 op, 1412542200.00 ns, 1.4125 s/op
+WorkloadWarmup   8: 1 op, 358492300.00 ns, 358.4923 ms/op
+WorkloadWarmup   9: 1 op, 358178000.00 ns, 358.1780 ms/op
+WorkloadWarmup  10: 1 op, 320372600.00 ns, 320.3726 ms/op
+
+WorkloadActual   1: 1 op, 434839500.00 ns, 434.8395 ms/op
+WorkloadActual   2: 1 op, 418529600.00 ns, 418.5296 ms/op
+WorkloadActual   3: 1 op, 473692800.00 ns, 473.6928 ms/op
+WorkloadActual   4: 1 op, 439194700.00 ns, 439.1947 ms/op
+WorkloadActual   5: 1 op, 351522800.00 ns, 351.5228 ms/op
+WorkloadActual   6: 1 op, 368275700.00 ns, 368.2757 ms/op
+WorkloadActual   7: 1 op, 171979300.00 ns, 171.9793 ms/op
+WorkloadActual   8: 1 op, 207035500.00 ns, 207.0355 ms/op
+WorkloadActual   9: 1 op, 154903700.00 ns, 154.9037 ms/op
+WorkloadActual  10: 1 op, 168770300.00 ns, 168.7703 ms/op
+WorkloadActual  11: 1 op, 1223179500.00 ns, 1.2232 s/op
+WorkloadActual  12: 1 op, 167944100.00 ns, 167.9441 ms/op
+WorkloadActual  13: 1 op, 164080100.00 ns, 164.0801 ms/op
+WorkloadActual  14: 1 op, 345258200.00 ns, 345.2582 ms/op
+WorkloadActual  15: 1 op, 354354200.00 ns, 354.3542 ms/op
+
+WorkloadResult   1: 1 op, 434839500.00 ns, 434.8395 ms/op
+WorkloadResult   2: 1 op, 418529600.00 ns, 418.5296 ms/op
+WorkloadResult   3: 1 op, 473692800.00 ns, 473.6928 ms/op
+WorkloadResult   4: 1 op, 439194700.00 ns, 439.1947 ms/op
+WorkloadResult   5: 1 op, 351522800.00 ns, 351.5228 ms/op
+WorkloadResult   6: 1 op, 368275700.00 ns, 368.2757 ms/op
+WorkloadResult   7: 1 op, 171979300.00 ns, 171.9793 ms/op
+WorkloadResult   8: 1 op, 207035500.00 ns, 207.0355 ms/op
+WorkloadResult   9: 1 op, 154903700.00 ns, 154.9037 ms/op
+WorkloadResult  10: 1 op, 168770300.00 ns, 168.7703 ms/op
+WorkloadResult  11: 1 op, 167944100.00 ns, 167.9441 ms/op
+WorkloadResult  12: 1 op, 164080100.00 ns, 164.0801 ms/op
+WorkloadResult  13: 1 op, 345258200.00 ns, 345.2582 ms/op
+WorkloadResult  14: 1 op, 354354200.00 ns, 354.3542 ms/op
+
+
+Mean = 301.4558 ms, StdErr = 32.5883 ms (10.81%); N = 14, StdDev = 121.9342 ms
+Min = 154.9037 ms, Q1 = 168.7703 ms, Median = 348.3905 ms, Q3 = 418.5296 ms, Max = 473.6928 ms
+IQR = 249.7593 ms, LowerFence = -205.8687 ms, UpperFence = 793.1686 ms
+ConfidenceInterval = [163.9061 ms; 439.0054 ms] (CI 99.9%), Margin = 137.5497 ms (45.63% of Mean)
+Skewness = -0.04, Kurtosis = 1.16, MValue = 4
+
+// **************************
+// Benchmark: Benchmarks.ADONETCreateUpdateAndRemovePortfolio: InProcess(Toolchain=InProcessEmitToolchain, IterationCount=15, LaunchCount=1, WarmupCount=10)
+// *** Execute ***
+// Launch: 1 / 1
+
+// Benchmark Process Environment Information:
+// Runtime=.NET Framework 4.8 (4.8.4075.0), X86 LegacyJIT  [AttachedDebugger]
+// GC=Concurrent Workstation
+// Job: Job-KCTBOS(Toolchain=InProcessEmitToolchain, IterationCount=15, LaunchCount=1, WarmupCount=10)
+
+OverheadJitting  1: 1 op, 161100.00 ns, 161.1000 us/op
+WorkloadJitting  1: 1 op, 518639200.00 ns, 518.6392 ms/op
+
+WorkloadWarmup   1: 1 op, 418108500.00 ns, 418.1085 ms/op
+WorkloadWarmup   2: 1 op, 282080600.00 ns, 282.0806 ms/op
+WorkloadWarmup   3: 1 op, 252372400.00 ns, 252.3724 ms/op
+WorkloadWarmup   4: 1 op, 295338200.00 ns, 295.3382 ms/op
+WorkloadWarmup   5: 1 op, 279410000.00 ns, 279.4100 ms/op
+WorkloadWarmup   6: 1 op, 1341863500.00 ns, 1.3419 s/op
+WorkloadWarmup   7: 1 op, 638529500.00 ns, 638.5295 ms/op
+WorkloadWarmup   8: 1 op, 151099100.00 ns, 151.0991 ms/op
+WorkloadWarmup   9: 1 op, 305640600.00 ns, 305.6406 ms/op
+WorkloadWarmup  10: 1 op, 215813100.00 ns, 215.8131 ms/op
+
+WorkloadActual   1: 1 op, 159998200.00 ns, 159.9982 ms/op
+WorkloadActual   2: 1 op, 123258700.00 ns, 123.2587 ms/op
+WorkloadActual   3: 1 op, 146383800.00 ns, 146.3838 ms/op
+WorkloadActual   4: 1 op, 132683800.00 ns, 132.6838 ms/op
+WorkloadActual   5: 1 op, 322911000.00 ns, 322.9110 ms/op
+WorkloadActual   6: 1 op, 384826000.00 ns, 384.8260 ms/op
+WorkloadActual   7: 1 op, 335878100.00 ns, 335.8781 ms/op
+WorkloadActual   8: 1 op, 259515100.00 ns, 259.5151 ms/op
+WorkloadActual   9: 1 op, 375586500.00 ns, 375.5865 ms/op
+WorkloadActual  10: 1 op, 303085200.00 ns, 303.0852 ms/op
+WorkloadActual  11: 1 op, 132828200.00 ns, 132.8282 ms/op
+WorkloadActual  12: 1 op, 122880000.00 ns, 122.8800 ms/op
+WorkloadActual  13: 1 op, 122513700.00 ns, 122.5137 ms/op
+WorkloadActual  14: 1 op, 124261800.00 ns, 124.2618 ms/op
+WorkloadActual  15: 1 op, 124825300.00 ns, 124.8253 ms/op
+
+WorkloadResult   1: 1 op, 159998200.00 ns, 159.9982 ms/op
+WorkloadResult   2: 1 op, 123258700.00 ns, 123.2587 ms/op
+WorkloadResult   3: 1 op, 146383800.00 ns, 146.3838 ms/op
+WorkloadResult   4: 1 op, 132683800.00 ns, 132.6838 ms/op
+WorkloadResult   5: 1 op, 322911000.00 ns, 322.9110 ms/op
+WorkloadResult   6: 1 op, 384826000.00 ns, 384.8260 ms/op
+WorkloadResult   7: 1 op, 335878100.00 ns, 335.8781 ms/op
+WorkloadResult   8: 1 op, 259515100.00 ns, 259.5151 ms/op
+WorkloadResult   9: 1 op, 375586500.00 ns, 375.5865 ms/op
+WorkloadResult  10: 1 op, 303085200.00 ns, 303.0852 ms/op
+WorkloadResult  11: 1 op, 132828200.00 ns, 132.8282 ms/op
+WorkloadResult  12: 1 op, 122880000.00 ns, 122.8800 ms/op
+WorkloadResult  13: 1 op, 122513700.00 ns, 122.5137 ms/op
+WorkloadResult  14: 1 op, 124261800.00 ns, 124.2618 ms/op
+WorkloadResult  15: 1 op, 124825300.00 ns, 124.8253 ms/op
+
+
+Mean = 211.4290 ms, StdErr = 27.0376 ms (12.79%); N = 15, StdDev = 104.7164 ms
+Min = 122.5137 ms, Q1 = 124.2618 ms, Median = 146.3838 ms, Q3 = 322.9110 ms, Max = 384.8260 ms
+IQR = 198.6492 ms, LowerFence = -173.7120 ms, UpperFence = 620.8848 ms
+ConfidenceInterval = [99.4809 ms; 323.3772 ms] (CI 99.9%), Margin = 111.9481 ms (52.95% of Mean)
+Skewness = 0.53, Kurtosis = 1.39, MValue = 2.89
+
+// ***** BenchmarkRunner: Finish  *****
+
+// * Export *
+  BenchmarkDotNet.Artifacts\results\Benchmark.Benchmarks-report.csv
+  BenchmarkDotNet.Artifacts\results\Benchmark.Benchmarks-report-github.md
+  BenchmarkDotNet.Artifacts\results\Benchmark.Benchmarks-report.html
+
+// * Detailed results *
+Benchmarks.EFCreateUpdateAndRemovePortfolio: InProcess(Toolchain=InProcessEmitToolchain, IterationCount=15, LaunchCount=1, WarmupCount=10)
+Runtime = ; GC = 
+Mean = 301.4558 ms, StdErr = 32.5883 ms (10.81%); N = 14, StdDev = 121.9342 ms
+Min = 154.9037 ms, Q1 = 168.7703 ms, Median = 348.3905 ms, Q3 = 418.5296 ms, Max = 473.6928 ms
+IQR = 249.7593 ms, LowerFence = -205.8687 ms, UpperFence = 793.1686 ms
+ConfidenceInterval = [163.9061 ms; 439.0054 ms] (CI 99.9%), Margin = 137.5497 ms (45.63% of Mean)
+Skewness = -0.04, Kurtosis = 1.16, MValue = 4
+-------------------- Histogram --------------------
+[136.701 ms ; 225.238 ms) | @@@@@@
+[225.238 ms ; 300.990 ms) | 
+[300.990 ms ; 351.091 ms) | @
+[351.091 ms ; 439.627 ms) | @@@@@@
+[439.627 ms ; 517.961 ms) | @
+---------------------------------------------------
+
+Benchmarks.ADONETCreateUpdateAndRemovePortfolio: InProcess(Toolchain=InProcessEmitToolchain, IterationCount=15, LaunchCount=1, WarmupCount=10)
+Runtime = ; GC = 
+Mean = 211.4290 ms, StdErr = 27.0376 ms (12.79%); N = 15, StdDev = 104.7164 ms
+Min = 122.5137 ms, Q1 = 124.2618 ms, Median = 146.3838 ms, Q3 = 322.9110 ms, Max = 384.8260 ms
+IQR = 198.6492 ms, LowerFence = -173.7120 ms, UpperFence = 620.8848 ms
+ConfidenceInterval = [99.4809 ms; 323.3772 ms] (CI 99.9%), Margin = 111.9481 ms (52.95% of Mean)
+Skewness = 0.53, Kurtosis = 1.39, MValue = 2.89
+-------------------- Histogram --------------------
+[104.103 ms ; 178.409 ms) | @@@@@@@@@
+[178.409 ms ; 244.147 ms) | 
+[244.147 ms ; 316.716 ms) | @@
+[316.716 ms ; 391.021 ms) | @@@@
+---------------------------------------------------
+
+// * Summary *
+
+BenchmarkDotNet=v0.12.0, OS=Windows 10.0.18362
+Intel Core i7-8565U CPU 1.80GHz (Whiskey Lake), 1 CPU, 8 logical and 4 physical cores
+  [Host] : .NET Framework 4.8 (4.8.4075.0), X86 LegacyJIT  [AttachedDebugger]
+
+Job=InProcess  Toolchain=InProcessEmitToolchain  IterationCount=15  
+LaunchCount=1  WarmupCount=10  
+
+|                               Method |     Mean |    Error |   StdDev |   Median | Rank |
+|------------------------------------- |---------:|---------:|---------:|---------:|-----:|
+|     EFCreateUpdateAndRemovePortfolio | 301.5 ms | 137.5 ms | 121.9 ms | 348.4 ms |    2 |
+| ADONETCreateUpdateAndRemovePortfolio | 211.4 ms | 111.9 ms | 104.7 ms | 146.4 ms |    1 |
+
+// * Warnings *
+Environment
+  Summary -> Benchmark was executed with attached debugger
+MultimodalDistribution
+  Benchmarks.ADONETCreateUpdateAndRemovePortfolio: InProcess -> It seems that the distribution can have several modes (mValue = 2.89)
+
+// * Legends *
+  Mean   : Arithmetic mean of all measurements
+  Error  : Half of 99.9% confidence interval
+  StdDev : Standard deviation of all measurements
+  Median : Value separating the higher half of all measurements (50th percentile)
+  Rank   : Relative position of current benchmark mean among all benchmarks (Arabic style)
+  1 ms   : 1 Millisecond (0.001 sec)
+
+// ***** BenchmarkRunner: End *****
+// ** Remained 0 benchmark(s) to run **
+Run time: 00:00:25 (25.78 sec), executed benchmarks: 2
+
+Global total time: 00:00:25 (25.95 sec), executed benchmarks: 2
+// * Artifacts cleanup *

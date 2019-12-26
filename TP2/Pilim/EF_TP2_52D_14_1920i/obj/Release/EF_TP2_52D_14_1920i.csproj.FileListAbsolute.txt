@@ -1,0 +1,14 @@
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\bin\Release\EF_TP2_52D_14_1920i.dll.config
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\bin\Release\EF_TP2_52D_14_1920i.dll
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\bin\Release\EF_TP2_52D_14_1920i.pdb
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\bin\Release\EntityFramework.dll
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\bin\Release\TypesProject.dll
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\bin\Release\TypesProject.pdb
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\bin\Release\EntityFramework.xml
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\obj\Release\EF_TP2_52D_14_1920i.csprojAssemblyReference.cache
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\obj\Release\EF_TP2_52D_14_1920i.csproj.CoreCompileInputs.cache
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\obj\Release\EF_TP2_52D_14_1920i.csproj.CopyComplete
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\obj\Release\EF_TP2_52D_14_1920i.dll
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\EF_TP2_52D_14_1920i\obj\Release\EF_TP2_52D_14_1920i.pdb

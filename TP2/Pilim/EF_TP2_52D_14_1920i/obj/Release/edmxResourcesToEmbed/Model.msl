@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TL52D_14ModelStoreContainer" CdmEntityContainer="TL52D_14Entities">
+    <EntitySetMapping Name="Client">
+      <EntityTypeMapping TypeName="TL52D_14Model.Client">
+        <MappingFragment StoreEntitySet="Client">
+          <ScalarProperty Name="nif" ColumnName="nif" />
+          <ScalarProperty Name="ncc" ColumnName="ncc" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DailyMarket">
+      <EntityTypeMapping TypeName="TL52D_14Model.DailyMarket">
+        <MappingFragment StoreEntitySet="DailyMarket">
+          <ScalarProperty Name="idxmrkt" ColumnName="idxmrkt" />
+          <ScalarProperty Name="dailyvar" ColumnName="dailyvar" />
+          <ScalarProperty Name="idxopeningval" ColumnName="idxopeningval" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="date" ColumnName="date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DailyReg">
+      <EntityTypeMapping TypeName="TL52D_14Model.DailyReg">
+        <MappingFragment StoreEntitySet="DailyReg">
+          <ScalarProperty Name="isin" ColumnName="isin" />
+          <ScalarProperty Name="minval" ColumnName="minval" />
+          <ScalarProperty Name="openingval" ColumnName="openingval" />
+          <ScalarProperty Name="maxval" ColumnName="maxval" />
+          <ScalarProperty Name="closingval" ColumnName="closingval" />
+          <ScalarProperty Name="dailydate" ColumnName="dailydate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Email">
+      <EntityTypeMapping TypeName="TL52D_14Model.Email">
+        <MappingFragment StoreEntitySet="Email">
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="addr" ColumnName="addr" />
+          <ScalarProperty Name="nif" ColumnName="nif" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Exttriple">
+      <EntityTypeMapping TypeName="TL52D_14Model.Exttriple">
+        <MappingFragment StoreEntitySet="Exttriple">
+          <ScalarProperty Name="value" ColumnName="value" />
+          <ScalarProperty Name="datetime" ColumnName="datetime" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Instrument">
+      <EntityTypeMapping TypeName="TL52D_14Model.Instrument">
+        <MappingFragment StoreEntitySet="Instrument">
+          <ScalarProperty Name="isin" ColumnName="isin" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="mrktcode" ColumnName="mrktcode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Market">
+      <EntityTypeMapping TypeName="TL52D_14Model.Market">
+        <MappingFragment StoreEntitySet="Market">
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Phone">
+      <EntityTypeMapping TypeName="TL52D_14Model.Phone">
+        <MappingFragment StoreEntitySet="Phone">
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="areacode" ColumnName="areacode" />
+          <ScalarProperty Name="number" ColumnName="number" />
+          <ScalarProperty Name="nif" ColumnName="nif" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Portfolio">
+      <EntityTypeMapping TypeName="TL52D_14Model.Portfolio">
+        <MappingFragment StoreEntitySet="Portfolio">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="totalval" ColumnName="totalval" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Position">
+      <EntityTypeMapping TypeName="TL52D_14Model.Position">
+        <MappingFragment StoreEntitySet="Position">
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="isin" ColumnName="isin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Portfolio_Summary">
+      <EntityTypeMapping TypeName="TL52D_14Model.Portfolio_Summary">
+        <MappingFragment StoreEntitySet="Portfolio_Summary">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="NoInstruments" ColumnName="NoInstruments" />
+          <ScalarProperty Name="totalval" ColumnName="totalval" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="Client_Portfolio" TypeName="TL52D_14Model.Client_Portfolio" StoreEntitySet="Client_Portfolio">
+      <EndProperty Name="Client">
+        <ScalarProperty Name="nif" ColumnName="nif" />
+      </EndProperty>
+      <EndProperty Name="Portfolio">
+        <ScalarProperty Name="name" ColumnName="name" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <FunctionImportMapping FunctionName="TL52D_14Model.Store.FundamentalDataTable" FunctionImportName="FundamentalDataTable">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TL52D_14Model.FundamentalDataTable_Result">
+          <ScalarProperty Name="dailyvar" ColumnName="dailyvar" />
+          <ScalarProperty Name="currval" ColumnName="currval" />
+          <ScalarProperty Name="avg6m" ColumnName="avg6m" />
+          <ScalarProperty Name="var6m" ColumnName="var6m" />
+          <ScalarProperty Name="dailyvarperc" ColumnName="dailyvarperc" />
+          <ScalarProperty Name="var6mperc" ColumnName="var6mperc" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionName="TL52D_14Model.Store.Portfolio_List" FunctionImportName="Portfolio_List">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TL52D_14Model.Portfolio_List_Result">
+          <ScalarProperty Name="isin" ColumnName="isin" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="CurrVal" ColumnName="CurrVal" />
+          <ScalarProperty Name="Dailyvarperc" ColumnName="Dailyvarperc" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="createPortfolio" FunctionName="TL52D_14Model.Store.createPortfolio" />
+    <FunctionImportMapping FunctionImportName="DailyMarketUpdate" FunctionName="TL52D_14Model.Store.DailyMarketUpdate" />
+    <FunctionImportMapping FunctionImportName="p_actualizaValorDiario" FunctionName="TL52D_14Model.Store.p_actualizaValorDiario" />
+    <FunctionImportMapping FunctionImportName="remove_client" FunctionName="TL52D_14Model.Store.remove_client" />
+    <FunctionImportMapping FunctionImportName="remove_market" FunctionName="TL52D_14Model.Store.remove_market" />
+    <FunctionImportMapping FunctionImportName="update_client" FunctionName="TL52D_14Model.Store.update_client" />
+    <FunctionImportMapping FunctionImportName="update_market" FunctionName="TL52D_14Model.Store.update_market" />
+    <FunctionImportMapping FunctionImportName="UpdateTotalVal" FunctionName="TL52D_14Model.Store.UpdateTotalVal" />
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,10 @@
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\TypesProject\bin\Release\TypesProject.dll
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\TypesProject\bin\Release\TypesProject.pdb
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\TypesProject\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\TypesProject\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\TypesProject\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\TypesProject\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\TypesProject\obj\Release\TypesProject.csproj.CoreCompileInputs.cache
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\TypesProject\obj\Release\TypesProject.csproj.CopyComplete
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\TypesProject\obj\Release\TypesProject.dll
+C:\Users\NRAFA\OneDrive\Documentos\GitHub\SI21920i\TP2\Pilim\TypesProject\obj\Release\TypesProject.pdb
